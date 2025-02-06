@@ -1,26 +1,42 @@
-.PHONY: package preview
+IMAGE := ministryofjustice/tech-docs-github-pages-publisher:v3
 
-.DEFAULT_GOAL := preview
-
-TECH_DOCS_GITHUB_PAGES_PUBLISHER_IMAGE     ?= ghcr.io/ministryofjustice/tech-docs-github-pages-publisher
-TECH_DOCS_GITHUB_PAGES_PUBLISHER_IMAGE_SHA ?= sha256:aee182dd1dd86696077ea1c3512590f17ceb9f7a47aa5b16ea4f742666911dbd # v5.0.1
-
-package:
-	docker run --rm \
-	    --name tech-docs-github-pages-publisher \
-	    --volume $(PWD)/config:/tech-docs-github-pages-publisher/config \
-		--volume $(PWD)/source:/tech-docs-github-pages-publisher/source \
-		$(TECH_DOCS_GITHUB_PAGES_PUBLISHER_IMAGE)@$(TECH_DOCS_GITHUB_PAGES_PUBLISHER_IMAGE_SHA) \
-		/usr/local/bin/package
+# Use this to run a local instance of the documentation site, while editing
+.PHONY: preview check
 
 preview:
-	docker run -it --rm \
-	    --name tech-docs-github-pages-publisher-preview \
-	    --volume $(PWD)/config:/tech-docs-github-pages-publisher/config \
-		--volume $(PWD)/source:/tech-docs-github-pages-publisher/source \
-		--publish 4567:4567 \
-		$(TECH_DOCS_GITHUB_PAGES_PUBLISHER_IMAGE)@$(TECH_DOCS_GITHUB_PAGES_PUBLISHER_IMAGE_SHA) \
-		/usr/local/bin/preview
+	docker run --rm \
+		-v $$(pwd)/config:/app/config \
+		-v $$(pwd)/source:/app/source \
+		-p 4567:4567 \
+		-it $(IMAGE) /scripts/preview.sh
 
-link-check:
-	lychee --verbose --no-progress './**/*.md' './**/*.html' './**/*.erb' --accept 403,200,429
+deploy:
+	docker run --rm \
+		-v $$(pwd)/config:/app/config \
+		-v $$(pwd)/source:/app/source \
+		-it $(IMAGE) /scripts/deploy.sh
+
+check:
+	docker run --rm \
+		-v $$(pwd)/config:/app/config \
+		-v $$(pwd)/source:/app/source \
+		-it $(IMAGE) /scripts/check-url-links.sh
+
+preview-w:
+	docker run --rm \
+		-v "%cd%"/config:/app/config \
+		-v "%cd%"/source:/app/source \
+		-p 4567:4567 \
+		-it $(IMAGE) /scripts/preview.sh
+
+deploy-w:
+	docker run --rm \
+		-v "%cd%"/config:/app/config \
+		-v "%cd%"/source:/app/source \
+		-it $(IMAGE) /scripts/deploy.sh
+
+check-w:
+	docker run --rm \
+		-v "%cd%"/config:/app/config \
+		-v "%cd%"/source:/app/source \
+		-it $(IMAGE) /scripts/check-url-links.sh
