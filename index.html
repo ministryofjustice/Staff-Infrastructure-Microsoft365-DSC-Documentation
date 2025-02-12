@@ -100,7 +100,15 @@
         <a href="#what-is-m365dsc"><span>What is M365DSC?</span></a>
       </li>
       <li>
-        <a href="#solution-overview"><span>Solution Overview</span></a>
+        <a href="#overview"><span>Overview</span></a>
+        <ul>
+          <li>
+            <a href="#architecture"><span>Architecture</span></a>
+          </li>
+          <li>
+            <a href="#workflow"><span>Workflow</span></a>
+          </li>
+        </ul>
       </li>
       <li>
         <a href="#user-guidance"><span>User Guidance</span></a>
@@ -180,9 +188,27 @@
 
 <p>Microsoft365DSC is built as a module for the <a href="https://learn.microsoft.com/en-us/powershell/scripting/dsc/overview">PowerShell Desired State Configuration</a> framework and is made available via the <a href="https://www.powershellgallery.com/packages/Microsoft365DSC">PowerShell Gallery</a>.</p>
 
-<h2 id="solution-overview">Solution Overview</h2>
+<h2 id="overview">Overview</h2>
 
 <p><Add content></p>
+
+<h3 id="architecture">Architecture</h3>
+
+<p><a href="../images/workflow-diagram.png" rel="noopener noreferrer"><img src="images/workflow-diagram.png" title="workflow diagram" alt="workflow diagram" /></a></p>
+
+<h3 id="workflow">Workflow</h3>
+
+<ol>
+<li>Admin creates a new branch from the <code>main</code>Staff-Infrastructure-Microsoft365-DSC-Configuration repository, with a name relevant to the change they are making e.g. &lsquo;DEV-TeamsMeetingPolicy-update&rsquo;</li>
+<li>Admin makes the required configuration changes to the data files nessecary to the change they are making</li>
+<li>Admin commits and syncs the changes to the forked repository</li>
+<li>Admin creates a pull request (PR) to merge the changes to the &lsquo;main&rsquo; repository, proving a description of what changes have been made to allow others to more efficiently peer review the work</li>
+<li>The build pipeline runs on the PR</li>
+<li>Depending on the files that have been changed the relevant lead engineers or architects will be asked to review and approve the change, this is defined based on the content of the &lsquo;codeowners&rsquo; file</li>
+<li>The merged PR triggers a pipeline to compile Managed Object Format (MOF) files. The pipeline calls Azure Key Vault to retrieve the credentials that are used by the tenant specific service principle(s) in the MOF files, and publishes the artifacts ready for deployment</li>
+<li>The release pipeline is triggered that uses the compiled MOF files to deploy configuration changes to the tenants that are managed via Microsoft365DSC</li>
+<li>Admin who commited the changes reviews the relevant pipeline &amp; config in the M365 admin center to confirm the expected changes have been successfully applied</li>
+</ol>
 
 <h2 id="user-guidance">User Guidance</h2>
 
