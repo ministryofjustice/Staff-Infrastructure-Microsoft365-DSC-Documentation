@@ -3,7 +3,9 @@
 
 ## Who is this for?
 
-This page is intended for MoJ's engineering teams who are managing the configuration of M365 services, or intending to manage, with M365 desired state configuration integrated into MoJ's DevOps framework
+This page is intended for people who are responsible for the configuration, security and operation of the Ministry of Justices Microsoft 365 services. 
+
+It holds information on the Ministry of Justices M365DSC DevOps integrated architecture, guidance and engineering references, intended scope & configuration overview, to help onboard and support the administrators of our tenants.
 
 ## What is M365DSC?
 
@@ -14,8 +16,6 @@ It is the primary tool used by the MoJ to automate the management of the organis
 Microsoft365DSC is built as a module for the [PowerShell Desired State Configuration](https://learn.microsoft.com/en-us/powershell/scripting/dsc/overview) framework and is made available via the [PowerShell Gallery](https://www.powershellgallery.com/packages/Microsoft365DSC).
 
 ## Overview 
-
-<Add content>
 
 ### Architecture 
 
@@ -32,6 +32,25 @@ Microsoft365DSC is built as a module for the [PowerShell Desired State Configura
 8. The release pipeline is triggered that uses the compiled MOF files to deploy configuration changes to the tenants that are managed via Microsoft365DSC
 9. Admin who commited the changes reviews the relevant pipeline & config in the M365 admin center to confirm the expected changes have been successfully applied
 
+### Components
+* Azure DevOps
+* Azure Pipelines
+* Managed DevOps Pool
+* NAT Gateway
+* Key Vault
+* Storage Account
+* Microsoft365DSC
+* Windows PowerShell DSC
+* GitHub
+
+### Azure Well-Architected Framework Alignment
+
+words
+
+#### Secuirty 
+#### Cost Optimization
+#### Operational Excellence 
+#### Performance Efficiency
 
 
 
@@ -47,8 +66,7 @@ Microsoft365DSC is built as a module for the [PowerShell Desired State Configura
 
 
 
-
-## User Guidance 
+## Guidance 
 
 <Add content>
 
@@ -56,9 +74,6 @@ Microsoft365DSC is built as a module for the [PowerShell Desired State Configura
 
 <Add content>
 
-### Approval Workflows 
-
-<Add content>
 
 ### Shared Responsobility
 
@@ -68,9 +83,6 @@ Microsoft365DSC is built as a module for the [PowerShell Desired State Configura
 
 <Add content>
 
-## Breaking Changes Release Schedule 
-
-<Add content>
 
 ## Configuration
 
@@ -92,17 +104,10 @@ Microsoft365DSC is built as a module for the [PowerShell Desired State Configura
 
 <Add content>
 
-## Observability
+## Breaking Changes Release Schedule 
 
 <Add content>
 
-### Monitoring
-
-<Add content>
-
-### Logging
-
-<Add content>
 
 ## Reference
 
