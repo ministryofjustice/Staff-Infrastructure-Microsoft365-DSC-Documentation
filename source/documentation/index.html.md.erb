@@ -29,7 +29,8 @@ Microsoft365DSC is built as a module for the [PowerShell Desired State Configura
 5. The build pipeline runs on the PR
 6. Depending on the files that have been changed the relevant lead engineers or architects will be asked to review and approve the change, this is defined based on the content of the 'codeowners' file
 7. The merged PR triggers a pipeline to compile Managed Object Format (MOF) files. The pipeline calls Azure Key Vault to retrieve the credentials that are used by the tenant specific service principle(s) in the MOF files, and publishes the artifacts ready for deployment
-8. The release pipeline is triggered that uses the compiled MOF files to deploy configuration changes to the tenants that are managed via Microsoft365DSC.
+8. The release pipeline is triggered that uses the compiled MOF files to deploy configuration changes to the tenants that are managed via Microsoft365DSC
+9. Admin who commited the changes reviews the relevant pipeline & config in the M365 admin center to confirm the expected changes have been successfully applied
 
 
 
