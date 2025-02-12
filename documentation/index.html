@@ -107,16 +107,33 @@
           <li>
             <a href="#workflow"><span>Workflow</span></a>
           </li>
+          <li>
+            <a href="#components"><span>Components</span></a>
+          </li>
+          <li>
+            <a href="#azure-well-architected-framework-alignment"><span>Azure Well-Architected Framework Alignment</span></a>
+            <ul>
+              <li>
+                <a href="#secuirty"><span>Secuirty</span></a>
+              </li>
+              <li>
+                <a href="#cost-optimization"><span>Cost Optimization</span></a>
+              </li>
+              <li>
+                <a href="#operational-excellence"><span>Operational Excellence</span></a>
+              </li>
+              <li>
+                <a href="#performance-efficiency"><span>Performance Efficiency</span></a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </li>
       <li>
-        <a href="#user-guidance"><span>User Guidance</span></a>
+        <a href="#guidance"><span>Guidance</span></a>
         <ul>
           <li>
             <a href="#getting-started"><span>Getting Started</span></a>
-          </li>
-          <li>
-            <a href="#approval-workflows"><span>Approval Workflows</span></a>
           </li>
           <li>
             <a href="#shared-responsobility"><span>Shared Responsobility</span></a>
@@ -125,9 +142,6 @@
             <a href="#getting-help"><span>Getting Help</span></a>
           </li>
         </ul>
-      </li>
-      <li>
-        <a href="#breaking-changes-release-schedule"><span>Breaking Changes Release Schedule</span></a>
       </li>
       <li>
         <a href="#configuration"><span>Configuration</span></a>
@@ -147,15 +161,7 @@
         </ul>
       </li>
       <li>
-        <a href="#observability"><span>Observability</span></a>
-        <ul>
-          <li>
-            <a href="#monitoring"><span>Monitoring</span></a>
-          </li>
-          <li>
-            <a href="#logging"><span>Logging</span></a>
-          </li>
-        </ul>
+        <a href="#breaking-changes-release-schedule"><span>Breaking Changes Release Schedule</span></a>
       </li>
       <li>
         <a href="#reference"><span>Reference</span></a>
@@ -173,13 +179,13 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
             <h1 id="m365-configuration-as-code-technical-guidance">M365 Configuration as Code - Technical Guidance</h1>
 <h2 id="who-is-this-for">Who is this for?</h2>
-<p>This page is intended for MoJ&rsquo;s engineering teams who are managing the configuration of M365 services, or intending to manage, with M365 desired state configuration integrated into MoJ&rsquo;s DevOps framework</p>
+<p>This page is intended for people who are responsible for the configuration, security and operation of the Ministry of Justices Microsoft 365 services.</p>
+<p>It holds information on the Ministry of Justices M365DSC DevOps integrated architecture, guidance and engineering references, intended scope &amp; configuration overview, to help onboard and support the administrators of our tenants.</p>
 <h2 id="what-is-m365dsc">What is M365DSC?</h2>
 <p>Microsoft365DSC is an Open-Source initiative lead by Microsoft engineers and maintained by the community. It allows you to write a definition for how your Microsoft 365 tenant should be configured, automate the deployment of that configuration and ensures the monitoring of the defined configuration, notifying and acting on detected configuration drifts.</p>
 <p>It is the primary tool used by the MoJ to automate the management of the organisations tenants in line with the NCSC &amp; Microsoft <a href="https://www.gov.uk/guidance/microsoft-365-guidance-for-uk-government">blueprint for UK Government</a>.</p>
 <p>Microsoft365DSC is built as a module for the <a href="https://learn.microsoft.com/en-us/powershell/scripting/dsc/overview">PowerShell Desired State Configuration</a> framework and is made available via the <a href="https://www.powershellgallery.com/packages/Microsoft365DSC">PowerShell Gallery</a>.</p>
 <h2 id="overview">Overview</h2>
-<p><Add content></p>
 <h3 id="architecture">Architecture</h3>
 <p><a href="../images/workflow-diagram.png" rel="noopener noreferrer"><img src="../images/workflow-diagram.png" title="workflow diagram" alt="workflow diagram" /></a></p>
 <h3 id="workflow">Workflow</h3>
@@ -195,17 +201,32 @@
 <li>The release pipeline is triggered that uses the compiled MOF files to deploy configuration changes to the tenants that are managed via Microsoft365DSC</li>
 <li>Admin who commited the changes reviews the relevant pipeline &amp; config in the M365 admin center to confirm the expected changes have been successfully applied</li>
 </ol>
-<h2 id="user-guidance">User Guidance</h2>
+<h3 id="components">Components</h3>
+
+<ul>
+<li>Azure DevOps</li>
+<li>Azure Pipelines</li>
+<li>Managed DevOps Pool</li>
+<li>NAT Gateway</li>
+<li>Key Vault</li>
+<li>Storage Account</li>
+<li>Microsoft365DSC</li>
+<li>Windows PowerShell DSC</li>
+<li>GitHub</li>
+</ul>
+<h3 id="azure-well-architected-framework-alignment">Azure Well-Architected Framework Alignment</h3>
+<p>words</p>
+<h4 id="secuirty">Secuirty</h4>
+<h4 id="cost-optimization">Cost Optimization</h4>
+<h4 id="operational-excellence">Operational Excellence</h4>
+<h4 id="performance-efficiency">Performance Efficiency</h4>
+<h2 id="guidance">Guidance</h2>
 <p><Add content></p>
 <h3 id="getting-started">Getting Started</h3>
-<p><Add content></p>
-<h3 id="approval-workflows">Approval Workflows</h3>
 <p><Add content></p>
 <h3 id="shared-responsobility">Shared Responsobility</h3>
 <p><Add content></p>
 <h3 id="getting-help">Getting Help</h3>
-<p><Add content></p>
-<h2 id="breaking-changes-release-schedule">Breaking Changes Release Schedule</h2>
 <p><Add content></p>
 <h2 id="configuration">Configuration</h2>
 <p><Add content></p>
@@ -217,11 +238,7 @@
 <p><Add content></p>
 <h3 id="mandatory">Mandatory</h3>
 <p><Add content></p>
-<h2 id="observability">Observability</h2>
-<p><Add content></p>
-<h3 id="monitoring">Monitoring</h3>
-<p><Add content></p>
-<h3 id="logging">Logging</h3>
+<h2 id="breaking-changes-release-schedule">Breaking Changes Release Schedule</h2>
 <p><Add content></p>
 <h2 id="reference">Reference</h2>
 <p><Add content></p>
