@@ -1,6 +1,5 @@
 # M365 Configuration as Code - Technical Guidance 
 
-
 ## Who is this for?
 
 This page is intended for people who are responsible for the configuration, security and operation of the Ministry of Justices Microsoft 365 services. 
@@ -22,6 +21,7 @@ Microsoft365DSC is built as a module for the [PowerShell Desired State Configura
 ![workflow diagram](../images/workflow-diagram.png "workflow diagram")
 
 ### Workflow
+
 1. Admin creates a new branch from the `main`Staff-Infrastructure-Microsoft365-DSC-Configuration repository, with a name relevant to the change they are making e.g. 'DEV-TeamsMeetingPolicy-update'
 2. Admin makes the required configuration changes to the data files nessecary to the change they are making
 3. Admin commits and syncs the changes to the forked repository
@@ -48,7 +48,9 @@ Microsoft365DSC is built as a module for the [PowerShell Desired State Configura
 ### Pipelines 
 
 #### Build Pipeline
+
 When a PR is merged, the Build pipeline is triggered. This pipeline performs these steps:
+
 1. Prepare the agent: Install all prerequisite modules and configure settings on the agent.
 2. Validate secrets: Check if all secrets used in the data files actually exist in the Azure Key Vault.
 3. Pre build: Run several unit tests making sure all data is valid. This step also merges the data files in the Basic and Tenant data files.
@@ -58,7 +60,9 @@ When a PR is merged, the Build pipeline is triggered. This pipeline performs the
 
 
 #### Release pipeline
+
 After a successful build, a Release pipeline is triggered. Based on the deployment order defined in the data files, the Release pipeline executes the following steps for each tenant:
+
 1. Configure the agent: Configure required settings on the agent.
 2. Prepare modules: Download all required modules from the Azure Blob Storage.
 3. Download secrets: Download all required secrets from the Key Vault, so they can be used by the agent.
