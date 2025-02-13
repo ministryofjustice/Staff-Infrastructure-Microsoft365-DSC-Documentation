@@ -156,7 +156,7 @@
                 <a href="#github-basics"><span>GitHub Basics</span></a>
               </li>
               <li>
-                <a href="#desired-state-configuration-basics"><span>Desired State Configuration basics</span></a>
+                <a href="#desired-state-configuration-basics"><span>Desired State Configuration Basics</span></a>
               </li>
               <li>
                 <a href="#microsoft365dsc"><span>Microsoft365DSC</span></a>
@@ -190,6 +190,9 @@
             <a href="#mandatory"><span>Mandatory</span></a>
           </li>
         </ul>
+      </li>
+      <li>
+        <a href="#compliancy-checks"><span>Compliancy Checks</span></a>
       </li>
       <li>
         <a href="#how-we-handle-the-breaking-changes-release-schedule"><span>How we handle the breaking changes release schedule</span></a>
@@ -286,6 +289,7 @@
 <p>To begin managing your configuration with M365DSC, start by familiarising yourself with the core concepts and prerequisites. Ensure you have the necessary permissions and access to the Microsoft 365 tenants, Azure DevOps project(s) &amp; GitHub repositories.</p>
 <p>Administrative identities and a privilaged access workstation can be requested using <a href="https://mojprod.service-now.com/moj_sp?id=sc_cat_item&amp;table=sc_cat_item&amp;sys_id=8161246a1b170a50a1e2ddf0b24bcbdb&amp;searchTerm=technical%20access#BL1">this</a> Service Now request.</p>
 <p>The CICD repository can be found here, the Configuration repository can be found here. The appropriate access to these repositories will be automatically granted based on your GitHub team membership.</p>
+<p>The CICD Azure DevOps project can be found here, the Configuration Azure DevOps project can be found here.The appropriate access to these projects will be automatically granted based on your production administrative identies access package entitlements.</p>
 <h3 id="learning-material">Learning Material</h3>
 <h4 id="github-basics">GitHub Basics</h4>
 <p>Creating a Pull Request: This guide explains how to create a pull request on GitHub, which is essential for collaborating on code changes.
@@ -293,7 +297,7 @@
 <p>About Branches: Learn about branches in GitHub, how to create them, and how to use them for isolated development work.
 <a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-branches">https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-branches</a></p>
 <p>Git manual: <a href="https://git-scm.com/book/en/v2">https://git-scm.com/book/en/v2</a></p>
-<h4 id="desired-state-configuration-basics">Desired State Configuration basics</h4>
+<h4 id="desired-state-configuration-basics">Desired State Configuration Basics</h4>
 <p>PowerShell Desired State Configuration (DSC) Overview: An overview of DSC, explaining its purpose and how it works.
 <a href="https://learn.microsoft.com/en-us/powershell/scripting/dsc/overview">https://learn.microsoft.com/en-us/powershell/scripting/dsc/overview</a></p>
 <p>PowerShell DSC for Engineers: a detailed overview of PowerShell Desired State Configuration (DSC) specifically tailored for engineers. It covers essential concepts and practical guidance to help engineers understand and implement DSC effectively.
@@ -325,6 +329,8 @@
 <h3 id="mandatory">Mandatory</h3>
 <p>The mandatory data files contain settings that are mandatory for all environments. Settings in this file must be present in the basic files with the same values and cannot be specified in any of the environment specific files.</p>
 <p>These settings are validated using a to a unit test approach during the build pipeline, this is first validated against the basic layer, requiring all settings that are present in the mandatory data files to be configured exactly as specified in the related basic datafiles. If this test is successful a second unit test is carried out against the environment layer checking that none of the settings are present within tenant specific files, preventing all settings in the Mandatory layer from being overridden with different values.</p>
+<h2 id="compliancy-checks">Compliancy Checks</h2>
+<p><Add content></p>
 <h2 id="how-we-handle-the-breaking-changes-release-schedule">How we handle the breaking changes release schedule</h2>
 <p><Add content></p>
 <h2 id="reference">Reference</h2>

@@ -157,7 +157,7 @@
                 <a href="#github-basics"><span>GitHub Basics</span></a>
               </li>
               <li>
-                <a href="#desired-state-configuration-basics"><span>Desired State Configuration basics</span></a>
+                <a href="#desired-state-configuration-basics"><span>Desired State Configuration Basics</span></a>
               </li>
               <li>
                 <a href="#microsoft365dsc"><span>Microsoft365DSC</span></a>
@@ -191,6 +191,9 @@
             <a href="#mandatory"><span>Mandatory</span></a>
           </li>
         </ul>
+      </li>
+      <li>
+        <a href="#compliancy-checks"><span>Compliancy Checks</span></a>
       </li>
       <li>
         <a href="#how-we-handle-the-breaking-changes-release-schedule"><span>How we handle the breaking changes release schedule</span></a>
@@ -327,6 +330,8 @@
 
 <p>The CICD repository can be found here, the Configuration repository can be found here. The appropriate access to these repositories will be automatically granted based on your GitHub team membership.</p>
 
+<p>The CICD Azure DevOps project can be found here, the Configuration Azure DevOps project can be found here.The appropriate access to these projects will be automatically granted based on your production administrative identies access package entitlements.</p>
+
 <h3 id="learning-material">Learning Material</h3>
 
 <h4 id="github-basics">GitHub Basics</h4>
@@ -339,7 +344,7 @@
 
 <p>Git manual: <a href="https://git-scm.com/book/en/v2">https://git-scm.com/book/en/v2</a></p>
 
-<h4 id="desired-state-configuration-basics">Desired State Configuration basics</h4>
+<h4 id="desired-state-configuration-basics">Desired State Configuration Basics</h4>
 
 <p>PowerShell Desired State Configuration (DSC) Overview: An overview of DSC, explaining its purpose and how it works.
 <a href="https://learn.microsoft.com/en-us/powershell/scripting/dsc/overview">https://learn.microsoft.com/en-us/powershell/scripting/dsc/overview</a></p>
@@ -397,6 +402,10 @@
 <p>The mandatory data files contain settings that are mandatory for all environments. Settings in this file must be present in the basic files with the same values and cannot be specified in any of the environment specific files.</p>
 
 <p>These settings are validated using a to a unit test approach during the build pipeline, this is first validated against the basic layer, requiring all settings that are present in the mandatory data files to be configured exactly as specified in the related basic datafiles. If this test is successful a second unit test is carried out against the environment layer checking that none of the settings are present within tenant specific files, preventing all settings in the Mandatory layer from being overridden with different values.</p>
+
+<h2 id="compliancy-checks">Compliancy Checks</h2>
+
+<p><Add content></p>
 
 <h2 id="how-we-handle-the-breaking-changes-release-schedule">How we handle the breaking changes release schedule</h2>
 
