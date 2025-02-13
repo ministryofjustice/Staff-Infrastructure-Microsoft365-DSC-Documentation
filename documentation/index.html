@@ -111,8 +111,14 @@
             <a href="#components"><span>Components</span></a>
           </li>
           <li>
+            <a href="#pipelines"><span>Pipelines</span></a>
+          </li>
+          <li>
             <a href="#azure-well-architected-framework-alignment"><span>Azure Well-Architected Framework Alignment</span></a>
             <ul>
+              <li>
+                <a href="#reliability"><span>Reliability</span></a>
+              </li>
               <li>
                 <a href="#secuirty"><span>Secuirty</span></a>
               </li>
@@ -214,12 +220,21 @@
 <li>Windows PowerShell DSC - is a management platform in PowerShell. You can use it to manage your development infrastructure by using a configuration-as-code model. This model is the underlying technology that Microsoft365DSC uses.</li>
 <li>GitHub - GitHub is a leading platform for version control and collaboration, enabling developers to manage and share their code, track changes, and collaborate on projects seamlessly.</li>
 </ul>
+<h3 id="pipelines">Pipelines</h3>
 <h3 id="azure-well-architected-framework-alignment">Azure Well-Architected Framework Alignment</h3>
-<p>words</p>
+<p>This section details how our solution aligns with the Microsoft Well-Architected Framework, ensuring a robust, secure, and efficient architecture. By adhering to the five core pillars of the framework—Reliability, Security, Cost Optimization, Operational Excellence, and Performance Efficiency—we have designed a solution that meets the standards set out in the framework. Our approach includes implementing stringent security measures to protect data integrity and confidentiality, optimizing costs through efficient resource management, and ensuring operational excellence with comprehensive monitoring and automated systems.</p>
+<h4 id="reliability">Reliability</h4>
+<p>Deploying a Managed DevOps Pool to run our pipelines on significantly enhances reliability. Managed DevOps Pools provide a fully managed service where virtual machines powering the agents rely on Microsofts infrastructure for reliability ensuring that availability and fault tolerance is managed by Microsoft therefore reducing the risk of downtime and improving overall system stability. The managed nature of these pools means that updates, scaling, and maintenance are handled automatically, ensuring consistent performance and minimizing disruption</p>
 <h4 id="secuirty">Secuirty</h4>
+<p>Using the combination of Managed DevOps Pools, NAT Gateway, and Private Endpoints for Key Vault and Storage Account access significantly enhances the security of our solution, aligning with the Security pillar of the Microsoft Well-Architected Framework. Managed DevOps Pools ensure that the infrastructure is maintained by Microsoft, reducing vulnerabilities and ensuring compliance with security best practices. The NAT Gateway provides secure outbound internet connectivity for resources in private subnets with a dedicated public IP address to be used within condtional access on the managed tenants, while preventing unsolicited inbound connections, adhering to the zero trust network security model. Additionally, Private Endpoints for Key Vault and Storage Accounts enable secure, private access to these resources by using private IP addresses within the virtual network, eliminating exposure to the public internet. This setup ensures that sensitive data remains protected and access is tightly controlled.</p>
 <h4 id="cost-optimization">Cost Optimization</h4>
+<p>Due to the small footprint of resources required for this solution it nativley comes with a low total cost of ownership, this has been further supplimented by the auto scaling features of Managed DevOps Pools to ensure there is no requirement for standing disk and compute.</p>
 <h4 id="operational-excellence">Operational Excellence</h4>
+<p>Separate GitHub repositories and Azure DevOps projects are used to segregate the management of the tenant configurations from the CICD infrastructure to ensure that access to resources are limited to the teams who are responsible for parts of the service. Furthermore the DSC configuration leverages the use of tenant specific data files combined with shared baseline configurations to promote modularity, reduces redundancy, and improves maintainability.</p>
+<p>The use of the CODEOWNERS file within the configuration repository allows GitHub teams to be set as the owners of specific files to be used within approval workflows to ensure that any changes made to configurations are approved by the technical authority of the product team who are responsible for the given M365 service.</p>
+<p>This approach aligns with industry best practices for managing DSC configurations, ensuring modularity, security, and maintainability. It also supports the Well-Architected Frameworks principles of operational excellence and security by providing a structured and secure approach to configuration management</p>
 <h4 id="performance-efficiency">Performance Efficiency</h4>
+<p>This architecture makes use of a storage account to cache the M365DSC modules and its prerequisites to make them readily available to the agent pool upon each pipeline run. When a new version of Microsoft365DSC is specified in the CICD repository, a pipeline will automatically make sure the prerequisites are downloaded, packaged and uploaded to the specified Blob Storage, this improves the performance of each pipeline run by decreasing the agent preperation time therefore improving the performance efficiency of the solution.</p>
 <h2 id="guidance">Guidance</h2>
 <p><Add content></p>
 <h3 id="getting-started">Getting Started</h3>
