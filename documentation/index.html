@@ -289,26 +289,19 @@
 <p>To begin managing your configuration with M365DSC, start by familiarising yourself with the core concepts and prerequisites. Ensure you have the necessary permissions and access to the Microsoft 365 tenants, Azure DevOps project(s) &amp; GitHub repositories.</p>
 <p>Administrative identities and a privilaged access workstation can be requested using <a href="https://mojprod.service-now.com/moj_sp?id=sc_cat_item&amp;table=sc_cat_item&amp;sys_id=8161246a1b170a50a1e2ddf0b24bcbdb&amp;searchTerm=technical%20access#BL1">this</a> Service Now request.</p>
 <p>The CICD repository can be found here, the Configuration repository can be found here. The appropriate access to these repositories will be automatically granted based on your GitHub team membership.</p>
-<p>The CICD Azure DevOps project can be found here, the Configuration Azure DevOps project can be found here.The appropriate access to these projects will be automatically granted based on your production administrative identies access package entitlements.</p>
+<p>The CICD Azure DevOps project can be found here, the Configuration Azure DevOps project can be found here.The appropriate access to these projects will be automatically granted based on your production administrative identities access package entitlements.</p>
 <h3 id="learning-material">Learning Material</h3>
 <h4 id="github-basics">GitHub Basics</h4>
-<p>Creating a Pull Request: This guide explains how to create a pull request on GitHub, which is essential for collaborating on code changes.
-<a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request">https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request</a></p>
-<p>About Branches: Learn about branches in GitHub, how to create them, and how to use them for isolated development work.
-<a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-branches">https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-branches</a></p>
-<p>Git manual: <a href="https://git-scm.com/book/en/v2">https://git-scm.com/book/en/v2</a></p>
+<p><a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request">Creating a Pull Request: This guide explains how to create a pull request on GitHub, which is essential for collaborating on code changes.</a></p>
+<p><a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-branches">About Branches: Learn about branches in GitHub, how to create them, and how to use them for isolated development work.</a></p>
+<p><a href="https://git-scm.com/book/en/v2">Git manual</a></p>
 <h4 id="desired-state-configuration-basics">Desired State Configuration Basics</h4>
-<p>PowerShell Desired State Configuration (DSC) Overview: An overview of DSC, explaining its purpose and how it works.
-<a href="https://learn.microsoft.com/en-us/powershell/scripting/dsc/overview">https://learn.microsoft.com/en-us/powershell/scripting/dsc/overview</a></p>
-<p>PowerShell DSC for Engineers: a detailed overview of PowerShell Desired State Configuration (DSC) specifically tailored for engineers. It covers essential concepts and practical guidance to help engineers understand and implement DSC effectively.
-<a href="https://learn.microsoft.com/en-us/powershell/dsc/overview/dscforengineers?view=dsc-1.1">https://learn.microsoft.com/en-us/powershell/dsc/overview/dscforengineers?view=dsc-1.1</a></p>
-<p>Write, Compile, and Apply Configuration with PowerShell DSC: This link provides detailed instructions on how to write, compile, and apply configurations using PowerShell Desired State Configuration (DSC)
-<a href="https://learn.microsoft.com/en-us/powershell/dsc/configurations/write-compile-apply-configuration?view=dsc-1.1">https://learn.microsoft.com/en-us/powershell/dsc/configurations/write-compile-apply-configuration?view=dsc-1.1</a></p>
+<p><a href="https://learn.microsoft.com/en-us/powershell/scripting/dsc/overview">PowerShell Desired State Configuration (DSC) Overview: An overview of DSC, explaining its purpose and how it works.</a></p>
+<p><a href="https://learn.microsoft.com/en-us/powershell/dsc/overview/dscforengineers?view=dsc-1.1">PowerShell DSC for Engineers: a detailed overview of PowerShell Desired State Configuration (DSC) specifically tailored for engineers. It covers essential concepts and practical guidance to help engineers understand and implement DSC effectively.</a></p>
+<p><a href="https://learn.microsoft.com/en-us/powershell/dsc/configurations/write-compile-apply-configuration?view=dsc-1.1">Write, Compile, and Apply Configuration with PowerShell DSC: This link provides detailed instructions on how to write, compile, and apply configurations using PowerShell Desired State Configuration (DSC)</a></p>
 <h4 id="microsoft365dsc">Microsoft365DSC</h4>
-<p>Microsoft 365 DSC User Guide: Introduction
-<a href="https://microsoft365dsc.com/user-guide/get-started/introduction">https://microsoft365dsc.com/user-guide/get-started/introduction</a></p>
-<p>Microsoft 365 DSC Resources: Overview
-<a href="https://microsoft365dsc.com/resources/overview">https://microsoft365dsc.com/resources/overview</a></p>
+<p><a href="https://microsoft365dsc.com/user-guide/get-started/introduction">Microsoft 365 DSC User Guide: Introduction</a></p>
+<p><a href="https://microsoft365dsc.com/resources/overview">Microsoft 365 DSC Resources: Overview</a></p>
 <h3 id="what-should-be-managed-in-m365dsc">What should be managed in M365DSC?</h3>
 <p>The intended scope of management in M365DSC should focus on persistent, core configuration settings that are crucial for maintaining the desired state of the tenants. This includes settings such as conditional access policies &amp; compliance configurations. M365DSC is not intended for managing disposable configurations, such as user and group management, which are more transient and subject to frequent changes. By concentrating on stable, foundational settings, M365DSC ensures a consistent and secure configuration baseline across the organisation.</p>
 <h3 id="shared-responsobility">Shared Responsobility</h3>
