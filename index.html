@@ -248,21 +248,27 @@
 
 <h4 id="build-pipeline">Build Pipeline</h4>
 
-<p>When a PR is merged, the Build pipeline is triggered. This pipeline performs these steps:
-1. Prepare the agent: Install all prerequisite modules and configure settings on the agent.
-2. Validate secrets: Check if all secrets used in the data files actually exist in the Azure Key Vault.
-3. Pre build: Run several unit tests making sure all data is valid. This step also merges the data files in the Basic and Tenant data files.
-4. Build: Compile the merged data files into a MOF file, which can then be deploy
-5. Post build: This step updates configuration in Azure DevOps making sure the deployment matches the configuration specified in the &lsquo;environment#generic.psd1&rsquo; files.
-6. Publish artifacts: The Build process not just generates the MOF files, but also saves the merged data files. These are also included in the artifacts, so they can be used for troubleshooting</p>
+<p>When a PR is merged, the Build pipeline is triggered. This pipeline performs these steps:</p>
+
+<ol>
+<li>Prepare the agent: Install all prerequisite modules and configure settings on the agent.</li>
+<li>Validate secrets: Check if all secrets used in the data files actually exist in the Azure Key Vault.</li>
+<li>Pre build: Run several unit tests making sure all data is valid. This step also merges the data files in the Basic and Tenant data files.</li>
+<li>Build: Compile the merged data files into a MOF file, which can then be deploy</li>
+<li>Post build: This step updates configuration in Azure DevOps making sure the deployment matches the configuration specified in the &lsquo;environment#generic.psd1&rsquo; files.</li>
+<li>Publish artifacts: The Build process not just generates the MOF files, but also saves the merged data files. These are also included in the artifacts, so they can be used for troubleshooting</li>
+</ol>
 
 <h4 id="release-pipeline">Release pipeline</h4>
 
-<p>After a successful build, a Release pipeline is triggered. Based on the deployment order defined in the data files, the Release pipeline executes the following steps for each tenant:
-1. Configure the agent: Configure required settings on the agent.
-2. Prepare modules: Download all required modules from the Azure Blob Storage.
-3. Download secrets: Download all required secrets from the Key Vault, so they can be used by the agent.
-4. Deploy configurations: Deploy the MOF file to the target Microsoft 365 tenant.</p>
+<p>After a successful build, a Release pipeline is triggered. Based on the deployment order defined in the data files, the Release pipeline executes the following steps for each tenant:</p>
+
+<ol>
+<li>Configure the agent: Configure required settings on the agent.</li>
+<li>Prepare modules: Download all required modules from the Azure Blob Storage.</li>
+<li>Download secrets: Download all required secrets from the Key Vault, so they can be used by the agent.</li>
+<li>Deploy configurations: Deploy the MOF file to the target Microsoft 365 tenant.</li>
+</ol>
 
 <h3 id="azure-well-architected-framework-alignment">Azure Well-Architected Framework Alignment</h3>
 
