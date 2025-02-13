@@ -205,12 +205,12 @@
 <h3 id="workflow">Workflow</h3>
 
 <ol>
-<li>Admin creates a new branch from the <code>main</code>Staff-Infrastructure-Microsoft365-DSC-Configuration repository, with a name relevant to the change they are making e.g. &lsquo;DEV-TeamsMeetingPolicy-update&rsquo;</li>
+<li>Admin creates a new branch from the <code>main</code> Staff-Infrastructure-Microsoft365-DSC-Configuration repository, with a name relevant to the change they are making e.g. <code>DEV-TeamsMeetingPolicy-update</code></li>
 <li>Admin makes the required configuration changes to the data files nessecary to the change they are making</li>
 <li>Admin commits and syncs the changes to the forked repository</li>
-<li>Admin creates a pull request (PR) to merge the changes to the &lsquo;main&rsquo; repository, proving a description of what changes have been made to allow others to more efficiently peer review the work</li>
+<li>Admin creates a pull request (PR) to merge the changes to the <code>main</code> repository, proving a description of what changes have been made to allow others to more efficiently peer review the work</li>
 <li>The build pipeline runs on the PR</li>
-<li>Depending on the files that have been changed the relevant lead engineers or architects will be asked to review and approve the change, this is defined based on the content of the &lsquo;codeowners&rsquo; file</li>
+<li>Depending on the files that have been changed the relevant lead engineers or architects will be asked to review and approve the change, this is defined based on the content of the <code>codeowners</code> file</li>
 <li>The merged PR triggers a pipeline to compile Managed Object Format (MOF) files. The pipeline calls Azure Key Vault to retrieve the credentials that are used by the tenant specific service principle(s) in the MOF files, and publishes the artifacts ready for deployment</li>
 <li>The release pipeline is triggered that uses the compiled MOF files to deploy configuration changes to the tenants that are managed via Microsoft365DSC</li>
 <li>Admin who commited the changes reviews the relevant pipeline &amp; config in the M365 admin center to confirm the expected changes have been successfully applied</li>
@@ -237,7 +237,7 @@
 <li>Validate secrets: Check if all secrets used in the data files actually exist in the Azure Key Vault.</li>
 <li>Pre build: Run several unit tests making sure all data is valid. This step also merges the data files in the Basic and Tenant data files.</li>
 <li>Build: Compile the merged data files into a MOF file, which can then be deploy</li>
-<li>Post build: This step updates configuration in Azure DevOps making sure the deployment matches the configuration specified in the &lsquo;environment#generic.psd1&rsquo; files.</li>
+<li>Post build: This step updates configuration in Azure DevOps making sure the deployment matches the configuration specified in the <code>environment#generic.psd1</code> files.</li>
 <li>Publish artifacts: The Build process not just generates the MOF files, but also saves the merged data files. These are also included in the artifacts, so they can be used for troubleshooting</li>
 </ol>
 <h4 id="release-pipeline">Release pipeline</h4>
@@ -275,8 +275,8 @@
 <p>The following section details how the workload configuration is set between the various data files within the Configuration repository.</p>
 <h3 id="data-files">Data Files</h3>
 <p>A data file in PowerShell Desired State Configuration (DSC) is a structured file that contains configuration data, such as node-specific settings and environment variables, which are used to customize and manage the desired state of target nodes/workload</p>
-<p>When reviewing the Configuration repository, you will see a folder called &lsquo;datafiles&rsquo;. This folder contains two child folders, one named &lsquo;environments&rsquo; and another called &lsquo;templates&rsquo;</p>
-<p>The &lsquo;environments&rsquo; folder contains all of the tenant specific configuration files, the &lsquo;templates&rsquo; folder contains all of the shared baseline configuration files that are to be applied to all tenants under the management of M365DSC.</p>
+<p>When reviewing the Configuration repository, you will see a folder called <code>datafiles</code>. This folder contains two child folders, one named <code>environments</code> and another called <code>templates</code></p>
+<p>The <code>environments</code> folder contains all of the tenant specific configuration files, the <code>templates</code> folder contains all of the shared baseline configuration files that are to be applied to all tenants under the management of M365DSC.</p>
 <h3 id="basic">Basic</h3>
 <p>The basic layer data files define the workload settings that will be applied to all tenants that are under the management of M365DSC, a baseline.</p>
 <h3 id="environment">Environment</h3>
