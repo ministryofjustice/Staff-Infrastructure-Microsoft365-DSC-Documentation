@@ -150,6 +150,9 @@
             <a href="#getting-started"><span>Getting Started</span></a>
           </li>
           <li>
+            <a href="#what-should-be-managed-in-m365dsc"><span>What should be managed in M365DSC?</span></a>
+          </li>
+          <li>
             <a href="#shared-responsobility"><span>Shared Responsobility</span></a>
           </li>
           <li>
@@ -266,9 +269,14 @@
 <h2 id="guidance">Guidance</h2>
 <p><Add content></p>
 <h3 id="getting-started">Getting Started</h3>
-<p><Add content></p>
+<p>To begin managing your configuration with M365DSC, start by familiarising yourself with the core concepts and prerequisites. Ensure you have the necessary permissions and access to the Microsoft 365 tenants, Azure DevOps project(s) &amp; GitHub repositories.</p>
+<p>Administrative identities and a privilaged access workstation can be requested using <a href="https://mojprod.service-now.com/moj_sp?id=sc_cat_item&amp;table=sc_cat_item&amp;sys_id=8161246a1b170a50a1e2ddf0b24bcbdb&amp;searchTerm=technical%20access#BL1">this</a> Service Now request.</p>
+<p>The CICD repository can be found here, the Configuration repository can be found here. The appropriate access to these repositories will be automatically granted based on your GitHub team membership.</p>
+<h3 id="what-should-be-managed-in-m365dsc">What should be managed in M365DSC?</h3>
+<p>The intended scope of management in M365DSC should focus on persistent, core configuration settings that are crucial for maintaining the desired state of the tenants. This includes settings such as conditional access policies &amp; compliance configurations. M365DSC is not intended for managing disposable configurations, such as user and group management, which are more transient and subject to frequent changes. By concentrating on stable, foundational settings, M365DSC ensures a consistent and secure configuration baseline across the organisation.</p>
 <h3 id="shared-responsobility">Shared Responsobility</h3>
-<p><Add content></p>
+<p>The following diagram details the split of responsobility for components that make up this service.</p>
+<p><ADD DIAGRAM HERE></p>
 <h3 id="getting-help">Getting Help</h3>
 <p><Add content></p>
 <h2 id="configuration">Configuration</h2>
