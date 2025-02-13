@@ -47,6 +47,21 @@ Microsoft365DSC is built as a module for the [PowerShell Desired State Configura
 
 ### Pipelines 
 
+#### Build Pipeline
+When a PR is merged, the Build pipeline is triggered. This pipeline performs these steps:
+1. Prepare the agent: Install all prerequisite modules and configure settings on the agent.
+2. Validate secrets: Check if all secrets used in the data files actually exist in the Azure Key Vault.
+3. Pre build: Run several unit tests making sure all data is valid. This step also merges the data files in the Basic and Tenant data files.
+4. Build: Compile the merged data files into a MOF file, which can then be deploy
+5. Post build: This step updates configuration in Azure DevOps making sure the deployment matches the configuration specified in the 'environment#generic.psd1' files.
+6. Publish artifacts: The Build process not just generates the MOF files, but also saves the merged data files. These are also included in the artifacts, so they can be used for troubleshooting
+
+#### Release pipeline
+After a successful build, a Release pipeline is triggered. Based on the deployment order defined in the data files, the Release pipeline executes the following steps for each tenant:
+1. Configure the agent: Configure required settings on the agent.
+2. Prepare modules: Download all required modules from the Azure Blob Storage.
+3. Download secrets: Download all required secrets from the Key Vault, so they can be used by the agent.
+4. Deploy configurations: Deploy the MOF file to the target Microsoft 365 tenant.
 
 ### Azure Well-Architected Framework Alignment
 
@@ -74,7 +89,7 @@ This approach aligns with industry best practices for managing DSC configuration
 
 #### Performance Efficiency
 
-This architecture makes use of a storage account to cache the M365DSC modules and its prerequisites to make them readily available to the agent pool upon each pipeline run. When a new version of Microsoft365DSC is specified in the CICD repository, a pipeline will automatically make sure the prerequisites are downloaded, packaged and uploaded to the specified Blob Storage, this improves the performance of each pipeline run by decreasing the agent preperation time therefore improving the performance efficiency of the solution.
+This architecture makes use of a storage account to cache the M365DSC modules and its prerequisites to make them readily available to the agent pool upon each pipeline run. When a new version of M365DSC is specified in the CICD repository, a pipeline will automatically make sure the prerequisites are downloaded, packaged and uploaded to the specified Blob Storage, this improves the performance of each pipeline run by decreasing the agent preperation time therefore improving the performance efficiency of the solution.
 
 
 
