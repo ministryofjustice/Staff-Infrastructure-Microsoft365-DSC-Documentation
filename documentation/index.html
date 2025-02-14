@@ -266,11 +266,11 @@
 <ol>
 <li>Configure the agent: Configure required settings on the agent.</li>
 <li>Prepare modules: Download all required modules from the Azure Blob Storage.</li>
-<li>Download secrets: Download all required secrets from the Key Vault, so they can be used by the agent.</li>
+<li>Download secrets: Download all required certificates from the Key Vault, so they can be used by the agent.</li>
 <li>Deploy configurations: Deploy the MOF file to the target Microsoft 365 tenant.</li>
 </ol>
 <h3 id="azure-well-architected-framework-alignment">Azure Well-Architected Framework Alignment</h3>
-<p>This section details how our solution aligns with the Microsoft Well-Architected Framework, ensuring a robust, secure, and efficient architecture. By adhering to the five core pillars of the framework—Reliability, Security, Cost Optimization, Operational Excellence, and Performance Efficiency—we have designed a solution that meets the standards set out in the framework. Our approach includes implementing stringent security measures to protect data integrity and confidentiality, optimizing costs through efficient resource management, and ensuring operational excellence with comprehensive monitoring and automated systems.</p>
+<p>This section details how our solution aligns with the Microsoft Well-Architected Framework, ensuring a robust, secure, and efficient architecture. By adhering to the five core pillars of the framework—Reliability, Security, Cost Optimization, Operational Excellence, and Performance Efficiency—we have designed a solution that meets the standards set out in the framework. Our approach includes implementing stringent security measures to protect data integrity and confidentiality, optimising costs through efficient resource management, and ensuring operational excellence with comprehensive monitoring and automated systems.</p>
 <h4 id="reliability">Reliability</h4>
 <p>Deploying a Managed DevOps Pool to run our pipelines on significantly enhances reliability. Managed DevOps Pools provide a fully managed service where virtual machines powering the agents rely on Microsofts infrastructure for reliability ensuring that availability and fault tolerance is managed by Microsoft therefore reducing the risk of downtime and improving overall system stability. The managed nature of these pools means that updates, scaling, and maintenance are handled automatically, ensuring consistent performance and minimizing disruption</p>
 <h4 id="secuirty">Secuirty</h4>
@@ -365,7 +365,7 @@
       </div><h2 id="configuration">Configuration</h2>
 <p>The following section details how the workload configuration is set between the various data files within the Configuration repository.</p>
 <h3 id="data-files">Data Files</h3>
-<p>A data file in PowerShell Desired State Configuration (DSC) is a structured file that contains configuration data, such as node-specific settings and environment variables, which are used to customize and manage the desired state of target nodes/workload</p>
+<p>A data file in PowerShell Desired State Configuration (DSC) is a structured file that contains configuration data, such as node-specific settings and environment variables, which are used to customize and manage the desired state of target nodes/tenant</p>
 <p>When reviewing the Configuration repository, you will see a folder called <code>datafiles</code>. This folder contains two child folders, one named <code>environments</code> and another called <code>templates</code></p>
 <p>The <code>environments</code> folder contains all of the tenant specific configuration files, the <code>templates</code> folder contains all of the shared baseline configuration files that are to be applied to all tenants under the management of M365DSC.</p>
 <h3 id="basic">Basic</h3>
@@ -380,9 +380,9 @@
 <h2 id="how-we-handle-the-breaking-changes-release-schedule">How we handle the breaking changes release schedule</h2>
 <p><Add content></p>
 <h2 id="reference">Reference</h2>
-<p><a href="https://github.com/microsoft/Microsoft365DSC">Microsoft 365 DSC GitHub Repository</a>
-<a href="https://github.com/ykuijs/M365DSCTools">M365DSCTools GitHub Repository</a>
-<a href="https://github.com/ykuijs/M365DSC.CompositeResources">M365DSCCompositeResources GitHub Repository</a></p>
+<p><a href="https://github.com/microsoft/Microsoft365DSC">Microsoft 365 DSC GitHub Repository</a></p>
+<p><a href="https://github.com/ykuijs/M365DSCTools">M365DSCTools GitHub Repository</a></p>
+<p><a href="https://github.com/ykuijs/M365DSC.CompositeResources">M365DSCCompositeResources GitHub Repository</a></p>
 
             
           </main>
