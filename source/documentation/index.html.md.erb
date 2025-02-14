@@ -206,10 +206,23 @@ These settings are validated using a to a unit test approach during the build pi
 
 <Add content>
 
+## Breaking Changes
 
-## How we handle the breaking changes release schedule 
+### What are breaking changes?
 
-<Add content>
+Microsoft 365 is under constant development, which means that functionalities are being added, deprecated or removed all the time. Microsoft365DSC has to adapt to these changes and at the same time make sure existing users and configurations are impacted as little as possible.
+
+In the cases where a new resource is added, a resource gets a new optional parameter or a parameter that used to be mandatory becomes optional, existing configurations are not impacted. But when a resource or parameter is removed or an optional parameter becomes mandatory, existing configurations can stop functioning, because they are using these removed components. That is what is called a “Breaking Change”: A change that can break existing configurations and therefore impact the administration process of Microsoft 365.
+
+Twice a year Microsoft release a version that bundles all breaking changes of the previous six months into a single version, these releases occur in April and October anually.
+
+### How we handle the breaking changes release schedule 
+
+The release notes of the breaking changes versions will have all breaking changes clearly documented, including the required actions to take, which are almost certain to be required.
+
+MoJ will lag the release of the breaking changes release by 8 weeks, to give a chance for the community to identify any issues or bugs with the latest release before carrying out a version uplift to the estate.
+
+The version of M365DSC this solution is deployed with is managed by the application platform team as primary owners of the CICD configuration. Appication platform will lead on the discovery and release of the breaking changes release to ensure that all product teams who manage their workloads via M365DSC are working together to evaluate the release and identify what changes are required to our configuration.
 
 ## Reference
 
