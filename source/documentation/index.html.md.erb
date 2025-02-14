@@ -65,12 +65,12 @@ After a successful build, a Release pipeline is triggered. Based on the deployme
 
 1. Configure the agent: Configure required settings on the agent.
 2. Prepare modules: Download all required modules from the Azure Blob Storage.
-3. Download secrets: Download all required secrets from the Key Vault, so they can be used by the agent.
+3. Download secrets: Download all required certificates from the Key Vault, so they can be used by the agent.
 4. Deploy configurations: Deploy the MOF file to the target Microsoft 365 tenant.
 
 ### Azure Well-Architected Framework Alignment
 
-This section details how our solution aligns with the Microsoft Well-Architected Framework, ensuring a robust, secure, and efficient architecture. By adhering to the five core pillars of the framework—Reliability, Security, Cost Optimization, Operational Excellence, and Performance Efficiency—we have designed a solution that meets the standards set out in the framework. Our approach includes implementing stringent security measures to protect data integrity and confidentiality, optimizing costs through efficient resource management, and ensuring operational excellence with comprehensive monitoring and automated systems.
+This section details how our solution aligns with the Microsoft Well-Architected Framework, ensuring a robust, secure, and efficient architecture. By adhering to the five core pillars of the framework—Reliability, Security, Cost Optimization, Operational Excellence, and Performance Efficiency—we have designed a solution that meets the standards set out in the framework. Our approach includes implementing stringent security measures to protect data integrity and confidentiality, optimising costs through efficient resource management, and ensuring operational excellence with comprehensive monitoring and automated systems.
 
 #### Reliability
 
@@ -180,7 +180,7 @@ The following section details how the workload configuration is set between the 
 
 ### Data Files
 
-A data file in PowerShell Desired State Configuration (DSC) is a structured file that contains configuration data, such as node-specific settings and environment variables, which are used to customize and manage the desired state of target nodes/workload
+A data file in PowerShell Desired State Configuration (DSC) is a structured file that contains configuration data, such as node-specific settings and environment variables, which are used to customize and manage the desired state of target nodes/tenant
 
 When reviewing the Configuration repository, you will see a folder called `datafiles`. This folder contains two child folders, one named `environments` and another called `templates`
 
@@ -214,7 +214,9 @@ These settings are validated using a to a unit test approach during the build pi
 ## Reference
 
 [Microsoft 365 DSC GitHub Repository](https://github.com/microsoft/Microsoft365DSC)
+
 [M365DSCTools GitHub Repository](https://github.com/ykuijs/M365DSCTools)
+
 [M365DSCCompositeResources GitHub Repository](https://github.com/ykuijs/M365DSC.CompositeResources)
 
 
