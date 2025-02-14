@@ -195,7 +195,15 @@
         <a href="#compliancy-checks"><span>Compliancy Checks</span></a>
       </li>
       <li>
-        <a href="#how-we-handle-the-breaking-changes-release-schedule"><span>How we handle the breaking changes release schedule</span></a>
+        <a href="#breaking-changes"><span>Breaking Changes</span></a>
+        <ul>
+          <li>
+            <a href="#what-are-breaking-changes"><span>What are breaking changes?</span></a>
+          </li>
+          <li>
+            <a href="#how-we-handle-the-breaking-changes-release-schedule"><span>How we handle the breaking changes release schedule</span></a>
+          </li>
+        </ul>
       </li>
       <li>
         <a href="#reference"><span>Reference</span></a>
@@ -377,8 +385,15 @@
 <p>These settings are validated using a to a unit test approach during the build pipeline, this is first validated against the basic layer, requiring all settings that are present in the mandatory data files to be configured exactly as specified in the related basic datafiles. If this test is successful a second unit test is carried out against the environment layer checking that none of the settings are present within tenant specific files, preventing all settings in the Mandatory layer from being overridden with different values.</p>
 <h2 id="compliancy-checks">Compliancy Checks</h2>
 <p><Add content></p>
-<h2 id="how-we-handle-the-breaking-changes-release-schedule">How we handle the breaking changes release schedule</h2>
-<p><Add content></p>
+<h2 id="breaking-changes">Breaking Changes</h2>
+<h3 id="what-are-breaking-changes">What are breaking changes?</h3>
+<p>Microsoft 365 is under constant development, which means that functionalities are being added, deprecated or removed all the time. Microsoft365DSC has to adapt to these changes and at the same time make sure existing users and configurations are impacted as little as possible.</p>
+<p>In the cases where a new resource is added, a resource gets a new optional parameter or a parameter that used to be mandatory becomes optional, existing configurations are not impacted. But when a resource or parameter is removed or an optional parameter becomes mandatory, existing configurations can stop functioning, because they are using these removed components. That is what is called a “Breaking Change”: A change that can break existing configurations and therefore impact the administration process of Microsoft 365.</p>
+<p>Twice a year Microsoft release a version that bundles all breaking changes of the previous six months into a single version, these releases occur in April and October anually.</p>
+<h3 id="how-we-handle-the-breaking-changes-release-schedule">How we handle the breaking changes release schedule</h3>
+<p>The release notes of the breaking changes versions will have all breaking changes clearly documented, including the required actions to take, which are almost certain to be required.</p>
+<p>MoJ will lag the release of the breaking changes release by 8 weeks, to give a chance for the community to identify any issues or bugs with the latest release before carrying out a version uplift to the estate.</p>
+<p>The version of M365DSC this solution is deployed with is managed by the application platform team as primary owners of the CICD configuration. Appication platform will lead on the discovery and release of the breaking changes release to ensure that all product teams who manage their workloads via M365DSC are working together to evaluate the release and identify what changes are required to our configuration.</p>
 <h2 id="reference">Reference</h2>
 <p><a href="https://github.com/microsoft/Microsoft365DSC">Microsoft 365 DSC GitHub Repository</a></p>
 <p><a href="https://github.com/ykuijs/M365DSCTools">M365DSCTools GitHub Repository</a></p>
