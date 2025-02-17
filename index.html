@@ -129,7 +129,7 @@
                 <a href="#reliability"><span>Reliability</span></a>
               </li>
               <li>
-                <a href="#secuirty"><span>Secuirty</span></a>
+                <a href="#security"><span>Security</span></a>
               </li>
               <li>
                 <a href="#cost-optimization"><span>Cost Optimization</span></a>
@@ -251,14 +251,14 @@
 
 <ol>
 <li>Admin creates a new branch from the <code>main</code> Staff-Infrastructure-Microsoft365-DSC-Configuration repository, with a name relevant to the change they are making e.g. <code>DEV-TeamsMeetingPolicy-update</code></li>
-<li>Admin makes the required configuration changes to the data files nessecary to the change they are making</li>
+<li>Admin makes the required configuration changes to the data files necessary to the change they are making</li>
 <li>Admin commits and syncs the changes to the forked repository</li>
 <li>Admin creates a pull request (PR) to merge the changes to the <code>main</code> repository, proving a description of what changes have been made to allow others to more efficiently peer review the work</li>
 <li>The build pipeline runs on the PR</li>
 <li>Depending on the files that have been changed the relevant lead engineers or architects will be asked to review and approve the change, this is defined based on the content of the <code>codeowners</code> file</li>
 <li>The merged PR triggers a pipeline to compile Managed Object Format (MOF) files. The pipeline calls Azure Key Vault to retrieve the credentials that are used by the tenant specific service principle(s) in the MOF files, and publishes the artifacts ready for deployment</li>
 <li>The release pipeline is triggered that uses the compiled MOF files to deploy configuration changes to the tenants that are managed via Microsoft365DSC</li>
-<li>Admin who commited the changes reviews the relevant pipeline &amp; config in the M365 admin center to confirm the expected changes have been successfully applied</li>
+<li>Admin who committed the changes reviews the relevant pipeline &amp; config in the M365 admin center to confirm the expected changes have been successfully applied</li>
 </ol>
 
 <h3 id="components">Components</h3>
@@ -308,13 +308,13 @@
 
 <p>Deploying a Managed DevOps Pool to run our pipelines on significantly enhances reliability. Managed DevOps Pools provide a fully managed service where virtual machines powering the agents rely on Microsofts infrastructure for reliability ensuring that availability and fault tolerance is managed by Microsoft therefore reducing the risk of downtime and improving overall system stability. The managed nature of these pools means that updates, scaling, and maintenance are handled automatically, ensuring consistent performance and minimizing disruption</p>
 
-<h4 id="secuirty">Secuirty</h4>
+<h4 id="security">Security</h4>
 
-<p>Using the combination of Managed DevOps Pools, NAT Gateway, and Private Endpoints for Key Vault and Storage Account access significantly enhances the security of our solution, aligning with the Security pillar of the Microsoft Well-Architected Framework. Managed DevOps Pools ensure that the infrastructure is maintained by Microsoft, reducing vulnerabilities and ensuring compliance with security best practices. The NAT Gateway provides secure outbound internet connectivity for resources in private subnets with a dedicated public IP address to be used within condtional access on the managed tenants, while preventing unsolicited inbound connections, adhering to the zero trust network security model. Additionally, Private Endpoints for Key Vault and Storage Accounts enable secure, private access to these resources by using private IP addresses within the virtual network, eliminating exposure to the public internet. This setup ensures that sensitive data remains protected and access is tightly controlled.</p>
+<p>Using the combination of Managed DevOps Pools, NAT Gateway, and Private Endpoints for Key Vault and Storage Account access significantly enhances the security of our solution, aligning with the Security pillar of the Microsoft Well-Architected Framework. Managed DevOps Pools ensure that the infrastructure is maintained by Microsoft, reducing vulnerabilities and ensuring compliance with security best practices. The NAT Gateway provides secure outbound internet connectivity for resources in private subnets with a dedicated public IP address to be used within conditional access on the managed tenants, while preventing unsolicited inbound connections, adhering to the zero trust network security model. Additionally, Private Endpoints for Key Vault and Storage Accounts enable secure, private access to these resources by using private IP addresses within the virtual network, eliminating exposure to the public internet. This setup ensures that sensitive data remains protected and access is tightly controlled.</p>
 
 <h4 id="cost-optimization">Cost Optimization</h4>
 
-<p>Due to the small footprint of resources required for this solution it nativley comes with a low total cost of ownership, this has been further supplimented by the auto scaling features of Managed DevOps Pools to ensure there is no requirement for standing disk and compute.</p>
+<p>Due to the small footprint of resources required for this solution it natively comes with a low total cost of ownership, this has been further supplemented by the auto scaling features of Managed DevOps Pools to ensure there is no requirement for standing disk and compute.</p>
 
 <h4 id="operational-excellence">Operational Excellence</h4>
 
@@ -326,7 +326,7 @@
 
 <h4 id="performance-efficiency">Performance Efficiency</h4>
 
-<p>This architecture makes use of a storage account to cache the M365DSC modules and its prerequisites to make them readily available to the agent pool upon each pipeline run. When a new version of M365DSC is specified in the CICD repository, a pipeline will automatically make sure the prerequisites are downloaded, packaged and uploaded to the specified Blob Storage, this improves the performance of each pipeline run by decreasing the agent preperation time therefore improving the performance efficiency of the solution.</p>
+<p>This architecture makes use of a storage account to cache the M365DSC modules and its prerequisites to make them readily available to the agent pool upon each pipeline run. When a new version of M365DSC is specified in the CICD repository, a pipeline will automatically make sure the prerequisites are downloaded, packaged and uploaded to the specified Blob Storage, this improves the performance of each pipeline run by decreasing the agent preparation time therefore improving the performance efficiency of the solution.</p>
 
 <h2 id="guidance">Guidance</h2>
 
@@ -336,7 +336,7 @@
 
 <p>To begin managing your configuration with M365DSC, start by familiarising yourself with the core concepts and prerequisites. Ensure you have the necessary permissions and access to the Microsoft 365 tenants, Azure DevOps project(s) &amp; GitHub repositories.</p>
 
-<p>Administrative identities and a privilaged access workstation can be requested using <a href="https://mojprod.service-now.com/moj_sp?id=sc_cat_item&amp;table=sc_cat_item&amp;sys_id=8161246a1b170a50a1e2ddf0b24bcbdb&amp;searchTerm=technical%20access#BL1">this</a> Service Now request.</p>
+<p>Administrative identities and a privileged access workstation can be requested using <a href="https://mojprod.service-now.com/moj_sp?id=sc_cat_item&amp;table=sc_cat_item&amp;sys_id=8161246a1b170a50a1e2ddf0b24bcbdb&amp;searchTerm=technical%20access#BL1">this</a> Service Now request.</p>
 
 <p>The CICD repository can be found here, the Configuration repository can be found here. The appropriate access to these repositories will be automatically granted based on your GitHub team membership.</p>
 
@@ -372,9 +372,9 @@
 
 <h3 id="shared-responsobility">Shared Responsobility</h3>
 
-<p>The following diagram details the split of responsobility for components that make up this service.</p>
+<p>The following diagram details the split of responsibility for components that make up this service.</p>
 
-<p><a href="../images/responsobility-matrix.png" rel="noopener noreferrer"><img src="images/responsobility-matrix.png" title="responsobility-matrix" alt="responsobility-matrix" /></a></p>
+<p><a href="../images/responsibility-matrix.png" rel="noopener noreferrer"><img src="images/responsibility-matrix.png" title="responsibility-matrix" alt="responsibility-matrix" /></a></p>
 
 <h3 id="getting-help">Getting Help</h3>
 
@@ -453,11 +453,11 @@
 <h3 id="what-are-breaking-changes">What are breaking changes?</h3>
 <p>Microsoft 365 is under constant development, which means that functionalities are being added, deprecated or removed all the time. Microsoft365DSC has to adapt to these changes and at the same time make sure existing users and configurations are impacted as little as possible.</p>
 <p>In the cases where a new resource is added, a resource gets a new optional parameter or a parameter that used to be mandatory becomes optional, existing configurations are not impacted. But when a resource or parameter is removed or an optional parameter becomes mandatory, existing configurations can stop functioning, because they are using these removed components. That is what is called a “Breaking Change”: A change that can break existing configurations and therefore impact the administration process of Microsoft 365.</p>
-<p>Twice a year Microsoft release a version that bundles all breaking changes of the previous six months into a single version, these releases occur in April and October anually.</p>
+<p>Twice a year Microsoft release a version that bundles all breaking changes of the previous six months into a single version, these releases occur in April and October annually.</p>
 <h3 id="how-we-handle-the-breaking-changes-release-schedule">How we handle the breaking changes release schedule</h3>
 <p>The release notes of the breaking changes versions will have all breaking changes clearly documented, including the required actions to take, which are almost certain to be required.</p>
 <p>MoJ will lag the release of the breaking changes release by 8 weeks, to give a chance for the community to identify any issues or bugs with the latest release before carrying out a version uplift to the estate.</p>
-<p>The version of M365DSC this solution is deployed with is managed by the application platform team as primary owners of the CICD configuration. Appication platform will lead on the discovery and release of the breaking changes release to ensure that all product teams who manage their workloads via M365DSC are working together to evaluate the release and identify what changes are required to our configuration.</p>
+<p>The version of M365DSC this solution is deployed with is managed by the application platform team as primary owners of the CICD configuration. Application platform will lead on the discovery and release of the breaking changes release to ensure that all product teams who manage their workloads via M365DSC are working together to evaluate the release and identify what changes are required to our configuration.</p>
 <h2 id="reference">Reference</h2>
 <p><a href="https://github.com/microsoft/Microsoft365DSC">Microsoft 365 DSC GitHub Repository</a></p>
 <p><a href="https://github.com/ykuijs/M365DSCTools">M365DSCTools GitHub Repository</a></p>
