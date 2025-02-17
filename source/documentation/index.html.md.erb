@@ -4,9 +4,9 @@
 
 This page is intended for staff who are responsible for the configuration, security and operation of the Ministry of Justice’s Microsoft 365 services. 
 
-It holds information on the Ministry of Justice’s M365DSC DevOps integrated architecture. including detailed guidance, engineering references, and an overview of the intended scope and configuration. The aim is to facilitate the onboarding process and support for administrators managing our tenants.
+It holds information on the Ministry of Justice’s Microsoft 365 DSC DevOps integrated architecture. including detailed guidance, engineering references, and an overview of the intended scope and configuration. The aim is to facilitate the onboarding process and support for administrators managing our tenants.
 
-## What is M365DSC?
+## What is Microsoft 365 DSC?
 
 Microsoft365DSC is an Open-Source initiative lead by Microsoft engineers and maintained by the community. It allows you to write a definition for how your Microsoft 365 tenant should be configured, automate the deployment of that configuration and ensures the monitoring of the defined configuration, notifying and acting on detected configuration drifts. 
 
@@ -93,7 +93,7 @@ This approach aligns with industry best practices for managing DSC configuration
 
 #### Performance Efficiency
 
-This architecture makes use of a storage account to cache the M365DSC modules and its prerequisites to make them readily available to the agent pool upon each pipeline run. When a new version of M365DSC is specified in the CICD repository, a pipeline will automatically make sure the prerequisites are downloaded, packaged and uploaded to the specified Blob Storage, this improves the performance of each pipeline run by decreasing the agent preparation time therefore improving the performance efficiency of the solution.
+This architecture makes use of a storage account to cache the Microsoft 365 DSC modules and its prerequisites to make them readily available to the agent pool upon each pipeline run. When a new version of Microsoft 365 DSC is specified in the CICD repository, a pipeline will automatically make sure the prerequisites are downloaded, packaged and uploaded to the specified Blob Storage, this improves the performance of each pipeline run by decreasing the agent preparation time therefore improving the performance efficiency of the solution.
 
 
 
@@ -105,7 +105,7 @@ This architecture makes use of a storage account to cache the M365DSC modules an
 
 ### Getting Started 
 
-To begin managing your configuration with M365DSC, start by familiarising yourself with the core concepts and prerequisites. Ensure you have the necessary permissions and access to the Microsoft 365 tenants, Azure DevOps project(s) & GitHub repositories. 
+To begin managing your configuration with Microsoft 365 DSC, start by familiarising yourself with the core concepts and prerequisites. Ensure you have the necessary permissions and access to the Microsoft 365 tenants, Azure DevOps project(s) & GitHub repositories. 
 
 Administrative identities and a privileged access workstation can be requested using [this](https://mojprod.service-now.com/moj_sp?id=sc_cat_item&table=sc_cat_item&sys_id=8161246a1b170a50a1e2ddf0b24bcbdb&searchTerm=technical%20access#BL1) Service Now request.
 
@@ -136,11 +136,11 @@ The CICD Azure DevOps project can be found here, the Configuration Azure DevOps 
 
 [Microsoft 365 DSC Resources: Overview](https://microsoft365dsc.com/resources/overview)
 
-### What should be managed in M365DSC?
+### What should be managed in Microsoft 365 DSC?
 
-The intended scope of management in M365DSC should focus on persistent, core configuration settings that are crucial for maintaining the desired state and security posture of the tenants. This includes global settings such as isSingleInstance = $true, as well as workload settings such as conditional access policies, MPIP labels & EXO organisation config.
+The intended scope of management in Microsoft 365 DSC should focus on persistent, core configuration settings that are crucial for maintaining the desired state and security posture of the tenants. This includes global settings such as isSingleInstance = $true, as well as workload settings such as conditional access policies, MPIP labels & EXO organisation config.
 
-M365DSC is not intended for managing disposable or high volume configurations, such as user management or business driven security groups, which are more transient and subject to frequent changes. By concentrating on stable, foundational settings, M365DSC ensures a consistent and secure configuration baseline across the organisation.
+Microsoft 365 DSC is not intended for managing disposable or high volume configurations, such as user management or business driven security groups, which are more transient and subject to frequent changes. By concentrating on stable, foundational settings, Microsoft 365 DSC ensures a consistent and secure configuration baseline across the organisation.
 
 ### Shared Responsobility
 
@@ -152,7 +152,7 @@ The following diagram details the split of responsibility for components that ma
 
 The CICD infrastructure that delivers the configuration to our M365 tenants is owned by the application platform team, if you wish to raise a bug or make a feature request with the service please contact them using their [shared team mailbox](mailto:powerplatformteam@justice.gov.uk) , or create a GitHub issue on the CICD repository. 
 
-If you require help with, or want to discuss configuration changes for a specific M365 product that is being managed by M365DSC please reach out to the relevant team as per the below table:
+If you require help with, or want to discuss configuration changes for a specific M365 product that is being managed by Microsoft 365 DSC please reach out to the relevant team as per the below table:
 
 | M365 Service       | Product Team            |
 |--------------------|-------------------------|
@@ -185,12 +185,12 @@ A data file in PowerShell Desired State Configuration (DSC) is a structured file
 
 When reviewing the Configuration repository, you will see a folder called `datafiles`. This folder contains two child folders, one named `environments` and another called `templates`
 
-The `environments` folder contains all of the tenant specific configuration files, the `templates` folder contains all of the shared baseline configuration files that are to be applied to all tenants under the management of M365DSC.
+The `environments` folder contains all of the tenant specific configuration files, the `templates` folder contains all of the shared baseline configuration files that are to be applied to all tenants under the management of Microsoft 365 DSC.
 
 
 ### Basic
 
-The basic layer data files define the workload settings that will be applied to all tenants that are under the management of M365DSC, a baseline.
+The basic layer data files define the workload settings that will be applied to all tenants that are under the management of Microsoft 365 DSC, a baseline.
 
 ### Environment
 
@@ -205,7 +205,7 @@ These settings are validated using a to a unit test approach during the build pi
 
 ## Compliancy Checks 
 
-This solution runs the Check Compliancy pipeline twice daily, once at 08:00 and once at 18:00 daily. When this pipeline runs it checks the configuration of each tenant that are under management of M365DSC against the data files that are specified in the configuration repositories to make sure all workload settings that are defined within DSC are compliant. At current maturity this solution does not enforce automatic remediation actions if DSC notices a configuration drift within the tenant, the results of these checks are sent to XXXXXXXXX for administrators to observe. 
+This solution runs the Check Compliancy pipeline twice daily, once at 08:00 and once at 18:00 daily. When this pipeline runs it checks the configuration of each tenant that are under management of Microsoft 365 DSC against the data files that are specified in the configuration repositories to make sure all workload settings that are defined within DSC are compliant. At current maturity this solution does not enforce automatic remediation actions if DSC notices a configuration drift within the tenant, the results of these checks are sent to XXXXXXXXX for administrators to observe. 
 
 By continuously monitoring the environment, MoJ ensure that the tenants are in their intended state before the start of, and at the end of, the organisations core working hours reducing the risk of misconfigurations that may impact the end user experience or security posture.
 
@@ -225,15 +225,15 @@ The release notes of the breaking changes versions will have all breaking change
 
 MoJ will lag the release of the breaking changes release by 8 weeks, to give a chance for the community to identify any issues or bugs with the latest release before carrying out a version uplift to the estate.
 
-The version of M365DSC this solution is deployed with is managed by the application platform team as primary owners of the CICD configuration. Application platform will lead on the discovery and release of the breaking changes release to ensure that all product teams who manage their workloads via M365DSC are working together to evaluate the release and identify what changes are required to our configuration.
+The version of Microsoft 365 DSC this solution is deployed with is managed by the application platform team as primary owners of the CICD configuration. Application platform will lead on the discovery and release of the breaking changes release to ensure that all product teams who manage their workloads via Microsoft 365 DSC are working together to evaluate the release and identify what changes are required to our configuration.
 
 ## Reference
 
 [Microsoft 365 DSC GitHub Repository](https://github.com/microsoft/Microsoft365DSC)
 
-[M365DSCTools GitHub Repository](https://github.com/ykuijs/M365DSCTools)
+[Microsoft 365 DSCTools GitHub Repository](https://github.com/ykuijs/Microsoft 365 DSCTools)
 
-[M365DSCCompositeResources GitHub Repository](https://github.com/ykuijs/M365DSC.CompositeResources)
+[Microsoft 365 DSCCompositeResources GitHub Repository](https://github.com/ykuijs/Microsoft 365 DSC.CompositeResources)
 
 
 
