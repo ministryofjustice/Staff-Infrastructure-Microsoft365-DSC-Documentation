@@ -182,13 +182,26 @@
             <a href="#data-files"><span>Data Files</span></a>
           </li>
           <li>
-            <a href="#basic"><span>Basic</span></a>
+            <a href="#global-settings"><span>Global Settings</span></a>
+            <ul>
+              <li>
+                <a href="#basic"><span>Basic</span></a>
+              </li>
+              <li>
+                <a href="#mandatory"><span>Mandatory</span></a>
+              </li>
+            </ul>
           </li>
           <li>
-            <a href="#environment"><span>Environment</span></a>
+            <a href="#tenant-specific-settings"><span>Tenant Specific Settings</span></a>
+            <ul>
+              <li>
+                <a href="#environment"><span>Environment</span></a>
+              </li>
+            </ul>
           </li>
           <li>
-            <a href="#mandatory"><span>Mandatory</span></a>
+            <a href="#example-configuration"><span>Example Configuration</span></a>
           </li>
         </ul>
       </li>
@@ -441,13 +454,114 @@
 <p>A data file in PowerShell Desired State Configuration (DSC) is a structured file that contains configuration data, such as node-specific settings and environment variables, which are used to customize and manage the desired state of target nodes/tenant</p>
 <p>When reviewing the Configuration repository, you will see a folder called <code>datafiles</code>. This folder contains two child folders, one named <code>environments</code> and another called <code>templates</code></p>
 <p>The <code>environments</code> folder contains all of the tenant specific configuration files, the <code>templates</code> folder contains all of the shared baseline configuration files that are to be applied to all tenants under the management of Microsoft 365 DSC.</p>
-<h3 id="basic">Basic</h3>
-<p>The basic layer data files define the workload settings that will be applied to all tenants that are under the management of Microsoft 365 DSC, a baseline.</p>
-<h3 id="environment">Environment</h3>
-<p>The Environment layer are the settings that are tenant specific. Either because the workload setting is specific to only that tenant so cannot be present in the basic configuration, or because you want to override a setting from the Basic layer (SettingX = 1 in Basic, but for this environment it should be SettingX = 2)</p>
-<h3 id="mandatory">Mandatory</h3>
-<p>The mandatory data files contain settings that are mandatory for all environments. Settings in this file must be present in the basic files with the same values and cannot be specified in any of the environment specific files.</p>
+<h3 id="global-settings">Global Settings</h3>
+<h4 id="basic">Basic</h4>
+<p>The basic layer data files define the global workload settings that will be applied to all tenants that are under the management of Microsoft 365 DSC as the base configuration.</p>
+<h4 id="mandatory">Mandatory</h4>
+<p>The mandatory data files define settings that are enforced for all environments. Settings in this file must be present in the basic files with the same values and cannot be specified in any of the environment specific files.</p>
 <p>These settings are validated using a to a unit test approach during the build pipeline, this is first validated against the basic layer, requiring all settings that are present in the mandatory data files to be configured exactly as specified in the related basic datafiles. If this test is successful a second unit test is carried out against the environment layer checking that none of the settings are present within tenant specific files, preventing all settings in the Mandatory layer from being overridden with different values.</p>
+<h3 id="tenant-specific-settings">Tenant Specific Settings</h3>
+<h4 id="environment">Environment</h4>
+<p>The Environment layer are the settings that are tenant specific. Either because the workload setting is specific to only that tenant so cannot be present in the basic configuration, or because you want to override a setting from the Basic layer (SettingX = 1 in Basic, but for this environment it should be SettingX = 2)</p>
+<h3 id="example-configuration">Example Configuration</h3>
+<p>The following section is intended to visualise how settings would be applied to DEV, NLE &amp; PROD based on how various workload settings were configured within different data files.</p>
+<p>In this example, the <code>Basic</code> configuration contains the following settings:
+<code>powershell
+﻿@{
+    NonNodeData = @{
+        Teams = @{
+            ChannelsPolicies = @(
+                @{
+                    AllowOrgWideTeamCreation = $false
+                    AllowChannelSharingToExternalUser  = $true
+                }
+            )
+        }
+    }
+}</code></p>
+<p>In this example, the <code>Mandatory</code> configuration contains the following settings:
+<code>powershell
+﻿@{
+    NonNodeData = @{
+        Teams = @{
+            ChannelsPolicies = @(
+                @{
+                    AllowChannelSharingToExternalUser  = $true
+                }
+            )
+        }
+    }
+}</code></p>
+<p>In this example, the <code>DEV</code> tenant specific configuration contains the following settings:
+<code>powershell
+﻿@{
+    NonNodeData = @{
+        Teams = @{
+            ChannelsPolicies = @(
+                @{
+                    AllowOrgWideTeamCreation = $true
+                }
+            )
+        }
+        AzureAD = @{
+            TenantDetails = @(
+                @{
+                    TenantId = DEV
+                }
+            )
+        }
+    }
+}</code></p>
+<p>In this example, the <code>NLE</code> tenant specific configuration contains the following settings:
+<code>powershell
+﻿@{
+    NonNodeData = @{
+        Teams = @{
+            ChannelsPolicies = @(
+                @{
+                    AllowOrgWideTeamCreation = $true
+                }
+            )
+        }
+        AzureAD = @{
+            TenantDetails = @(
+                @{
+                    TenantId = NLE
+                }
+            )
+        }
+    }
+}</code></p>
+<p>In this example, the <code>PROD</code> tenant specific configuration contains the following settings:
+<code>powershell
+﻿@{
+    NonNodeData = @{
+        AzureAD = @{
+            TenantDetails = @(
+                @{
+                    TenantId = PROD
+                }
+            )
+        }
+    }
+}</code></p>
+<p>When the build pipeline runs, it will read and merge the various datafiles contained within the Configuration repository using the logic displayed within the diagram shown below, resulting in applied settings within each tenants MOF file shown at the bottom of the flow.
+<code>mermaid
+flowchart TD
+    A[Build Pipeline start] --&gt; B[Read and merge Mandatory configuration files]
+    B --&gt; C[Read and merge Basic configuration files]
+    C --&gt; D{Mandatory settings present in Basic?}
+    D --&gt;|PASS| E[Read and merge Environment-specific configuration files]
+    D --&gt;|FAIL| F[Error: Mandatory settings missing in Basic]
+    E --&gt; G{Mandatory settings absent in Environment?}
+    G --&gt;|PASS| H[Merge Basic and Environment configurations]
+    G --&gt;|FAIL| J[Error: Mandatory settings present in Environment]
+    H --&gt; I[Build script completed successfully]
+    H --&gt; J1[Applied Settings]
+    J1 --&gt; K[DEV: AllowChannelSharingToExternalUser = true, AllowOrgWideTeamCreation = true,TenantId = DEV]
+    J1 --&gt; L[NLE: AllowChannelSharingToExternalUser = true, AllowOrgWideTeamCreation = true, TenantId = NLE]
+    J1 --&gt; M[PROD: AllowChannelSharingToExternalUser = true, AllowOrgWideTeamCreation = false, TenantId = PROD]
+</code></p>
 <h2 id="compliancy-checks">Compliancy Checks</h2>
 <p>This solution runs the Check Compliancy pipeline twice daily, once at 08:00 and once at 18:00 daily. When this pipeline runs it checks the configuration of each tenant that are under management of Microsoft 365 DSC against the data files that are specified in the configuration repositories to make sure all workload settings that are defined within DSC are compliant. At current maturity this solution does not enforce automatic remediation actions if DSC notices a configuration drift within the tenant, the results of these checks are sent to XXXXXXXXX for administrators to observe.</p>
 <p>By continuously monitoring the environment, MoJ ensure that the tenants are in their intended state before the start of, and at the end of, the organisations core working hours reducing the risk of misconfigurations that may impact the end user experience or security posture.</p>
