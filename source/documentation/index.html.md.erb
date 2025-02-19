@@ -148,6 +148,27 @@ The following diagram details the split of responsibility for components that ma
 
 ![responsibility-matrix](../images/responsibility-matrix.png "responsibility-matrix")
 
+| Legend |
+|--------|-----------------------|
+| F      | Full Responsibility   |
+| S      | Shared Responsibility |
+| N      | No Responsibility     |
+
+
+|                                     | Product Team | Application Platform | Azure Hosting | IDAM | Microsoft |
+|-------------------------------------|:------------:|:--------------------:|:-------------:|:----:|:---------:|
+| Core Azure Landing Zone Services    | N            | N                    | F             | N    | N         |
+| NAT Gateway/Routing                 | N            | N                    | S             | N    | S         |
+| Key Vault                           | N            | Y                    | N             | N    | N         | 
+| Storage Account                     | N            | Y                    | N             | N    | N         | 
+| Managed DevOps Pool                 | N            | S                    | N             | N    | S         | 
+| Azure DevOps Projects & Pipelines   | N            | Y                    | N             | N    | N         | 
+| GitHub Repositories                 | N            | Y                    | N             | N    | N         | 
+| Workload Data Files                 | Y            | N                    | N             | N    | N         | 
+| All CICD & other configuration files| N            | Y                    | N             | N    | N         |  
+| Service Principles                  | N            | N                    | N             | Y    | N         | 
+| Conditional Access Policies         | N            | N                    | N             | Y    | N         | 
+
 ### Getting Help
 
 The CICD infrastructure that delivers the configuration to our M365 tenants is owned by the application platform team, if you wish to raise a bug or make a feature request with the service please contact them using their [shared team mailbox](mailto:powerplatformteam@justice.gov.uk) , or create a GitHub issue on the CICD repository. 
