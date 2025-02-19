@@ -554,9 +554,18 @@ flowchart TD
     G -->|FAIL| J[Error: Mandatory settings present in Environment]
     H --> I[Build script completed successfully]
     H --> J1[Applied Settings in MOF files]
-    J1 --> K[DEV: AllowChannelSharingToExternalUser = true, AllowOrgWideTeamCreation = true,TenantId = DEV]
-    J1 --> L[NLE: AllowChannelSharingToExternalUser = true, AllowOrgWideTeamCreation = true, TenantId = NLE]
-    J1 --> M[PROD: AllowChannelSharingToExternalUser = true, AllowOrgWideTeamCreation = false, TenantId = PROD]
+    J1 --> K[DEV: 
+        AllowChannelSharingToExternalUser = true,
+        AllowOrgWideTeamCreation = true,
+        TenantId = DEV]
+    J1 --> L[NLE: 
+        AllowChannelSharingToExternalUser = true,
+        AllowOrgWideTeamCreation = true,
+        TenantId = NLE]
+    J1 --> M[PROD: 
+        AllowChannelSharingToExternalUser = true,
+        AllowOrgWideTeamCreation = false,
+        TenantId = PROD]
 </pre>
 
 <h2 id="compliancy-checks">Compliancy Checks</h2>

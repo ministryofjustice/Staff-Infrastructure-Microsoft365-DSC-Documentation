@@ -492,9 +492,18 @@ flowchart TD
     G -->|FAIL| J[Error: Mandatory settings present in Environment]
     H --> I[Build script completed successfully]
     H --> J1[Applied Settings in MOF files]
-    J1 --> K[DEV: AllowChannelSharingToExternalUser = true, AllowOrgWideTeamCreation = true,TenantId = DEV]
-    J1 --> L[NLE: AllowChannelSharingToExternalUser = true, AllowOrgWideTeamCreation = true, TenantId = NLE]
-    J1 --> M[PROD: AllowChannelSharingToExternalUser = true, AllowOrgWideTeamCreation = false, TenantId = PROD]
+    J1 --> K[DEV: 
+        AllowChannelSharingToExternalUser = true,
+        AllowOrgWideTeamCreation = true,
+        TenantId = DEV]
+    J1 --> L[NLE: 
+        AllowChannelSharingToExternalUser = true,
+        AllowOrgWideTeamCreation = true,
+        TenantId = NLE]
+    J1 --> M[PROD: 
+        AllowChannelSharingToExternalUser = true,
+        AllowOrgWideTeamCreation = false,
+        TenantId = PROD]
 </pre>
 <h2 id="compliancy-checks">Compliancy Checks</h2>
 <p>This solution runs the Check Compliancy pipeline twice daily, once at 08:00 and once at 18:00 daily. When this pipeline runs it checks the configuration of each tenant that are under management of Microsoft 365 DSC against the data files that are specified in the configuration repositories to make sure all workload settings that are defined within DSC are compliant. At current maturity this solution does not enforce automatic remediation actions if DSC notices a configuration drift within the tenant, the results of these checks are sent to XXXXXXXXX for administrators to observe.</p>
