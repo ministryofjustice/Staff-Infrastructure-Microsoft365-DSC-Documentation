@@ -390,13 +390,110 @@
 <p>The following diagram details the split of responsibility for components that make up this service.</p>
 
 <p><a href="../images/responsibility-matrix.png" rel="noopener noreferrer"><img src="images/responsibility-matrix.png" title="responsibility-matrix" alt="responsibility-matrix" /></a></p>
-
-<h3 id="getting-help">Getting Help</h3>
-
-<p>The CICD infrastructure that delivers the configuration to our M365 tenants is owned by the application platform team, if you wish to raise a bug or make a feature request with the service please contact them using their <a href="mailto:powerplatformteam@justice.gov.uk">shared team mailbox</a> , or create a GitHub issue on the CICD repository.</p>
-
-<p>If you require help with, or want to discuss configuration changes for a specific M365 product that is being managed by Microsoft 365 DSC please reach out to the relevant team as per the below table:</p>
 <p><div class="table-container">
+        <table>
+          <tr>
+<th>Legend</th>
+</tr><tr>
+<td>F</td>
+</tr><tr>
+<td>S</td>
+</tr><tr>
+<td>N</td>
+</tr>
+        </table>
+      </div><div class="table-container">
+        <table>
+          <tr>
+<th></th>
+<th style="text-align: center">Product Team</th>
+<th style="text-align: center">Application Platform</th>
+<th style="text-align: center">Azure Hosting</th>
+<th style="text-align: center">IDAM</th>
+<th style="text-align: center">Microsoft</th>
+</tr><tr>
+<td>Core Azure Landing Zone Services</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">F</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+</tr><tr>
+<td>NAT Gateway/Routing</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">S</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">S</td>
+</tr><tr>
+<td>Key Vault</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">Y</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+</tr><tr>
+<td>Storage Account</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">Y</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+</tr><tr>
+<td>Managed DevOps Pool</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">S</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">S</td>
+</tr><tr>
+<td>Azure DevOps Projects &amp; Pipelines</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">Y</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+</tr><tr>
+<td>GitHub Repositories</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">Y</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+</tr><tr>
+<td>Workload Data Files</td>
+<td style="text-align: center">Y</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+</tr><tr>
+<td>All CICD &amp; other configuration files</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">Y</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+</tr><tr>
+<td>Service Principles</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">Y</td>
+<td style="text-align: center">N</td>
+</tr><tr>
+<td>Conditional Access Policies</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">Y</td>
+<td style="text-align: center">N</td>
+</tr>
+        </table>
+      </div><h3 id="getting-help">Getting Help</h3>
+<p>The CICD infrastructure that delivers the configuration to our M365 tenants is owned by the application platform team, if you wish to raise a bug or make a feature request with the service please contact them using their <a href="mailto:powerplatformteam@justice.gov.uk">shared team mailbox</a> , or create a GitHub issue on the CICD repository.</p>
+<p>If you require help with, or want to discuss configuration changes for a specific M365 product that is being managed by Microsoft 365 DSC please reach out to the relevant team as per the below table:</p>
+<div class="table-container">
         <table>
           <tr>
 <th>M365 Service</th>
