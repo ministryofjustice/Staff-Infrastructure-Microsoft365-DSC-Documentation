@@ -201,11 +201,11 @@ The following section details how the workload configuration is set between the 
 
 ### Data Files
 
-A data file in PowerShell Desired State Configuration (DSC) is a structured file that contains configuration data, such as node-specific settings and environment variables, which are used to customize and manage the desired state of target nodes/tenant
+A data file in PowerShell Desired State Configuration (DSC) is a structured file that contains configuration data, such as node-specific settings and environment variables, which are used to customise and manage the desired state of target nodes(tenants)
 
 When reviewing the Configuration repository, you will see a folder called `datafiles`. This folder contains two child folders, one named `environments` and another called `templates`
 
-The `environments` folder contains all of the tenant specific configuration files, the `templates` folder contains all of the shared baseline configuration files that are to be applied to all tenants under the management of Microsoft 365 DSC.
+The `environments` folder contains all of the tenant specific configuration files, the `templates` folder contains all of the global configuration files that are to be applied to all tenants under the management of Microsoft 365 DSC.
 
 ### Global Settings
 
