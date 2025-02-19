@@ -67,9 +67,9 @@ After a successful build, a Release pipeline is triggered. Based on the deployme
 3. Download secrets: Download all required certificates from the Key Vault, so they can be used by the agent.
 4. Deploy configurations: Deploy the MOF file to the target Microsoft 365 tenant.
 
-### Azure Well-Architected Framework Alignment
+### Well-Architected Framework Alignment
 
-This section details how our solution aligns with the Microsoft Well-Architected Framework, ensuring a robust, secure, and efficient architecture. By adhering to the five core pillars of the framework—Reliability, Security, Cost Optimization, Operational Excellence, and Performance Efficiency—we have designed a solution that meets the standards set out in the framework. Our approach includes implementing stringent security measures to protect data integrity and confidentiality, optimising costs through efficient resource management, and ensuring operational excellence with comprehensive monitoring and automated systems.
+This section details how our solution aligns with the Microsoft Well-Architected Framework alongside CAF & NCSC guidance, ensuring a robust, secure, and efficient architecture. By adhering to the five core pillars of the framework—Reliability, Security, Cost Optimization, Operational Excellence, and Performance Efficiency—we have designed a solution that meets the standards set out in the framework. Our approach includes implementing stringent security measures to protect data integrity and confidentiality, optimising costs through efficient resource management, and ensuring operational excellence with comprehensive monitoring and automated systems.
 
 #### Reliability
 
@@ -142,7 +142,7 @@ The intended scope of management in Microsoft 365 DSC should focus on persistent
 
 Microsoft 365 DSC is not intended for managing disposable or high volume configurations, such as user management or business driven security groups, which are more transient and subject to frequent changes. By concentrating on stable, foundational settings, Microsoft 365 DSC ensures a consistent and secure configuration baseline across the organisation.
 
-### Shared Responsobility
+### Shared Responsibility
 
 The following diagram details the split of responsibility for components that make up this service.
 
@@ -321,7 +321,7 @@ flowchart TD
     J1 --> K[DEV: AllowChannelSharingToExternalUser = true, AllowOrgWideTeamCreation = true,TenantId = DEV]
     J1 --> L[NLE: AllowChannelSharingToExternalUser = true, AllowOrgWideTeamCreation = true, TenantId = NLE]
     J1 --> M[PROD: AllowChannelSharingToExternalUser = true, AllowOrgWideTeamCreation = false, TenantId = PROD]
-	</pre>
+</pre>
 
 
 
