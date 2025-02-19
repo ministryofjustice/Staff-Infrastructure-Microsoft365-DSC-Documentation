@@ -403,92 +403,82 @@
 <p>The Environment layer are the settings that are tenant specific. Either because the workload setting is specific to only that tenant so cannot be present in the basic configuration, or because you want to override a setting from the Basic layer (SettingX = 1 in Basic, but for this environment it should be SettingX = 2)</p>
 <h3 id="example-configuration">Example Configuration</h3>
 <p>The following section is intended to visualise how settings would be applied to DEV, NLE &amp; PROD based on how various workload settings were configured within different data files.</p>
-<p>In this example, the <code>Basic</code> configuration contains the following settings:
-<code>powershell
-@{
-    NonNodeData = @{
-        Teams = @{
-            ChannelsPolicies = @(
-                @{
-                    AllowOrgWideTeamCreation = $false
-                    AllowChannelSharingToExternalUser  = $true
-                }
-            )
-        }
-    }
-}
-</code></p>
-<p>In this example, the <code>Mandatory</code> configuration contains the following settings:
-<code>powershell
-@{
-    NonNodeData = @{
-        Teams = @{
-            ChannelsPolicies = @(
-                @{
-                    AllowChannelSharingToExternalUser  = $true
-                }
-            )
-        }
-    }
-}
-</code></p>
-<p>In this example, the <code>DEV</code> tenant specific configuration contains the following settings:
-<code>powershell
-@{
-    NonNodeData = @{
-        Teams = @{
-            ChannelsPolicies = @(
-                @{
-                    AllowOrgWideTeamCreation = $true
-                }
-            )
-        }
-        AzureAD = @{
-            TenantDetails = @(
-                @{
-                    TenantId = DEV
-                }
-            )
-        }
-    }
-}
-</code></p>
-<p>In this example, the <code>NLE</code> tenant specific configuration contains the following settings:
-<code>powershell
-@{
-    NonNodeData = @{
-        Teams = @{
-            ChannelsPolicies = @(
-                @{
-                    AllowOrgWideTeamCreation = $true
-                }
-            )
-        }
-        AzureAD = @{
-            TenantDetails = @(
-                @{
-                    TenantId = NLE
-                }
-            )
-        }
-    }
-}
-</code></p>
-<p>In this example, the <code>PROD</code> tenant specific configuration contains the following settings:
-<code>powershell
-@{
-    NonNodeData = @{
-        AzureAD = @{
-            TenantDetails = @(
-                @{
-                    TenantId = PROD
-                }
-            )
-        }
-    }
-}
-</code></p>
-<p>When the build pipeline runs, it will read and merge the various datafiles contained within the Configuration repository using the logic displayed within the diagram shown below, resulting in applied settings within each tenants MOF file shown at the bottom of the flow.</p>
+<p>In this example, the <code>Basic</code> configuration contains the following settings:</p>
+<div class="highlight"><pre class="highlight powershell" tabindex="0"><code><span class="p">@{</span><span class="w">
+    </span><span class="nx">NonNodeData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w">
+        </span><span class="nx">Teams</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w">
+            </span><span class="nx">ChannelsPolicies</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@(</span><span class="w">
+                </span><span class="p">@{</span><span class="w">
+                    </span><span class="nx">AllowOrgWideTeamCreation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">$false</span><span class="w">
+                    </span><span class="nx">AllowChannelSharingToExternalUser</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="bp">$true</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">)</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>In this example, the <code>Mandatory</code> configuration contains the following settings:</p>
+<div class="highlight"><pre class="highlight powershell" tabindex="0"><code><span class="p">@{</span><span class="w">
+    </span><span class="nx">NonNodeData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w">
+        </span><span class="nx">Teams</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w">
+            </span><span class="nx">ChannelsPolicies</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@(</span><span class="w">
+                </span><span class="p">@{</span><span class="w">
+                    </span><span class="nx">AllowChannelSharingToExternalUser</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="bp">$true</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">)</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>In this example, the <code>DEV</code> tenant specific configuration contains the following settings:</p>
+<div class="highlight"><pre class="highlight powershell" tabindex="0"><code><span class="p">@{</span><span class="w">
+    </span><span class="nx">NonNodeData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w">
+        </span><span class="nx">Teams</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w">
+            </span><span class="nx">ChannelsPolicies</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@(</span><span class="w">
+                </span><span class="p">@{</span><span class="w">
+                    </span><span class="nx">AllowOrgWideTeamCreation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">$true</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">)</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+        </span><span class="nx">AzureAD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w">
+            </span><span class="nx">TenantDetails</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@(</span><span class="w">
+                </span><span class="p">@{</span><span class="w">
+                    </span><span class="nx">TenantId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">DEV</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">)</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>In this example, the <code>NLE</code> tenant specific configuration contains the following settings:</p>
+<div class="highlight"><pre class="highlight powershell" tabindex="0"><code><span class="p">@{</span><span class="w">
+    </span><span class="nx">NonNodeData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w">
+        </span><span class="nx">Teams</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w">
+            </span><span class="nx">ChannelsPolicies</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@(</span><span class="w">
+                </span><span class="p">@{</span><span class="w">
+                    </span><span class="nx">AllowOrgWideTeamCreation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">$true</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">)</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+        </span><span class="nx">AzureAD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w">
+            </span><span class="nx">TenantDetails</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@(</span><span class="w">
+                </span><span class="p">@{</span><span class="w">
+                    </span><span class="nx">TenantId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">NLE</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">)</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>In this example, the <code>PROD</code> tenant specific configuration contains the following settings:</p>
+<div class="highlight"><pre class="highlight powershell" tabindex="0"><code><span class="p">@{</span><span class="w">
+    </span><span class="nx">NonNodeData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w">
+        </span><span class="nx">AzureAD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w">
+            </span><span class="nx">TenantDetails</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@(</span><span class="w">
+                </span><span class="p">@{</span><span class="w">
+                    </span><span class="nx">TenantId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">PROD</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">)</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>When the build pipeline runs, it will read and merge the various datafiles contained within the Configuration repository using the logic displayed within the diagram shown below, resulting in applied settings within each tenants MOF file shown at the bottom of the flow.</p>
 
 <pre class="mermaid">
 flowchart TD
