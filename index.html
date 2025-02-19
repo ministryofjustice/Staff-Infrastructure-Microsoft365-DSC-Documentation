@@ -467,7 +467,7 @@
 <p>The following section is intended to visualise how settings would be applied to DEV, NLE &amp; PROD based on how various workload settings were configured within different data files.</p>
 <p>In this example, the <code>Basic</code> configuration contains the following settings:
 <code>powershell
-﻿@{
+@{
     NonNodeData = @{
         Teams = @{
             ChannelsPolicies = @(
@@ -482,7 +482,7 @@
 </code></p>
 <p>In this example, the <code>Mandatory</code> configuration contains the following settings:
 <code>powershell
-﻿@{
+@{
     NonNodeData = @{
         Teams = @{
             ChannelsPolicies = @(
@@ -496,7 +496,7 @@
 </code></p>
 <p>In this example, the <code>DEV</code> tenant specific configuration contains the following settings:
 <code>powershell
-﻿@{
+@{
     NonNodeData = @{
         Teams = @{
             ChannelsPolicies = @(
@@ -517,7 +517,7 @@
 </code></p>
 <p>In this example, the <code>NLE</code> tenant specific configuration contains the following settings:
 <code>powershell
-﻿@{
+@{
     NonNodeData = @{
         Teams = @{
             ChannelsPolicies = @(
@@ -538,7 +538,7 @@
 </code></p>
 <p>In this example, the <code>PROD</code> tenant specific configuration contains the following settings:
 <code>powershell
-﻿@{
+@{
     NonNodeData = @{
         AzureAD = @{
             TenantDetails = @(
@@ -550,41 +550,65 @@
     }
 }
 </code></p>
-<p>When the build pipeline runs, it will read and merge the various datafiles contained within the Configuration repository using the logic displayed within the diagram shown below, resulting in applied settings within each tenants MOF file shown at the bottom of the flow.
-<code>mermaid
+<p>When the build pipeline runs, it will read and merge the various datafiles contained within the Configuration repository using the logic displayed within the diagram shown below, resulting in applied settings within each tenants MOF file shown at the bottom of the flow.</p></p>
+
+<pre class="mermaid">
 flowchart TD
-    A[Build Pipeline start] --&gt; B[Read and merge Mandatory configuration files]
-    B --&gt; C[Read and merge Basic configuration files]
-    C --&gt; D{Mandatory settings present in Basic?}
-    D --&gt;|PASS| E[Read and merge Environment-specific configuration files]
-    D --&gt;|FAIL| F[Error: Mandatory settings missing in Basic]
-    E --&gt; G{Mandatory settings absent in Environment?}
-    G --&gt;|PASS| H[Merge Basic and Environment configurations]
-    G --&gt;|FAIL| J[Error: Mandatory settings present in Environment]
-    H --&gt; I[Build script completed successfully]
-    H --&gt; J1[Applied Settings]
-    J1 --&gt; K[DEV: AllowChannelSharingToExternalUser = true, AllowOrgWideTeamCreation = true,TenantId = DEV]
-    J1 --&gt; L[NLE: AllowChannelSharingToExternalUser = true, AllowOrgWideTeamCreation = true, TenantId = NLE]
-    J1 --&gt; M[PROD: AllowChannelSharingToExternalUser = true, AllowOrgWideTeamCreation = false, TenantId = PROD]
-</code></p>
+    A[Build Pipeline start] --> B[Read and merge Mandatory configuration files]
+    B --> C[Read and merge Basic configuration files]
+    C --> D{Mandatory settings present in Basic?}
+    D -->|PASS| E[Read and merge Environment-specific configuration files]
+    D -->|FAIL| F[Error: Mandatory settings missing in Basic]
+    E --> G{Mandatory settings absent in Environment?}
+    G -->|PASS| H[Merge Basic and Environment configurations]
+    G -->|FAIL| J[Error: Mandatory settings present in Environment]
+    H --> I[Build script completed successfully]
+    H --> J1[Applied Settings]
+    J1 --> K[DEV: AllowChannelSharingToExternalUser = true, AllowOrgWideTeamCreation = true,TenantId = DEV]
+    J1 --> L[NLE: AllowChannelSharingToExternalUser = true, AllowOrgWideTeamCreation = true, TenantId = NLE]
+    J1 --> M[PROD: AllowChannelSharingToExternalUser = true, AllowOrgWideTeamCreation = false, TenantId = PROD]
+    </pre>
+
 <h2 id="compliancy-checks">Compliancy Checks</h2>
+
 <p>This solution runs the Check Compliancy pipeline twice daily, once at 08:00 and once at 18:00 daily. When this pipeline runs it checks the configuration of each tenant that are under management of Microsoft 365 DSC against the data files that are specified in the configuration repositories to make sure all workload settings that are defined within DSC are compliant. At current maturity this solution does not enforce automatic remediation actions if DSC notices a configuration drift within the tenant, the results of these checks are sent to XXXXXXXXX for administrators to observe.</p>
+
 <p>By continuously monitoring the environment, MoJ ensure that the tenants are in their intended state before the start of, and at the end of, the organisations core working hours reducing the risk of misconfigurations that may impact the end user experience or security posture.</p>
+
 <h2 id="breaking-changes">Breaking Changes</h2>
+
 <h3 id="what-are-breaking-changes">What are breaking changes?</h3>
+
 <p>Microsoft 365 is under constant development, which means that functionalities are being added, deprecated or removed all the time. Microsoft365DSC has to adapt to these changes and at the same time make sure existing users and configurations are impacted as little as possible.</p>
+
 <p>In the cases where a new resource is added, a resource gets a new optional parameter or a parameter that used to be mandatory becomes optional, existing configurations are not impacted. But when a resource or parameter is removed or an optional parameter becomes mandatory, existing configurations can stop functioning, because they are using these removed components. That is what is called a “Breaking Change”: A change that can break existing configurations and therefore impact the administration process of Microsoft 365.</p>
+
 <p>Twice a year Microsoft release a version that bundles all breaking changes of the previous six months into a single version, these releases occur in April and October annually.</p>
+
 <h3 id="how-we-handle-the-breaking-changes-release-schedule">How we handle the breaking changes release schedule</h3>
+
 <p>The release notes of the breaking changes versions will have all breaking changes clearly documented, including the required actions to take, which are almost certain to be required.</p>
+
 <p>MoJ will lag the release of the breaking changes release by 8 weeks, to give a chance for the community to identify any issues or bugs with the latest release before carrying out a version uplift to the estate.</p>
+
 <p>The version of Microsoft 365 DSC this solution is deployed with is managed by the application platform team as primary owners of the CICD configuration. Application platform will lead on the discovery and release of the breaking changes release to ensure that all product teams who manage their workloads via Microsoft 365 DSC are working together to evaluate the release and identify what changes are required to our configuration.</p>
+
 <h2 id="reference">Reference</h2>
+
 <p><a href="https://github.com/microsoft/Microsoft365DSC">Microsoft 365 DSC GitHub Repository</a></p>
+
 <p><a href="https://github.com/ykuijs/Microsoft%20365%20DSCTools">Microsoft 365 DSCTools GitHub Repository</a></p>
+
 <p><a href="https://github.com/ykuijs/Microsoft%20365%20DSC.CompositeResources">Microsoft 365 DSCCompositeResources GitHub Repository</a></p>
+
 <h2 id="adding-to-this-page">Adding to this page</h2>
-<p>If there’s an update required, or something missing you believe others may find helpful, please either let us know and we’ll add a new article, or if you’re comfortable writing one yourself, PRs will be gratefully received. Details on how to get in touch are in the “Getting Help” section above, and the “GitHub” link at the top right of this page will take you to the repository for this guide.</p></p>
+
+<p>If there’s an update required, or something missing you believe others may find helpful, please either let us know and we’ll add a new article, or if you’re comfortable writing one yourself, PRs will be gratefully received. Details on how to get in touch are in the “Getting Help” section above, and the “GitHub” link at the top right of this page will take you to the repository for this guide.</p>
+
+<script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true });
+</script>
 
             
           </main>
