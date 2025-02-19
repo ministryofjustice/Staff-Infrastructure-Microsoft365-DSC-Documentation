@@ -211,7 +211,7 @@ The following section is intended to visualise how settings would be applied to 
 
 In this example, the `Basic` configuration contains the following settings:
 ```powershell
-﻿@{
+@{
 	NonNodeData = @{
 		Teams = @{
 			ChannelsPolicies = @(
@@ -227,7 +227,7 @@ In this example, the `Basic` configuration contains the following settings:
 
 In this example, the `Mandatory` configuration contains the following settings:
 ```powershell
-﻿@{
+@{
 	NonNodeData = @{
 		Teams = @{
 			ChannelsPolicies = @(
@@ -242,7 +242,7 @@ In this example, the `Mandatory` configuration contains the following settings:
 
 In this example, the `DEV` tenant specific configuration contains the following settings:
 ```powershell
-﻿@{
+@{
 	NonNodeData = @{
 		Teams = @{
 			ChannelsPolicies = @(
@@ -264,7 +264,7 @@ In this example, the `DEV` tenant specific configuration contains the following 
 
 In this example, the `NLE` tenant specific configuration contains the following settings:
 ```powershell
-﻿@{
+@{
 	NonNodeData = @{
 		Teams = @{
 			ChannelsPolicies = @(
@@ -286,7 +286,7 @@ In this example, the `NLE` tenant specific configuration contains the following 
 
 In this example, the `PROD` tenant specific configuration contains the following settings:
 ```powershell
-﻿@{
+@{
 	NonNodeData = @{
 		AzureAD = @{
 			TenantDetails = @(
@@ -301,14 +301,7 @@ In this example, the `PROD` tenant specific configuration contains the following
 
 When the build pipeline runs, it will read and merge the various datafiles contained within the Configuration repository using the logic displayed within the diagram shown below, resulting in applied settings within each tenants MOF file shown at the bottom of the flow.
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mermaid Diagram</title>
-  <script src="path/to/mermaid-config.js"></script>
-</head>
-
-```mermaid
+<pre class="mermaid">
 flowchart TD
     A[Build Pipeline start] --> B[Read and merge Mandatory configuration files]
     B --> C[Read and merge Basic configuration files]
@@ -323,7 +316,7 @@ flowchart TD
     J1 --> K[DEV: AllowChannelSharingToExternalUser = true, AllowOrgWideTeamCreation = true,TenantId = DEV]
     J1 --> L[NLE: AllowChannelSharingToExternalUser = true, AllowOrgWideTeamCreation = true, TenantId = NLE]
     J1 --> M[PROD: AllowChannelSharingToExternalUser = true, AllowOrgWideTeamCreation = false, TenantId = PROD]
-    ```
+	</pre>
 
 
 
@@ -368,3 +361,29 @@ The version of Microsoft 365 DSC this solution is deployed with is managed by th
 
 If there’s an update required, or something missing you believe others may find helpful, please either let us know and we’ll add a new article, or if you’re comfortable writing one yourself, PRs will be gratefully received. Details on how to get in touch are in the “Getting Help” section above, and the “GitHub” link at the top right of this page will take you to the repository for this guide.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true });
+</script>
