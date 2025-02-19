@@ -122,7 +122,7 @@
             </ul>
           </li>
           <li>
-            <a href="#azure-well-architected-framework-alignment"><span>Azure Well-Architected Framework Alignment</span></a>
+            <a href="#well-architected-framework-alignment"><span>Well-Architected Framework Alignment</span></a>
             <ul>
               <li>
                 <a href="#reliability"><span>Reliability</span></a>
@@ -167,7 +167,7 @@
             <a href="#what-should-be-managed-in-microsoft-365-dsc"><span>What should be managed in Microsoft 365 DSC?</span></a>
           </li>
           <li>
-            <a href="#shared-responsobility"><span>Shared Responsobility</span></a>
+            <a href="#shared-responsibility"><span>Shared Responsibility</span></a>
           </li>
           <li>
             <a href="#getting-help"><span>Getting Help</span></a>
@@ -292,8 +292,8 @@
 <li>Download secrets: Download all required certificates from the Key Vault, so they can be used by the agent.</li>
 <li>Deploy configurations: Deploy the MOF file to the target Microsoft 365 tenant.</li>
 </ol>
-<h3 id="azure-well-architected-framework-alignment">Azure Well-Architected Framework Alignment</h3>
-<p>This section details how our solution aligns with the Microsoft Well-Architected Framework, ensuring a robust, secure, and efficient architecture. By adhering to the five core pillars of the framework—Reliability, Security, Cost Optimization, Operational Excellence, and Performance Efficiency—we have designed a solution that meets the standards set out in the framework. Our approach includes implementing stringent security measures to protect data integrity and confidentiality, optimising costs through efficient resource management, and ensuring operational excellence with comprehensive monitoring and automated systems.</p>
+<h3 id="well-architected-framework-alignment">Well-Architected Framework Alignment</h3>
+<p>This section details how our solution aligns with the Microsoft Well-Architected Framework alongside CAF &amp; NCSC guidance, ensuring a robust, secure, and efficient architecture. By adhering to the five core pillars of the framework—Reliability, Security, Cost Optimization, Operational Excellence, and Performance Efficiency—we have designed a solution that meets the standards set out in the framework. Our approach includes implementing stringent security measures to protect data integrity and confidentiality, optimising costs through efficient resource management, and ensuring operational excellence with comprehensive monitoring and automated systems.</p>
 <h4 id="reliability">Reliability</h4>
 <p>Deploying a Managed DevOps Pool to run our pipelines on significantly enhances reliability. Managed DevOps Pools provide a fully managed service where virtual machines powering the agents rely on Microsofts infrastructure for reliability ensuring that availability and fault tolerance is managed by Microsoft therefore reducing the risk of downtime and improving overall system stability. The managed nature of these pools means that updates, scaling, and maintenance are handled automatically, ensuring consistent performance and minimizing disruption</p>
 <h4 id="security">Security</h4>
@@ -328,7 +328,7 @@
 <h3 id="what-should-be-managed-in-microsoft-365-dsc">What should be managed in Microsoft 365 DSC?</h3>
 <p>The intended scope of management in Microsoft 365 DSC should focus on persistent, core configuration settings that are crucial for maintaining the desired state and security posture of the tenants. This includes global settings such as isSingleInstance = $true, as well as workload settings such as conditional access policies, MPIP labels &amp; EXO organisation config.</p>
 <p>Microsoft 365 DSC is not intended for managing disposable or high volume configurations, such as user management or business driven security groups, which are more transient and subject to frequent changes. By concentrating on stable, foundational settings, Microsoft 365 DSC ensures a consistent and secure configuration baseline across the organisation.</p>
-<h3 id="shared-responsobility">Shared Responsobility</h3>
+<h3 id="shared-responsibility">Shared Responsibility</h3>
 <p>The following diagram details the split of responsibility for components that make up this service.</p>
 <p><a href="../images/responsibility-matrix.png" rel="noopener noreferrer"><img src="../images/responsibility-matrix.png" title="responsibility-matrix" alt="responsibility-matrix" /></a></p>
 <h3 id="getting-help">Getting Help</h3>
@@ -491,11 +491,11 @@ flowchart TD
     G -->|PASS| H[Merge Basic and Environment configurations]
     G -->|FAIL| J[Error: Mandatory settings present in Environment]
     H --> I[Build script completed successfully]
-    H --> J1[Applied Settings]
+    H --> J1[Applied Settings in MOF files]
     J1 --> K[DEV: AllowChannelSharingToExternalUser = true, AllowOrgWideTeamCreation = true,TenantId = DEV]
     J1 --> L[NLE: AllowChannelSharingToExternalUser = true, AllowOrgWideTeamCreation = true, TenantId = NLE]
     J1 --> M[PROD: AllowChannelSharingToExternalUser = true, AllowOrgWideTeamCreation = false, TenantId = PROD]
-    </pre>
+</pre>
 <h2 id="compliancy-checks">Compliancy Checks</h2>
 <p>This solution runs the Check Compliancy pipeline twice daily, once at 08:00 and once at 18:00 daily. When this pipeline runs it checks the configuration of each tenant that are under management of Microsoft 365 DSC against the data files that are specified in the configuration repositories to make sure all workload settings that are defined within DSC are compliant. At current maturity this solution does not enforce automatic remediation actions if DSC notices a configuration drift within the tenant, the results of these checks are sent to XXXXXXXXX for administrators to observe.</p>
 <p>By continuously monitoring the environment, MoJ ensure that the tenants are in their intended state before the start of, and at the end of, the organisations core working hours reducing the risk of misconfigurations that may impact the end user experience or security posture.</p>
