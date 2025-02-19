@@ -608,7 +608,13 @@ flowchart TD
   import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
   mermaid.initialize({
     startOnLoad: true,
-    theme: 'dark',
+    theme: 'base',
+    themeVariables: {
+      primaryColor: '#3B71B7', // GOV UK blue colour
+      primaryTextColor: '#ffffff', // White text for contrast
+      primaryBorderColor: '##2F5A91', // Darker blue border
+      lineColor: '#333333', // Dark grey lines
+    }
   });
 </script>
 
