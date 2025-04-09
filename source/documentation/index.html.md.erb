@@ -19,6 +19,7 @@ Microsoft365DSC is built as a module for the [PowerShell Desired State Configura
 This solution provides a comprehensive framework for automating the management of Microsoft 365 configurations using Microsoft365DSC and Azure DevOps. It is composed of two Git repositories:
 
 [Staff-Infrastructure-Microsoft365-DSC-Configuration](https://github.com/ministryofjustice/Staff-Infrastructure-Microsoft365-DSC-Configuration)
+
 [Staff-Infrastructure-Microsoft365-DSC-Infrastructure](https://github.com/ministryofjustice/Staff-Infrastructure-Microsoft365-DSC-Infrastructure)
 
 These repositories work together to enable configuration management, compliance testing, and deployment orchestration for the MoJ’s Microsoft 365 environments.
@@ -130,6 +131,7 @@ The Scripts directory in the Infrastructure repository contains PowerShell scrip
 
 
 
+
 ## Guidance 
 
 <Add content>
@@ -201,7 +203,7 @@ The following diagram details the split of responsibility for components that ma
 
 ### Getting Help
 
-The CICD infrastructure that delivers the configuration to our M365 tenants is owned by the application platform team, if you wish to raise a bug or make a feature request with the service please contact them using their [shared team mailbox](mailto:powerplatformteam@justice.gov.uk) , or create a GitHub issue on the CICD repository. 
+The CICD infrastructure that delivers the configuration to our M365 tenants is owned by the [EUCS automation platform](https://github.com/orgs/ministryofjustice/teams/eucs-automation-platform-admins) team, if you wish to raise a bug or make a feature request with the service please contact them using their [shared team mailbox](mailto:powerplatformteam@justice.gov.uk) , or create a GitHub issue on the CICD repository. 
 
 If you require help with, or want to discuss configuration changes for a specific M365 product that is being managed by Microsoft 365 DSC please reach out to the relevant team as per the below table:
 
@@ -226,7 +228,7 @@ If you require help with, or want to discuss configuration changes for a specifi
 
 
 
-## Configuration
+## Managing Configuration
 
 The following section details how the workload configuration is set between the various data files within the Configuration repository.
 
@@ -234,33 +236,39 @@ The following section details how the workload configuration is set between the 
 
 A data file in PowerShell Desired State Configuration is a structured file that contains configuration data, such as node-specific settings and environment variables, which are used to customise and manage the desired state of target nodes (in this instance, tenants)
 
-When reviewing the Configuration repository, you will see a folder called `datafiles`. This folder contains two child folders, one named `environments` and another called `templates`
+When reviewing the Configuration repository, you will see a folder called `datafiles`. This folder contains two child folders, one named `Tenants` and another called `templates`
 
-The `environments` folder contains all of the tenant specific configuration files, the `templates` folder contains all of the global configuration files that are to be applied to all tenants under the management of Microsoft 365 DSC.
+The `Tenants` folder contains all of the tenant specific configuration files, the `templates` folder contains all of the global configuration files that are to be applied to all tenants under the management of Microsoft 365 DSC.
 
 ### Global Settings
 
-#### Basic
+#### Global
 
-The basic layer data files define the global workload settings that will be applied to all tenants that are under the management of Microsoft 365 DSC as the base configuration.
+The global layer data files define the workload settings that will be applied to all tenants that are under the management of Microsoft 365 DSC as the base configuration.
 
-#### Mandatory
+Location: Staff-Infrastructure-Microsoft365-DSC-Configuration\DataFiles\Templates\Global\Global*.psd1
 
-The mandatory data files define settings that are enforced for all environments. Settings in this file must be present in the basic files with the same values and cannot be specified in any of the environment specific files.
+#### Enforced
 
-These settings are validated using a to a unit test approach during the build pipeline, this is first validated against the basic layer, requiring all settings that are present in the mandatory data files to be configured exactly as specified in the related basic datafiles. If this test is successful a second unit test is carried out against the environment layer checking that none of the settings are present within tenant specific files, preventing all settings in the Mandatory layer from being overridden with different values.
+The enforced data files define settings that are enforced for all environments. Settings in this file must be present in the global files with the same values and cannot be specified in any of the tenants specific files.
+
+These settings are validated using a to a unit test approach during the build pipeline, this is first validated against the global layer, requiring all settings that are present in the enforced data files to be configured exactly as specified in the related Global datafiles. If this test is successful a second unit test is carried out against the tenant layer checking that none of the settings are present within tenant specific files, preventing all settings in the Enforced layer from being overridden with different values.
+
+Location: Staff-Infrastructure-Microsoft365-DSC-Configuration\DataFiles\Templates\Enforced\Enforced*.psd1
 
 ### Tenant Specific Settings
 
-#### Environment
+#### Tenant
 
-The Environment layer are the settings that are tenant specific. Either because the workload setting is specific to only that tenant so cannot be present in the basic configuration, or because you want to override a setting from the Basic layer (SettingX = 1 in Basic, but for this environment it should be SettingX = 2)
+These are the settings that are tenant specific. Either because the workload setting is specific to only that tenant so cannot be present in the global configuration, or because you want to override a setting from the Global layer (SettingX = 1 in Global, but for this tenant it should be SettingX = 2)
+
+Location: Staff-Infrastructure-Microsoft365-DSC-Configuration\DataFiles\Tenants\<Tenant>\<TenantName><WorkloadName>.psd1
 
 ### Example Configuration 
 
 The following section is intended to visualise how settings would be applied to DEV, NLE & PROD based on how various workload settings were configured within different data files.
 
-In this example, the `Basic` configuration contains the following settings:
+In this example, the `Global` configuration contains the following settings:
 
 ```powershell
 @{
@@ -277,7 +285,7 @@ In this example, the `Basic` configuration contains the following settings:
 }
 ```
 
-In this example, the `Mandatory` configuration contains the following settings:
+In this example, the `Enforced` configuration contains the following settings:
 
 ```powershell
 @{
@@ -359,14 +367,14 @@ When the build pipeline runs, it will read and merge the various datafiles conta
 
 <pre class="mermaid">
 flowchart TD
-    A[Build Pipeline start] --> B[Read and merge Mandatory configuration files]
-    B --> C[Read and merge Basic configuration files]
-    C --> D{Mandatory settings present in Basic?}
-    D -->|PASS| E[Read and merge Environment-specific configuration files]
-    D -->|FAIL| F[Error: Mandatory settings missing in Basic]
-    E --> G{Mandatory settings absent in Environment?}
-    G -->|PASS| H[Merge Basic and Environment configurations]
-    G -->|FAIL| J[Error: Mandatory settings present in Environment]
+    A[Build Pipeline start] --> B[Read and merge Enforced configuration files]
+    B --> C[Read and merge Global configuration files]
+    C --> D{Mandatory settings present in Global?}
+    D -->|PASS| E[Read and merge Tenant-specific configuration files]
+    D -->|FAIL| F[Error: Enforced settings missing in Global]
+    E --> G{Enforced settings absent in Tenant?}
+    G -->|PASS| H[Merge Global and Tenant configurations]
+    G -->|FAIL| J[Error: Enforced settings present in Tenant]
     H --> I[Build script completed successfully]
     H --> J1[Applied Settings in MOF files]
     J1 --> K[DEV: 
@@ -384,8 +392,31 @@ flowchart TD
 </pre>
 
 
+### Understanding Available Properties 
+
+To understand the available properties and settings for a given version of Microsoft365DSC, you can use the M365DSC.CompositeResources module. This module provides a complete reference of all resources and settings.
+
+To export an example data file to a location of your choice, follow these steps:
+1. Install the M365DSC.CompositeResources module:
+	```powershell
+	   Install-Module -Name M365DSC.CompositeResources -Force
+	```
+2. Run the following command to generate an example data file:
+	```powershell
+	   New-M365DSCExampleDataFile -OutputPath "C:\Path\To\Output"
+	```
+This will create a sample configuration file with all available properties.
+
+For more details, refer to the [New-M365DSCExampleDataFile documentation](https://github.com/ykuijs/M365DSC.CompositeResources/blob/main/source/Public/New-M365DSCExampleDataFile.ps1)
 
 
+
+### Exporting Existing Configurations 
+
+You can export the existing configuration from a tenant using the Export Pipeline. This pipeline produces an artifact containing both the raw DSC output and the composite module (where available) for the workloads defined in the tenants generic file. 
+
+* Pipeline: Staff-Infrastructure-Microsoft365-DSC-Configuration\Pipelines\export.yaml
+* Script: Staff-Infrastructure-Microsoft365-DSC-Infrastructure\Scripts\Export.ps1
 
 
 ## Compliancy Checks 
