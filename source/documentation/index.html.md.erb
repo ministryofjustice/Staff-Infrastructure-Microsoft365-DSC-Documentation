@@ -14,23 +14,16 @@ It is the primary tool used by the MoJ to automate the management of the organis
 
 Microsoft365DSC is built as a module for the [PowerShell Desired State Configuration](https://learn.microsoft.com/en-us/powershell/scripting/dsc/overview) framework and is made available via the [PowerShell Gallery](https://www.powershellgallery.com/packages/Microsoft365DSC).
 
-## Overview 
+## Solution Overview 
 
-### Architecture 
+This solution provides a comprehensive framework for automating the management of Microsoft 365 configurations using Microsoft365DSC and Azure DevOps. It is composed of two Git repositories:
+
+[Staff-Infrastructure-Microsoft365-DSC-Configuration](https://github.com/ministryofjustice/Staff-Infrastructure-Microsoft365-DSC-Configuration)
+[Staff-Infrastructure-Microsoft365-DSC-Infrastructure](https://github.com/ministryofjustice/Staff-Infrastructure-Microsoft365-DSC-Infrastructure)
+
+These repositories work together to enable configuration management, compliance testing, and deployment orchestration for the MoJ’s Microsoft 365 environments.
 
 ![workflow diagram](../images/workflow-diagram.png "workflow diagram")
-
-### Workflow
-
-1. Admin creates a new branch from the `main` Staff-Infrastructure-Microsoft365-DSC-Configuration repository, with a name relevant to the change they are making e.g. `DEV-TeamsMeetingPolicy-update`
-2. Admin makes the required configuration changes to the data files necessary to the change they are making
-3. Admin commits and syncs the changes to the forked repository
-4. Admin creates a pull request (PR) to merge the changes to the `main` repository, proving a description of what changes have been made to allow others to more efficiently peer review the work
-5. The build pipeline runs on the PR
-6. Depending on the files that have been changed the relevant lead engineers or architects will be asked to review and approve the change, this is defined based on the content of the `codeowners` file
-7. The merged PR triggers a pipeline to compile Managed Object Format (MOF) files. The pipeline calls Azure Key Vault to retrieve the credentials that are used by the tenant specific service principle(s) in the MOF files, and publishes the artifacts ready for deployment
-8. The release pipeline is triggered that uses the compiled MOF files to deploy configuration changes to the tenants that are managed via Microsoft365DSC
-9. Admin who committed the changes reviews the relevant pipeline & config in the M365 admin center to confirm the expected changes have been successfully applied
 
 ### Components
 
@@ -42,30 +35,6 @@ Microsoft365DSC is built as a module for the [PowerShell Desired State Configura
 * Microsoft365DSC - provides automation for the deployment, configuration, and monitoring of Microsoft 365 tenants via PowerShell Desired Stage Configuration (DSC). Microsoft365DSC is used to deploy configuration changes to the Microsoft 365 tenants via Azure Pipelines.
 * Windows PowerShell DSC - is a management platform in PowerShell. You can use it to manage your development infrastructure by using a configuration-as-code model. This model is the underlying technology that Microsoft365DSC uses.
 * GitHub - GitHub is the leading platform used for version control and collaboration of code within the MoJ, enabling developers to manage and share their code, track changes, and collaborate on projects seamlessly.
-
-
-### Pipelines 
-
-#### Build Pipeline
-
-When a PR is merged, the Build pipeline is triggered. This pipeline performs these steps:
-
-1. Prepare the agent: Install all prerequisite modules and configure settings on the agent.
-2. Validate secrets: Check if all secrets used in the data files actually exist in the Azure Key Vault.
-3. Pre build: Run several unit tests making sure all data is valid. This step also merges the data files in the Basic and Tenant data files.
-4. Build: Compile the merged data files into a MOF file, which can then be deploy
-5. Post build: This step updates configuration in Azure DevOps making sure the deployment matches the configuration specified in the `environment#generic.psd1` files.
-6. Publish artifacts: The Build process not just generates the MOF files, but also saves the merged data files. These are also included in the artifacts, so they can be used for troubleshooting
-
-
-#### Release pipeline
-
-After a successful build, a Release pipeline is triggered. Based on the deployment order defined in the data files, the Release pipeline executes the following steps for each tenant:
-
-1. Configure the agent: Configure required settings on the agent.
-2. Prepare modules: Download all required modules from the Azure Blob Storage.
-3. Download secrets: Download all required certificates from the Key Vault, so they can be used by the agent.
-4. Deploy configurations: Deploy the MOF file to the target Microsoft 365 tenant.
 
 ### Well-Architected Framework Alignment
 
@@ -96,6 +65,68 @@ This approach aligns with industry best practices for managing DSC configuration
 This architecture makes use of a storage account to cache the Microsoft 365 DSC modules and its prerequisites to make them readily available to the agent pool upon each pipeline run. When a new version of Microsoft 365 DSC is specified in the CICD repository, a pipeline will automatically make sure the prerequisites are downloaded, packaged and uploaded to the specified Blob Storage, this improves the performance of each pipeline run by decreasing the agent preparation time therefore improving the performance efficiency of the solution.
 
 
+### Pipelines 
+
+The Pipelines directory in the Configuration repository contains Azure DevOps pipeline definitions:
+
+* build.yaml: Builds MOF files from configuration data.
+* dependencies.yaml: Manages dependencies and secrets for tenants.
+* deployment.yaml: Deploys configurations to Microsoft 365 tenants.
+* export.yaml: Exports tenant configurations for auditing.
+* prvalidation.yaml: Validates pull requests for configuration changes.
+* testcompliancy.yaml: Tests tenant compliance with desired configurations.
+
+These pipelines extend templates from the Infrastructure repository to execute the orchestration logic.
+
+### Scripts 
+
+The Scripts directory in the Infrastructure repository contains PowerShell scripts for orchestration:
+
+* Build.ps1: Compiles MOF files from configuration data.
+* CheckDscCompliance.ps1: Tests tenant compliance with desired configurations and generates reports.
+* Deploy.ps1: Deploys configurations to Microsoft 365 tenants.
+* Export.ps1: Exports tenant configurations for auditing.
+* SupportFunctions.psm1: Contains helper functions used across scripts.
+
+
+### Workflow
+
+1. Admin creates a new branch from the `main` Staff-Infrastructure-Microsoft365-DSC-Configuration repository, with a name relevant to the change they are making e.g. `DEV-TeamsMeetingPolicy-update`
+2. Admin makes the required configuration changes to the data files necessary to the change they are making
+3. Admin commits and syncs the changes to the feature branch
+4. Admin creates a pull request (PR) to merge the changes to the `main` repository, proving a description of what changes have been made to allow others to more efficiently peer review the work
+5. The build pipeline runs on the PR
+6. Depending on the files that have been changed the relevant lead engineers or architects will be asked to review and approve the change, this is defined based on the content of the `codeowners` file
+7. The merged PR triggers a pipeline to compile Managed Object Format (MOF) files. The pipeline calls Azure Key Vault to retrieve the credentials that are used by the tenant specific service principle(s) in the MOF files, and publishes the artifacts ready for deployment
+8. The deployment pipeline is triggered that uses the compiled MOF files to deploy configuration changes to the tenants that are managed via Microsoft365DSC
+9. Admin who committed the changes reviews the relevant pipeline & config in the M365 admin center to confirm the expected changes have been successfully applied
+
+#### Build and Validation
+1. Build Pipeline (build.yaml):
+	* Compiles MOF files from tenant configuration data.
+	* Copies necessary scripts and resources to the output directory.
+
+2. Pull Request Validation (prvalidation.yaml):
+	* Validates configuration changes in pull requests.
+	* Ensures compliance with naming and encoding standards.
+
+#### Deployment
+1. Dependency Management (dependencies.yaml):
+	* Retrieves secrets from Azure Key Vault.
+	* Prepares dependencies for deployment.
+
+2. Deployment Pipeline (deployment.yaml):
+	* Deploys configurations to Microsoft 365 tenants.
+	* Executes orchestration logic from the Infrastructure repository.
+
+#### Compliance Testing
+1. Compliance Testing Pipeline (testcompliancy.yaml):
+	* Tests tenant compliance with desired configurations.
+	* Generates HTML compliance reports.
+
+2. Export Pipeline (export.yaml):
+	* Deploys configurations to Microsoft 365 tenants.
+	* Exports tenant configurations for auditing and traceability.
 
 
 
