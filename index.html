@@ -163,6 +163,43 @@
         </ul>
       </li>
       <li>
+        <a href="#governance"><span>Governance</span></a>
+        <ul>
+          <li>
+            <a href="#code-ownership-with-codeowners"><span>Code Ownership with CODEOWNERS</span></a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <a href="#responsible-for-managing-core-files-such-as-generic-files-and-pipelines"><span>Responsible for managing core files such as generic files and pipelines</span></a>
+  </li>
+  <li>
+    <a href="#modern-workplace-admins-team"><span>Modern Workplace Admins Team</span></a>
+  </li>
+  <li>
+    <a href="#responsible-for-managing-workload-specific-configurations-across-tenant-global-and-enforced-layers"><span>Responsible for managing workload-specific configurations across tenant, global, and enforced layers</span></a>
+  </li>
+  <li>
+    <a href="#default-ownership-for-all-other-files"><span>Default ownership for all other files</span></a>
+    <ul>
+      <li>
+        <ul>
+          <li>
+          </li>
+          <li>
+            <a href="#branch-protection-rules"><span>Branch Protection Rules</span></a>
+          </li>
+          <li>
+            <a href="#file-authoring-workflows"><span>File Authoring Workflows</span></a>
+          </li>
+          <li>
+            <a href="#summary"><span>Summary</span></a>
+          </li>
+        </ul>
+      </li>
+      <li>
         <a href="#onboarding-a-new-tenant"><span>Onboarding a new tenant</span></a>
         <ul>
           <li>
@@ -738,6 +775,88 @@ flowchart TD
 <li>Pipeline: Staff-Infrastructure-Microsoft365-DSC-Configuration\Pipelines\export.yaml</li>
 <li>Script: Staff-Infrastructure-Microsoft365-DSC-Infrastructure\Scripts\Export.ps1</li>
 </ul>
+
+<h2 id="governance">Governance</h2>
+
+<p>This page provides a comprehensive guide to managing code ownership, branch protection, and file authoring workflows in the Microsoft365DSC repositories. It explains how to configure the CODEOWNERS file, enforce branch protection rules, and establish workflows for workload and platform administrators.</p>
+
+<h3 id="code-ownership-with-codeowners">Code Ownership with CODEOWNERS</h3>
+
+<p>The CODEOWNERS file in GitHub is used to assign responsibility for specific files or directories to teams. This ensures that the appropriate teams are automatically requested as reviewers for pull requests (PRs) affecting their areas of responsibility.</p>
+
+<h4 id="example-codeowners-file">Example CODEOWNERS File</h4>
+
+<p>`# Platform Admins Team</p>
+
+<h1 id="responsible-for-managing-core-files-such-as-generic-files-and-pipelines">Responsible for managing core files such as generic files and pipelines</h1>
+
+<p>*<em>/</em>#Generic.psd1 @ministryofjustice/eucs-automation-platform-admins
+Pipelines/* @ministryofjustice/eucs-automation-platform-admins</p>
+
+<h1 id="modern-workplace-admins-team">Modern Workplace Admins Team</h1>
+
+<h1 id="responsible-for-managing-workload-specific-configurations-across-tenant-global-and-enforced-layers">Responsible for managing workload-specific configurations across tenant, global, and enforced layers</h1>
+
+<p>DataFiles/Templates/Global/* @ministryofjustice/eucs-modern-workplace-admins
+DataFiles/Templates/Enforced/* @ministryofjustice/eucs-modern-workplace-admins
+DataFiles/Tenants/* @ministryofjustice/eucs-modern-workplace-admins</p>
+
+<h1 id="default-ownership-for-all-other-files">Default ownership for all other files</h1>
+
+<ul>
+<li>@ministryofjustice/eucs-automation-platform-admins`</li>
+</ul>
+
+<h4 id="key-points">Key Points</h4>
+
+<p>The platform admin team are assigned ownership of:
+        * All generic.psd1 files<br>
+        * All pipeline files
+This ensures that platform administrators manage the core files and CI/CD pipelines.</p>
+
+<p>The workload product team e.g. Modern Workplace Admins Team are assigned ownership of:
+        * Global settings: DataFiles/Templates/Global/*
+        * Enforced settings: DataFiles/Templates/Enforced/*
+        * Tenant-specific settings: DataFiles/Tenants/*
+This ensures that workload administrators manage configurations for their respective workloads across all layers.</p>
+
+<p>All other files are assigned to the eucs-automation-platform-admins team by default: *.</p>
+
+<h3 id="branch-protection-rules">Branch Protection Rules</h3>
+
+<p>Branch protection rules enforce policies on protected branches (e.g., main, develop) to ensure that changes are reviewed, validated, and approved before merging.</p>
+
+<p>The branch protection policies are configured as below:
+XXXXXXXXX
+XXXXXXXXX
+XXXXXXXXX</p>
+
+<h3 id="file-authoring-workflows">File Authoring Workflows</h3>
+
+<ol>
+<li>Create a Feature Branch: Workload admins create a feature branch (e.g., feature/<workload-change>) to make changes to their workload-specific data files.</li>
+<li>Make Changes:Update the relevant files in their workload (e.g., OneDrive.psd1 or Exchange.psd1).</li>
+<li>Submit a Pull Request: Submit a PR to merge the feature branch into the main or develop branch.</li>
+<li>Review and Approval: The CODEOWNERS file ensures that the relevant product teams admin GitHub team members are automatically requested as reviewers for changes to workload-specific files.</li>
+<li>Merge: Once the PR is approved and all CI/CD checks pass, the workload admins can merge the changes into the protected branch.</li>
+</ol>
+
+<h3 id="summary">Summary</h3>
+
+<p>Workload Admins:
+* Contribute to workload-specific files (e.g., DataFiles/Templates/Global/<em>, DataFiles/Templates/Enforced/</em>, DataFiles/Tenants/*).
+* Must use the feature branch and PR workflow.
+* Cannot directly push to protected branches.</p>
+
+<p>Platform Admins:
+* Contribute to core files (e.g., *<em>/</em>#Generic.psd1, Pipelines/*).
+* Use the feature branch and PR workflow for regular changes.
+* Have direct push access to protected branches for hotfixes or emergencies.</p>
+
+<p>Branch Protection Rules:
+* Enforce PR-based workflows for all changes.
+* Require reviews from code owners and passing CI/CD checks.
+* Restrict direct push access to eucs-automation-platform-admins.</p>
 
 <h2 id="onboarding-a-new-tenant">Onboarding a new tenant</h2>
 
