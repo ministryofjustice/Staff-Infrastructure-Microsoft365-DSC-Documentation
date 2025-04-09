@@ -163,6 +163,29 @@
         </ul>
       </li>
       <li>
+        <a href="#onboarding-a-new-tenant"><span>Onboarding a new tenant</span></a>
+        <ul>
+          <li>
+            <a href="#1-prerequisites"><span>1. Prerequisites</span></a>
+          </li>
+          <li>
+            <a href="#2-create-app-registration"><span>2. Create App Registration</span></a>
+          </li>
+          <li>
+            <a href="#3-provision-data-files"><span>3. Provision Data Files</span></a>
+          </li>
+          <li>
+            <a href="#4-commit-changes"><span>4. Commit Changes</span></a>
+          </li>
+          <li>
+            <a href="#5-run-the-dependencies-pipeline"><span>5. Run the Dependencies Pipeline</span></a>
+          </li>
+          <li>
+            <a href="#6-validation"><span>6. Validation</span></a>
+          </li>
+        </ul>
+      </li>
+      <li>
         <a href="#compliancy-checks"><span>Compliancy Checks</span></a>
       </li>
       <li>
@@ -403,7 +426,8 @@
 <h3 id="responsibility-matrix">Responsibility Matrix</h3>
 
 <p>The following diagram details the split of responsibility for components that make up this service.</p>
-<p><div class="table-container">
+
+<div class="table-container">
         <table>
           <tr>
 <th>Legend</th>
@@ -575,7 +599,7 @@
 <p>The global layer data files define the workload settings that will be applied to all tenants that are under the management of Microsoft 365 DSC as the base configuration.</p>
 <p>Location: Staff-Infrastructure-Microsoft365-DSC-Configuration\DataFiles\Templates\Global\Global*.psd1</p>
 <h4 id="enforced">Enforced</h4>
-<p>The enforced data files define settings that are enforced for all environments. Settings in this file must be present in the global files with the same values and cannot be specified in any of the tenants specific files.</p>
+<p>The enforced data files define settings that are enforced for all tenants. Settings in this file must be present in the global files with the same values and cannot be specified in any of the tenants specific files.</p>
 <p>These settings are validated using a to a unit test approach during the build pipeline, this is first validated against the global layer, requiring all settings that are present in the enforced data files to be configured exactly as specified in the related Global datafiles. If this test is successful a second unit test is carried out against the tenant layer checking that none of the settings are present within tenant specific files, preventing all settings in the Enforced layer from being overridden with different values.</p>
 <p>Location: Staff-Infrastructure-Microsoft365-DSC-Configuration\DataFiles\Templates\Enforced\Enforced*.psd1</p>
 <h3 id="tenant-specific-settings">Tenant Specific Settings</h3>
@@ -659,7 +683,7 @@
         </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><p>When the build pipeline runs, it will read and merge the various datafiles contained within the Configuration repository using the logic displayed within the diagram shown below, resulting in applied settings within each tenants MOF file shown at the bottom of the flow.</p></p>
+</span></code></pre></div><p>When the build pipeline runs, it will read and merge the various datafiles contained within the Configuration repository using the logic displayed within the diagram shown below, resulting in applied settings within each tenants MOF file shown at the bottom of the flow.</p>
 
 <pre class="mermaid">
 flowchart TD
@@ -686,21 +710,23 @@ flowchart TD
         AllowOrgWideTeamCreation = false,
         TenantId = PROD]
 </pre>
-
 <h3 id="understanding-available-properties">Understanding Available Properties</h3>
-
 <p>To understand the available properties and settings for a given version of Microsoft365DSC, you can use the M365DSC.CompositeResources module. This module provides a complete reference of all resources and settings.</p>
-
 <p>To export an example data file to a location of your choice, follow these steps:
 1. Install the M365DSC.CompositeResources module:
-    <code>powershell
-       Install-Module -Name M365DSC.CompositeResources -Force
-</code>
-2. Run the following command to generate an example data file:
-    <code>powershell
-       New-M365DSCExampleDataFile -OutputPath &quot;C:\Path\To\Output&quot;
-</code>
-This will create a sample configuration file with all available properties.</p>
+    &ldquo;`powershell</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>   Install-Module -Name M365DSC.CompositeResources -Force
+
+```
+</code></pre></div>
+
+<ol>
+<li><p>Run the following command to generate an example data file:
+&rdquo;`powershell</p>
+<p>New-M365DSCExampleDataFile -OutputPath &ldquo;C:\Path\To\Output&rdquo;</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>This will create a sample configuration file with all available properties.
+</code></pre></div></li>
+</ol>
 
 <p>For more details, refer to the <a href="https://github.com/ykuijs/M365DSC.CompositeResources/blob/main/source/Public/New-M365DSCExampleDataFile.ps1">New-M365DSCExampleDataFile documentation</a></p>
 
@@ -712,6 +738,163 @@ This will create a sample configuration file with all available properties.</p>
 <li>Pipeline: Staff-Infrastructure-Microsoft365-DSC-Configuration\Pipelines\export.yaml</li>
 <li>Script: Staff-Infrastructure-Microsoft365-DSC-Infrastructure\Scripts\Export.ps1</li>
 </ul>
+
+<h2 id="onboarding-a-new-tenant">Onboarding a new tenant</h2>
+
+<p>This section provides a detailed guide for onboarding a new tenant to the Microsoft365DSC automation solution. The onboarding process involves creating the necessary app registrations, configuring permissions, provisioning data files, and running the dependencies pipeline.</p>
+
+<h3 id="1-prerequisites">1. Prerequisites</h3>
+
+<p>Before onboarding a new tenant, ensure the following prerequisites are met:</p>
+
+<ol>
+<li>Access to the Staff-Infrastructure-Microsoft365-DSC-Configuration repository.</li>
+<li>Permissions in Microsoft Entra to create app registrations and assign roles in the new tenant.</li>
+<li>PowerShell 5.1 or later &amp; VS Code installed on your local machine.</li>
+<li>Clone the <code>Staff-Infrastructure-Microsoft365-DSC-Configuration</code> Repository to your device within VS Code</li>
+<li>Create a feature branch in the Configuration repository using the naming convention: feature/<Identifier> Example: feature/TenantXYZ-onboarding</li>
+</ol>
+
+<h3 id="2-create-app-registration">2. Create App Registration</h3>
+
+<h4 id="2-1-create-a-certificate">2.1 Create a certificate</h4>
+
+<ol>
+<li>Generate a new authentication certificate that will be used by the app registration using the following script:
+&ldquo;`powershell</li>
+</ol>
+
+<p>$clientCert = New-SelfSignedCertificate -Subject &ldquo;CN=Microsoft365DSC&rdquo; -CertStoreLocation &ldquo;Cert:\LocalMachine\My&rdquo; -KeyExportPolicy Exportable -KeySpec Signature</p>
+
+<p>$password = ConvertTo-SecureString -String &ldquo;<password>&rdquo; -AsPlainText -Force</p>
+
+<p>Export-PfxCertificate -Cert $clientCert -FilePath C:&lt;TenantShortName&gt;M365ClientCert.pfx -Password $password</p>
+
+<p>Export-Certificate -Cert $clientCert -FilePath C:&lt;TenantShortName&gt;M365ClientCert.cer</p>
+
+<p>$clientCert.Thumbprint</p>
+
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>```
+</code></pre></div>
+
+<ol>
+<li>Take note of the Certificate Thumbprint and PFX Password for later use.</li>
+</ol>
+
+<blockquote>
+<p>NOTE: Update the Password and TenantShortName to relevant values</p>
+</blockquote>
+
+<h4 id="2-2-create-an-app-registration-and-configure-permissions">2.2 Create an App Registration and Configure Permissions</h4>
+
+<ol>
+<li>Download <a href="https://github.com/ykuijs/M365DSC_CICD/blob/main/Supportscripts/CreateServicePrincipals.psm1">this</a> script to your machine</li>
+<li>Load the downloaded module into your PowerShell session to support programmatic creation of the service principal:
+<code>powershell
+Import-Module &lt;Script_Path&gt;\CreateServicePrincipals.psm1    
+</code></li>
+<li>Create the app registration and grant the correct permissions by running the following PowerShell commands:
+<code>powershell
+$DSCAppName = &quot;MoJO-&lt;TenantShortName&gt;-M365DSC-ConfigurationDeployment&quot;
+$tempPath = &quot;$($env:USERPROFILE)\Downloads&quot;
+New-M365DSCServicePrincipal -Credential (Get-Credential) -ServicePrincipalName 
+$DSCAppName -CertificatePath &lt;TenantShortName&gt;M365ClientCert.cer
+</code></li>
+<li>At the end of the script, the output shows details of the created app, take note of these details. These are required in further steps.</li>
+</ol>
+
+<blockquote>
+<p>NOTE: Update the TenantShortName to a relevant value
+NOTE: The script allows for creation of service principals for a specific workload. If you use the Workload parameter, the script will only grant the required permissions for that workload.
+NOTE: To see which permissions are required for which resource, use the <a href="https://microsoft365dsc.com/user-guide/cmdlets/Get-M365DSCCompiledPermissionList/">Get-M365CompiledPermissionList</a> cmdlet or review the documentation of each resource in the Resources section on <a href="https://microsoft365dsc.com">Microsoft365DSC.com</a></p>
+</blockquote>
+
+<h4 id="2-3-grant-admin-consent">2.3 Grant Admin Consent</h4>
+
+<ol>
+<li>Grant Admin Consent for the assigned API permissions in Entra ID.</li>
+</ol>
+
+<h3 id="3-provision-data-files">3. Provision Data Files</h3>
+
+<h4 id="3-1-run-the-provisioning-script">3.1 Run the provisioning script</h4>
+
+<ol>
+<li>Navigate to the Staff-Infrastructure-Microsoft365-DSC-Configuration\DataFiles\Templates directory.</li>
+<li>Execute the ProvisionNewEnvironment.ps1 script to generate the required data files for the new tenant:
+<code>powershell
+.\ProvisionNewEnvironment.ps1 -EnvironmentName &quot;Tenant_ShortName&quot;
+</code>
+&gt; NOTE: Update the Tenant_ShortName with the short name of the tenant e.g. MoJoDEV</li>
+</ol>
+
+<h4 id="3-2-update-the-generic-psd1-file">3.2 Update the Generic.psd1 file</h4>
+
+<ol>
+<li>Locate the newly created Generic.psd1 file in the DataFiles\Tenants directory.</li>
+<li>Update the following sections in the file:
+    * Used Workloads: Specify which workloads (e.g., Exchange, Teams, SharePoint) are used by the tenant.
+    * Tokens Section: Leave placeholders as they are but ensure the tokens section is updated with the correct values.
+    * App Credentials: Add the App ID and Certificate Thumbprint for each workload.</li>
+</ol>
+
+<blockquote>
+<p>NOTE: Reference the existing tenants Generic.psd1 files if needed as an example</p>
+</blockquote>
+
+<h4 id="3-4-add-the-certificate">3.4 Add the Certificate</h4>
+
+<ol>
+<li>Place the .pfx certificate file in the same directory as the Generic.psd1 file.</li>
+<li>Ensure the certificate file follows the naming convention: <code>Tenant_ShortNameM365ClientCert.pfx</code></li>
+</ol>
+
+<h3 id="4-commit-changes">4. Commit Changes</h3>
+
+<ol>
+<li>Open Visual Studio Code and navigate to the Staff-Infrastructure-Microsoft365-DSC-Configuration repository.</li>
+<li>Stage the changes:
+    * Add the updated Generic.psd1 file and the .pfx certificate file.</li>
+<li>Commit the changes to the feature branch, Use a meaningful commit message, such as &ldquo;Onboarded new tenant: Tenant_ShortName&rdquo;</li>
+<li>Sync the changes to the remote feature branch</li>
+</ol>
+
+<h3 id="5-run-the-dependencies-pipeline">5. Run the Dependencies Pipeline</h3>
+
+<ol>
+<li>Navigate to the Azure DevOps portal and locate the dependencies.yaml pipeline in the Staff-Infrastructure-Microsoft365-DSC-Configuration repository.</li>
+<li>Add the following Environments parameter array to the pipeline:
+    <code>Environments:
+     - Name: &quot;Tenant_ShortName&quot;
+       CertificatePassword: &quot;$(Tenant_ShortNameCertPassword)&quot;</code>
+       * Replace Tenant_ShortName with the tenants short name.
+       * Add the certificate password as a secret pipeline variable in Azure DevOps.</li>
+<li>Trigger the pipeline and monitor its execution to ensure all dependencies are successfully configured.</li>
+</ol>
+
+<h3 id="6-validation">6. Validation</h3>
+
+<h4 id="6-1-build-validation">6.1 Build Validation</h4>
+
+<ol>
+<li>Manually run the build.yaml pipeline in the feature branch to ensure it completes successfully.
+#### 6.2 Pull Request Process</li>
+<li>Create a pull request (PR) from the feature branch to the develop branch.</li>
+<li>Once the PR is approved and merged, create another PR from develop to main.</li>
+<li>The PR into main will trigger the PR validation pipeline.</li>
+</ol>
+
+<h4 id="6-3-cicd-triggers">6.3 CICD Triggers</h4>
+
+<ol>
+<li>Once the changes are merged into main, the following pipelines will be triggered automatically
+
+<ul>
+<li>build.yaml</li>
+<li>deployment.yaml</li>
+<li>testcompliancy.yaml</li>
+</ul></li>
+</ol>
 
 <h2 id="compliancy-checks">Compliancy Checks</h2>
 
