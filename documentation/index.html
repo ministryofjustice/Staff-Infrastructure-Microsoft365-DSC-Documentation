@@ -755,6 +755,10 @@ XXXXXXXXX</p>
 <li>Clone the <code>Staff-Infrastructure-Microsoft365-DSC-Configuration</code> Repository to your device within VS Code</li>
 <li>Create a feature branch in the Configuration repository using the naming convention: feature/<Identifier> Example: feature/TenantXYZ-onboarding</li>
 </ol>
+
+<blockquote>
+<p>NOTE: Remember to check the Global and Enforced configurations that are already set prior to onboarding a new environment, if any of these settings are not appropriate for the new target tenant then these workload settings should be moved back to the tenant specific data files prior to onboarding the new tenant.</p>
+</blockquote>
 <h3 id="2-create-app-registration">2. Create App Registration</h3>
 <h4 id="2-1-create-a-certificate">2.1 Create a certificate</h4>
 
@@ -767,23 +771,17 @@ XXXXXXXXX</p>
 <p>Export-PfxCertificate -Cert $clientCert -FilePath C:&lt;TenantShortName&gt;M365ClientCert.pfx -Password $password</p>
 <p>Export-Certificate -Cert $clientCert -FilePath C:&lt;TenantShortName&gt;M365ClientCert.cer</p>
 <p>$clientCert.Thumbprint</p>
-<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>```
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>2. Take note of the Certificate Thumbprint and PFX Password for later use.
+
+&gt; NOTE: Update the Password and TenantShortName to relevant values
+
+#### 2.2 Create an App Registration and Configure Permissions
+1. Download [this](https://github.com/ykuijs/M365DSC_CICD/blob/main/Supportscripts/CreateServicePrincipals.psm1) script to your machine
+2. Load the downloaded module into your PowerShell session to support programmatic creation of the service principal:
+```powershell
+    Import-Module &lt;Script_Path&gt;\CreateServicePrincipals.psm1    
 </code></pre></div>
 <ol>
-<li>Take note of the Certificate Thumbprint and PFX Password for later use.</li>
-</ol>
-
-<blockquote>
-<p>NOTE: Update the Password and TenantShortName to relevant values</p>
-</blockquote>
-<h4 id="2-2-create-an-app-registration-and-configure-permissions">2.2 Create an App Registration and Configure Permissions</h4>
-
-<ol>
-<li>Download <a href="https://github.com/ykuijs/M365DSC_CICD/blob/main/Supportscripts/CreateServicePrincipals.psm1">this</a> script to your machine</li>
-<li>Load the downloaded module into your PowerShell session to support programmatic creation of the service principal:
-<code>powershell
-Import-Module &lt;Script_Path&gt;\CreateServicePrincipals.psm1    
-</code></li>
 <li>Create the app registration and grant the correct permissions by running the following PowerShell commands:
 <code>powershell
 $DSCAppName = &quot;MoJO-&lt;TenantShortName&gt;-M365DSC-ConfigurationDeployment&quot;
