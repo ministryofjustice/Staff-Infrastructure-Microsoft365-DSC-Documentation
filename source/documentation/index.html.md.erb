@@ -509,10 +509,12 @@ Before onboarding a new tenant, ensure the following prerequisites are met:
 4. Clone the `Staff-Infrastructure-Microsoft365-DSC-Configuration` Repository to your device within VS Code
 5. Create a feature branch in the Configuration repository using the naming convention: feature/<Identifier> Example: feature/TenantXYZ-onboarding
 
+> NOTE: Remember to check the Global and Enforced configurations that are already set prior to onboarding a new environment, if any of these settings are not appropriate for the new target tenant then these workload settings should be moved back to the tenant specific data files prior to onboarding the new tenant.
+
 ### 2. Create App Registration
 #### 2.1 Create a certificate
 1. Generate a new authentication certificate that will be used by the app registration using the following script:
-	```powershell
+```powershell
 
 $clientCert = New-SelfSignedCertificate -Subject "CN=Microsoft365DSC" -CertStoreLocation "Cert:\LocalMachine\My" -KeyExportPolicy Exportable -KeySpec Signature
 
@@ -524,7 +526,7 @@ Export-Certificate -Cert $clientCert -FilePath C:\<TenantShortName>M365ClientCer
 
 $clientCert.Thumbprint
 
-	```
+```
 2. Take note of the Certificate Thumbprint and PFX Password for later use.
 
 > NOTE: Update the Password and TenantShortName to relevant values
@@ -534,14 +536,14 @@ $clientCert.Thumbprint
 2. Load the downloaded module into your PowerShell session to support programmatic creation of the service principal:
 ```powershell
 	Import-Module <Script_Path>\CreateServicePrincipals.psm1	
-	```
+```
 3. Create the app registration and grant the correct permissions by running the following PowerShell commands:
 ```powershell
 	$DSCAppName = "MoJO-<TenantShortName>-M365DSC-ConfigurationDeployment"
 	$tempPath = "$($env:USERPROFILE)\Downloads"
 	New-M365DSCServicePrincipal -Credential (Get-Credential) -ServicePrincipalName 
 	$DSCAppName -CertificatePath <TenantShortName>M365ClientCert.cer
-	```
+```
 4. At the end of the script, the output shows details of the created app, take note of these details. These are required in further steps.
 
 > NOTE: Update the TenantShortName to a relevant value
@@ -558,7 +560,7 @@ $clientCert.Thumbprint
 2. Execute the ProvisionNewEnvironment.ps1 script to generate the required data files for the new tenant:
 ```powershell
 	.\ProvisionNewEnvironment.ps1 -EnvironmentName "Tenant_ShortName"
-	```
+```
 > NOTE: Update the Tenant_ShortName with the short name of the tenant e.g. MoJoDEV
 
 #### 3.2 Update the Generic.psd1 file
