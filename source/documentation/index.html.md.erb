@@ -70,12 +70,12 @@ This architecture makes use of a storage account to cache the Microsoft 365 DSC 
 
 The Pipelines directory in the Configuration repository contains Azure DevOps pipeline definitions:
 
-* build.yaml: Builds MOF files from configuration data.
-* dependencies.yaml: Manages dependencies and secrets for tenants.
-* deployment.yaml: Deploys configurations to Microsoft 365 tenants.
-* export.yaml: Exports tenant configurations for auditing.
-* prvalidation.yaml: Validates pull requests for configuration changes.
-* testcompliancy.yaml: Tests tenant compliance with desired configurations.
+* `build.yaml`: Builds MOF files from configuration data.
+* `dependencies.yaml`: Manages dependencies and secrets for tenants.
+* `deployment.yaml`: Deploys configurations to Microsoft 365 tenants.
+* `export.yaml`: Exports tenant configurations for auditing.
+* `prvalidation.yaml`: Validates pull requests for configuration changes.
+* `testcompliancy.yaml`: Tests tenant compliance with desired configurations.
 
 These pipelines extend templates from the Infrastructure repository to execute the orchestration logic.
 
@@ -83,11 +83,11 @@ These pipelines extend templates from the Infrastructure repository to execute t
 
 The Scripts directory in the Infrastructure repository contains PowerShell scripts for orchestration:
 
-* Build.ps1: Compiles MOF files from configuration data.
-* CheckDscCompliance.ps1: Tests tenant compliance with desired configurations and generates reports.
-* Deploy.ps1: Deploys configurations to Microsoft 365 tenants.
-* Export.ps1: Exports tenant configurations for auditing.
-* SupportFunctions.psm1: Contains helper functions used across scripts.
+* `Build.ps1`: Compiles MOF files from configuration data.
+* `CheckDscCompliance.ps1`: Tests tenant compliance with desired configurations and generates reports.
+* `Deploy.ps1`: Deploys configurations to Microsoft 365 tenants.
+* `Export.ps1`: Exports tenant configurations for auditing.
+* `SupportFunctions.psm1`: Contains helper functions used across scripts.
 
 
 ### Workflow
@@ -246,7 +246,7 @@ The `Tenants` folder contains all of the tenant specific configuration files, th
 
 The global layer data files define the workload settings that will be applied to all tenants that are under the management of Microsoft 365 DSC as the base configuration.
 
-Location: Staff-Infrastructure-Microsoft365-DSC-Configuration\DataFiles\Templates\Global\Global*.psd1
+Location: `Staff-Infrastructure-Microsoft365-DSC-Configuration\DataFiles\Templates\Global\Global*.psd1`
 
 #### Enforced
 
@@ -254,7 +254,7 @@ The enforced data files define settings that are enforced for all tenants. Setti
 
 These settings are validated using a to a unit test approach during the build pipeline, this is first validated against the global layer, requiring all settings that are present in the enforced data files to be configured exactly as specified in the related Global datafiles. If this test is successful a second unit test is carried out against the tenant layer checking that none of the settings are present within tenant specific files, preventing all settings in the Enforced layer from being overridden with different values.
 
-Location: Staff-Infrastructure-Microsoft365-DSC-Configuration\DataFiles\Templates\Enforced\Enforced*.psd1
+Location: `Staff-Infrastructure-Microsoft365-DSC-Configuration\DataFiles\Templates\Enforced\Enforced*.psd1`
 
 ### Tenant Specific Settings
 
@@ -262,7 +262,7 @@ Location: Staff-Infrastructure-Microsoft365-DSC-Configuration\DataFiles\Template
 
 These are the settings that are tenant specific. Either because the workload setting is specific to only that tenant so cannot be present in the global configuration, or because you want to override a setting from the Global layer (SettingX = 1 in Global, but for this tenant it should be SettingX = 2)
 
-Location: Staff-Infrastructure-Microsoft365-DSC-Configuration\DataFiles\Tenants\<Tenant>\<TenantName><WorkloadName>.psd1
+Location: `Staff-Infrastructure-Microsoft365-DSC-Configuration\DataFiles\Tenants\<Tenant>\<TenantName><WorkloadName>.psd1`
 
 ### Example Configuration 
 
@@ -398,30 +398,31 @@ To understand the available properties and settings for a given version of Micro
 
 To export an example data file to a location of your choice, follow these steps:
 1. Install the M365DSC.CompositeResources module:
-	```powershell
 
-	   Install-Module -Name M365DSC.CompositeResources -Force
+```powershell
 
-	```
+	Install-Module -Name M365DSC.CompositeResources -Force
+
+```
+
 2. Run the following command to generate an example data file:
-	```powershell
 
-	   New-M365DSCExampleDataFile -OutputPath "C:\Path\To\Output"
+```powershell
 
-	```
+	New-M365DSCExampleDataFile -OutputPath "C:\Path\To\Output"
+
+```
+
 This will create a sample configuration file with all available properties.
 
 For more details, refer to the [New-M365DSCExampleDataFile documentation](https://github.com/ykuijs/M365DSC.CompositeResources/blob/main/source/Public/New-M365DSCExampleDataFile.ps1)
-
-
 
 ### Exporting Existing Configurations 
 
 You can export the existing configuration from a tenant using the Export Pipeline. This pipeline produces an artifact containing both the raw DSC output and the composite module (where available) for the workloads defined in the tenants generic file. 
 
-* Pipeline: Staff-Infrastructure-Microsoft365-DSC-Configuration\Pipelines\export.yaml
-* Script: Staff-Infrastructure-Microsoft365-DSC-Infrastructure\Scripts\Export.ps1
-
+* Pipeline: `Staff-Infrastructure-Microsoft365-DSC-Configuration\Pipelines\export.yaml`
+* Script: `Staff-Infrastructure-Microsoft365-DSC-Infrastructure\Scripts\Export.ps1`
 
 ## Governance
 
@@ -450,21 +451,26 @@ DataFiles/Tenants/* @ministryofjustice/eucs-modern-workplace-admins
 ```
 
 #### Key Points
+
 The platform admin team are assigned ownership of:
+
 		* All generic.psd1 files  
 		* All pipeline files
+
 This ensures that platform administrators manage the core files and CI/CD pipelines.
 
 The workload product team e.g. Modern Workplace Admins Team are assigned ownership of:
+
 		* Global settings: DataFiles/Templates/Global/*
 		* Enforced settings: DataFiles/Templates/Enforced/*
 		* Tenant-specific settings: DataFiles/Tenants/*
+
 This ensures that workload administrators manage configurations for their respective workloads across all layers.
 
 All other files are assigned to the eucs-automation-platform-admins team by default: *. 
 
-
 ### Branch Protection Rules
+
 Branch protection rules enforce policies on protected branches (e.g., main, develop) to ensure that changes are reviewed, validated, and approved before merging.
 
 The branch protection policies are configured as below:
@@ -473,6 +479,7 @@ XXXXXXXXX
 XXXXXXXXX
 
 ### File Authoring Workflows
+
 1. Create a Feature Branch: Workload admins create a feature branch (e.g., feature/<workload-change>) to make changes to their workload-specific data files.
 2. Make Changes:Update the relevant files in their workload (e.g., OneDrive.psd1 or Exchange.psd1).
 3. Submit a Pull Request: Submit a PR to merge the feature branch into the main or develop branch.
@@ -480,17 +487,21 @@ XXXXXXXXX
 5. Merge: Once the PR is approved and all CI/CD checks pass, the workload admins can merge the changes into the protected branch.
 
 ### Summary
-Workload Admins:
+
+#### Workload Admins:
+
 * Contribute to workload-specific files (e.g., DataFiles/Templates/Global/*, DataFiles/Templates/Enforced/*, DataFiles/Tenants/*).
 * Must use the feature branch and PR workflow.
 * Cannot directly push to protected branches.
 
-Platform Admins:
+#### Platform Admins:
+
 * Contribute to core files (e.g., **/*#Generic.psd1, Pipelines/*).
 * Use the feature branch and PR workflow for regular changes.
 * Have direct push access to protected branches for hotfixes or emergencies.
 
-Branch Protection Rules:
+#### Branch Protection Rules:
+
 * Enforce PR-based workflows for all changes.
 * Require reviews from code owners and passing CI/CD checks.
 * Restrict direct push access to eucs-automation-platform-admins.
@@ -512,8 +523,11 @@ Before onboarding a new tenant, ensure the following prerequisites are met:
 > NOTE: Remember to check the Global and Enforced configurations that are already set prior to onboarding a new environment, if any of these settings are not appropriate for the new target tenant then these workload settings should be moved back to the tenant specific data files prior to onboarding the new tenant.
 
 ### 2. Create App Registration
+
 #### 2.1 Create a certificate
-1. Generate a new authentication certificate that will be used by the app registration using the following script:
+
+Generate a new authentication certificate that will be used by the app registration using the following script:
+
 ```powershell
 
 $clientCert = New-SelfSignedCertificate -Subject "CN=Microsoft365DSC" -CertStoreLocation "Cert:\LocalMachine\My" -KeyExportPolicy Exportable -KeySpec Signature
@@ -527,43 +541,57 @@ Export-Certificate -Cert $clientCert -FilePath C:\<TenantShortName>M365ClientCer
 $clientCert.Thumbprint
 
 ```
-2. Take note of the Certificate Thumbprint and PFX Password for later use.
+
+**Take note of the Certificate Thumbprint and PFX Password for later use.**
 
 > NOTE: Update the Password and TenantShortName to relevant values
 
 #### 2.2 Create an App Registration and Configure Permissions
+
 1. Download [this](https://github.com/ykuijs/M365DSC_CICD/blob/main/Supportscripts/CreateServicePrincipals.psm1) script to your machine
 2. Load the downloaded module into your PowerShell session to support programmatic creation of the service principal:
+
 ```powershell
 	Import-Module <Script_Path>\CreateServicePrincipals.psm1	
 ```
+
 3. Create the app registration and grant the correct permissions by running the following PowerShell commands:
+
 ```powershell
 	$DSCAppName = "MoJO-<TenantShortName>-M365DSC-ConfigurationDeployment"
 	$tempPath = "$($env:USERPROFILE)\Downloads"
 	New-M365DSCServicePrincipal -Credential (Get-Credential) -ServicePrincipalName 
 	$DSCAppName -CertificatePath <TenantShortName>M365ClientCert.cer
 ```
+
 4. At the end of the script, the output shows details of the created app, take note of these details. These are required in further steps.
 
 > NOTE: Update the TenantShortName to a relevant value
+
 > NOTE: The script allows for creation of service principals for a specific workload. If you use the Workload parameter, the script will only grant the required permissions for that workload.
+
 > NOTE: To see which permissions are required for which resource, use the [Get-M365CompiledPermissionList](https://microsoft365dsc.com/user-guide/cmdlets/Get-M365DSCCompiledPermissionList/) cmdlet or review the documentation of each resource in the Resources section on [Microsoft365DSC.com](https://microsoft365dsc.com)
 
 
 #### 2.3 Grant Admin Consent 
+
 1. Grant Admin Consent for the assigned API permissions in Entra ID.
 
 ### 3. Provision Data Files
+
 #### 3.1 Run the provisioning script
+
 1. Navigate to the Staff-Infrastructure-Microsoft365-DSC-Configuration\DataFiles\Templates directory.
 2. Execute the ProvisionNewEnvironment.ps1 script to generate the required data files for the new tenant:
+
 ```powershell
 	.\ProvisionNewEnvironment.ps1 -EnvironmentName "Tenant_ShortName"
 ```
+
 > NOTE: Update the Tenant_ShortName with the short name of the tenant e.g. MoJoDEV
 
 #### 3.2 Update the Generic.psd1 file
+
 1. Locate the newly created Generic.psd1 file in the DataFiles\Tenants directory.
 2. Update the following sections in the file:
 		* Used Workloads: Specify which workloads (e.g., Exchange, Teams, SharePoint) are used by the tenant.
@@ -573,10 +601,12 @@ $clientCert.Thumbprint
 > NOTE: Reference the existing tenants Generic.psd1 files if needed as an example 
 
 #### 3.4 Add the Certificate 
+
 1. Place the .pfx certificate file in the same directory as the Generic.psd1 file.
 2. Ensure the certificate file follows the naming convention: `Tenant_ShortNameM365ClientCert.pfx`
 
-### 4. Commit Changes 
+### 4. Commit Changes
+
 1. Open Visual Studio Code and navigate to the Staff-Infrastructure-Microsoft365-DSC-Configuration repository.
 2. Stage the changes:
 		* Add the updated Generic.psd1 file and the .pfx certificate file.
@@ -584,6 +614,7 @@ $clientCert.Thumbprint
 4. Sync the changes to the remote feature branch
 
 ### 5. Run the Dependencies Pipeline
+
 1. Navigate to the Azure DevOps portal and locate the dependencies.yaml pipeline in the Staff-Infrastructure-Microsoft365-DSC-Configuration repository.
 2. Add the following Environments parameter array to the pipeline:
 		`Environments:
@@ -593,20 +624,24 @@ $clientCert.Thumbprint
 		   * Add the certificate password as a secret pipeline variable in Azure DevOps.
 3. Trigger the pipeline and monitor its execution to ensure all dependencies are successfully configured.
 
-### 6. Validation 
+### 6. Validation
+
 #### 6.1 Build Validation
+
 1. Manually run the build.yaml pipeline in the feature branch to ensure it completes successfully.
+
 #### 6.2 Pull Request Process
+
 1. Create a pull request (PR) from the feature branch to the develop branch.
 2. Once the PR is approved and merged, create another PR from develop to main.
 3. The PR into main will trigger the PR validation pipeline.
 
-#### 6.3 CICD Triggers 
+#### 6.3 CICD Triggers
+
 1. Once the changes are merged into main, the following pipelines will be triggered automatically
 	* build.yaml
 	* deployment.yaml
 	* testcompliancy.yaml
-
 
 ## Compliancy Checks 
 
@@ -639,8 +674,6 @@ The version of Microsoft 365 DSC this solution is deployed with is managed by th
 [Microsoft 365 DSCTools GitHub Repository](https://github.com/ykuijs/Microsoft 365 DSCTools)
 
 [Microsoft 365 DSCCompositeResources GitHub Repository](https://github.com/ykuijs/Microsoft 365 DSC.CompositeResources)
-
-
 
 ## Adding to this page 
 
