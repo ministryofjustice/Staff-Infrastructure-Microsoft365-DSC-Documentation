@@ -114,9 +114,6 @@
           <li>
             <a href="#scripts"><span>Scripts</span></a>
           </li>
-          <li>
-            <a href="#workflow"><span>Workflow</span></a>
-          </li>
         </ul>
       </li>
       <li>
@@ -266,7 +263,7 @@
 <h3 id="components">Components</h3>
 
 <ul>
-<li>Azure DevOps Pipelines - Azure Pipelines are an Azure DevOps service for continuous integration and continuous delivery (CI/CD). Azure Pipelines are used to test and build your code and ship it to any target. You can also use Azure Pipelines to implement quality gates to help ensure that you deploy changes in a controlled and consistent manner.</li>
+<li>Azure DevOps Pipelines - Azure Pipelines are an Azure DevOps service for continuous integration and continuous delivery (CI/CD). Azure Pipelines are used to implement quality gates and ensure that changes are deployed in a controlled and consistent manner.</li>
 <li>Managed DevOps Pool - Managed DevOps Pools in Azure DevOps provide a fully managed service where virtual machines or containers powering the agent pools used to run the pipelines, offering seamless scalability and management for CI/CD pipelines.</li>
 <li>NAT Gateway - Azure NAT Gateway is a fully managed and highly resilient Network Address Translation (NAT) service that enables instances in a private subnet to connect outbound to the internet while remaining fully private, ensuring secure and scalable outbound connectivity.</li>
 <li>Key Vault - Key Vault improves the security of storage for tokens, passwords, certificates, API keys, and other secrets. It also provides tightly controlled access to the service principles certificates that are used in this solution.</li>
@@ -282,7 +279,7 @@
 
 <h4 id="reliability">Reliability</h4>
 
-<p>Deploying a Managed DevOps Pool to run our pipelines on significantly enhances reliability. Managed DevOps Pools provide a fully managed service where virtual machines powering the agents rely on Microsofts infrastructure for reliability ensuring that availability and fault tolerance is managed by Microsoft therefore reducing the risk of downtime and improving overall system stability. The managed nature of these pools means that updates, scaling, and maintenance are handled automatically, ensuring consistent performance and minimizing disruption</p>
+<p>Deploying a Managed DevOps Pool to run our pipelines on significantly enhances reliability. Managed DevOps Pools provide a fully managed service where virtual machines powering the agents rely on Microsofts infrastructure for reliability ensuring that availability and fault tolerance is managed by Microsoft therefore reducing the risk of downtime and improving overall system stability. The managed nature of these pools means that updates, scaling, and maintenance are handled automatically, ensuring consistent performance and minimising disruption</p>
 
 <h4 id="security">Security</h4>
 
@@ -331,74 +328,9 @@
 <li><code>SupportFunctions.psm1</code>: Contains helper functions used across scripts.</li>
 </ul>
 
-<h3 id="workflow">Workflow</h3>
-
-<ol>
-<li>Admin creates a new branch from the <code>main</code> Staff-Infrastructure-Microsoft365-DSC-Configuration repository, with a name relevant to the change they are making e.g. <code>DEV-TeamsMeetingPolicy-update</code></li>
-<li>Admin makes the required configuration changes to the data files necessary to the change they are making</li>
-<li>Admin commits and syncs the changes to the feature branch</li>
-<li>Admin creates a pull request (PR) to merge the changes to the <code>main</code> repository, proving a description of what changes have been made to allow others to more efficiently peer review the work</li>
-<li>The build pipeline runs on the PR</li>
-<li>Depending on the files that have been changed the relevant lead engineers or architects will be asked to review and approve the change, this is defined based on the content of the <code>codeowners</code> file</li>
-<li>The merged PR triggers a pipeline to compile Managed Object Format (MOF) files. The pipeline calls Azure Key Vault to retrieve the credentials that are used by the tenant specific service principle(s) in the MOF files, and publishes the artifacts ready for deployment</li>
-<li>The deployment pipeline is triggered that uses the compiled MOF files to deploy configuration changes to the tenants that are managed via Microsoft365DSC</li>
-<li>Admin who committed the changes reviews the relevant pipeline &amp; config in the M365 admin center to confirm the expected changes have been successfully applied</li>
-</ol>
-
-<h4 id="build-and-validation">Build and Validation</h4>
-
-<ol>
-<li><p>Build Pipeline (build.yaml):</p>
-
-<ul>
-<li>Compiles MOF files from tenant configuration data.</li>
-<li>Copies necessary scripts and resources to the output directory.</li>
-</ul></li>
-<li><p>Pull Request Validation (prvalidation.yaml):</p>
-
-<ul>
-<li>Validates configuration changes in pull requests.</li>
-<li>Ensures compliance with naming and encoding standards.</li>
-</ul></li>
-</ol>
-
-<h4 id="deployment">Deployment</h4>
-
-<ol>
-<li><p>Dependency Management (dependencies.yaml):</p>
-
-<ul>
-<li>Retrieves secrets from Azure Key Vault.</li>
-<li>Prepares dependencies for deployment.</li>
-</ul></li>
-<li><p>Deployment Pipeline (deployment.yaml):</p>
-
-<ul>
-<li>Deploys configurations to Microsoft 365 tenants.</li>
-<li>Executes orchestration logic from the Infrastructure repository.</li>
-</ul></li>
-</ol>
-
-<h4 id="compliance-testing">Compliance Testing</h4>
-
-<ol>
-<li><p>Compliance Testing Pipeline (testcompliancy.yaml):</p>
-
-<ul>
-<li>Tests tenant compliance with desired configurations.</li>
-<li>Generates HTML compliance reports.</li>
-</ul></li>
-<li><p>Export Pipeline (export.yaml):</p>
-
-<ul>
-<li>Deploys configurations to Microsoft 365 tenants.</li>
-<li>Exports tenant configurations for auditing and traceability.</li>
-</ul></li>
-</ol>
-
 <h2 id="guidance">Guidance</h2>
 
-<p><Add content></p>
+<p><a href="documentation/getting-started.html">Getting Started</a></p>
 
 <h3 id="getting-started">Getting Started</h3>
 
