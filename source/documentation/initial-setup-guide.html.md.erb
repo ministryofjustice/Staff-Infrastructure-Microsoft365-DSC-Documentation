@@ -1,0 +1,63 @@
+# Getting Started 
+
+To begin managing your configuration with Microsoft 365 DSC, start by familiarising yourself with the core concepts and prerequisites. Ensure you have the necessary permissions and access to the Microsoft 365 tenants, Azure DevOps project(s) & GitHub repositories. 
+
+
+The CICD repository can be found [here](https://github.com/ministryofjustice/Staff-Infrastructure-Microsoft365-DSC-Infrastructure), the Configuration repository can be found [here](https://github.com/ministryofjustice/Staff-Infrastructure-Microsoft365-DSC-Configuration). The appropriate access to these repositories will be automatically granted based on your GitHub team membership.
+
+The Azure DevOps projects can be found [here](https://dev.azure.com/MoJ-OFFICIAL-M365DSC/).The appropriate access to these projects will be automatically granted based on your production administrative identities access package entitlements.
+ 
+## 1. M365 Privileged Access Identity & Device 
+
+Administrators require a seperate tenant specific identity for each tenant they manage, and a privileged access workstation - [this](https://mojprod.service-now.com/moj_sp?id=sc_cat_item&table=sc_cat_item&sys_id=8161246a1b170a50a1e2ddf0b24bcbdb&searchTerm=technical%20access#BL1) Service Now request can be used to request accounts for all MoJ managed tenants as well as the provisioning of a workstation.
+
+Privilaged Identities are added into the relevant access packages for the team you are a member of, this ensures that all team members have the same level of access, including the entitlements required to operate the M365DSC service.
+
+Due to the architecture of the Azure DevOps, all work within M365DSC will be carried out under your production MoJ Official administrative identity as this is the tenant that the CICD resources are managed by, however an identity for each tenant will stil be required to allow you to check and review configurations once they are applied.
+
+## 2. Device Set up
+### 2.1 Install VS Code
+To make managing code and configurations simpler we suggest downloading VS Code -  https://code.visualstudio.com/download
+
+### 2.2 Install Git
+This allows you to use Git on your local machine. You can use it through IDE plugins or from the command line. Choose the Windows Setup option when downloading the package from [here](https://git-scm.com/download/win).
+
+## 3. Azure DevOps Access
+
+The CICD orchestration used in this solution leverages Azure DevOps, to ensure agent isolation and reduce the risk of supply chain attacks to or from other projects M365DSC has been deployed into its own Azure DevOps organisation which can be found [here](https://dev.azure.com/MoJ-OFFICIAL-M365DSC/)
+
+Access to the DevOps organisation with appropriate permission levels to projects within have been assigned to the access packages that your production administrative identity is a member of, no further action should be required to allow you to authenticate with and access the resources once your identity is set up in step 1.
+
+## 4. GitHub 
+
+### 4.1 GitHub Account
+If you do not already have a personal GitHub account, follow [these](https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github) steps to set yourself up. You can choose to setup a MoJ specific one or a personal one.
+
+If you have created a personal one, you will add your MoJ email address to your account as a secondary email which you will use for committing code.
+
+#### 4.1.1 Use existing GitHub account
+
+You do not need a dedicated MoJ GitHub account. You can use your own personal GitHub account and add your MoJ email to your account.
+
+To add yourself to the MoJ GitHub organisation, follow these steps:
+* Go to [Email settings](https://github.com/settings/emails)
+* In Add email address type your @justice.gov.uk or @justiceuk.onmicrosoft.com email
+* Visit [GitHub](https://github.com/orgs/ministryofjustice/sso) and SSO with your MoJ Microsoft identity and you will be added to the Organisation.
+
+Once added you will have access to all repositories in the [Ministry of Justice Organisation](https://github.com/ministryofjustice/).
+
+
+### 4.2 GitHub Teams
+Once you have been successfully authenticated into the organisaiton you will need adding into the GitHub team relevant to where you work within MoJ. GitHub Teams are used to control access levels over the repositories that are used by the Microsoft 365 DSC solution.
+
+Each product team has two GitHub teams available:
+* eucs-<product team>-admins: Staff within these teams will be made CODEOWNERS of the relevant configuration files that control the configuration of their products, these members will need to approve any PRs where changes have occured in these files and will be the responsible authority on any changes made to the codebase.
+* eucs-<product team>-maintainers: Staff within these teams will be able to commit changes to the repositories and create PRs but will not be able to approve any changes. 
+
+### 4.3 GitHub Signed Commits 
+
+The Microsoft 365DSC GitHub repositories have branch protection rules applied that require all commits to be signed, to generate a GPG key please follow [these](https://docs.github.com/en/authentication/managing-commit-signature-verification/generating-a-new-gpg-key) instructions.
+
+Once you have generated a GPG key and associated it with your GitHub account [these](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits) instructions detail how to sign commits using the key.
+
+To set the GPG key to be used for signing commits on your device you may need to run `git config --global user.signingkey <GPG key ID e.g. ABCDEF1234567890>`

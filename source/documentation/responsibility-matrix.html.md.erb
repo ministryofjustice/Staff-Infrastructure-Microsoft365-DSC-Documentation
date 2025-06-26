@@ -1,0 +1,26 @@
+
+# Responsibility Matrix
+
+The following diagram details the split of responsibility for components that make up this service.
+
+
+| Legend |                       |
+|--------|-----------------------|
+| F      | Full Responsibility   |
+| S      | Shared Responsibility |
+| N      | No Responsibility     |
+
+
+|                                     | Product Team | Application Platform | Azure Hosting | IDAM | Microsoft |
+|-------------------------------------|:------------:|:--------------------:|:-------------:|:----:|:---------:|
+| Core Azure Landing Zone Services    | N            | N                    | F             | N    | N         |
+| NAT Gateway/Routing                 | N            | N                    | S             | N    | S         |
+| Key Vault                           | N            | F                    | N             | N    | N         | 
+| Storage Account                     | N            | F                    | N             | N    | N         | 
+| Managed DevOps Pool                 | N            | S                    | N             | N    | S         | 
+| Azure DevOps Projects & Pipelines   | N            | F                    | N             | N    | N         | 
+| GitHub Repositories                 | N            | F                    | N             | N    | N         | 
+| Workload Data Files                 | F            | N                    | N             | N    | N         | 
+| All CICD & other configuration files| N            | F                    | N             | N    | N         |  
+| Service Principles                  | N            | N                    | N             | F    | N         | 
+| Conditional Access Policies         | N            | N                    | N             | F    | N         | 
