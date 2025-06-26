@@ -174,6 +174,9 @@
     <a href="#governance"><span>Governance</span></a>
     <ul>
       <li>
+        <a href="#architecture-decision-records"><span>Architecture Decision Records</span></a>
+      </li>
+      <li>
         <a href="#code-ownership"><span>Code Ownership</span></a>
         <ul>
           <li>
@@ -567,6 +570,14 @@ flowchart TD
 <h1 id="governance">Governance</h1>
 
 <p>This page provides a comprehensive guide to managing code ownership, branch protection, and file authoring workflows in the Microsoft365DSC repositories. It explains how to configure the CODEOWNERS file, enforce branch protection rules, and establish workflows for workload and platform administrators.</p>
+
+<h2 id="architecture-decision-records">Architecture Decision Records</h2>
+
+<p>During our work managing M365 configuration, we will have to make architectural decisions about the platform and associated workloads.</p>
+
+<p>When making decisions, we should record them somewhere for future reference, to help us remember why we made them, and to help teams working in related areas understand why we made them. To do this we will use We will use Architecture Decision Records, as described by Michael Nygard in <a href="https://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions">this</a> article.</p>
+
+<p>Each of the CICD and Data GitHub repositories contains a /docs/architecture-decision-records folder, any design decisions relating to configuration of the Microsoft365 DSC solution, or M365 workloads should be recorded here e.g. &ldquo;authentication-method-policy-sms-is-disabled&rdquo; the ADR record should be stored within the folder relating to the tenant the decision applies too, if a decision is a global decision that is applied to all tenants under the management of M365DSC then it should be stored in the root ADR folder.</p>
 
 <h2 id="code-ownership">Code Ownership</h2>
 
