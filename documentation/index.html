@@ -168,18 +168,20 @@
     <a href="#governance"><span>Governance</span></a>
     <ul>
       <li>
+        <a href="#code-ownership"><span>Code Ownership</span></a>
         <ul>
           <li>
-            <a href="#code-ownership-with-codeowners"><span>Code Ownership with CODEOWNERS</span></a>
+            <a href="#key-points"><span>Key Points</span></a>
           </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#branch-protection-rules"><span>Branch Protection Rules</span></a>
+      </li>
+      <li>
+        <a href="#summary"><span>Summary</span></a>
+        <ul>
           <li>
-            <a href="#branch-protection-rules"><span>Branch Protection Rules</span></a>
-          </li>
-          <li>
-            <a href="#file-authoring-workflows"><span>File Authoring Workflows</span></a>
-          </li>
-          <li>
-            <a href="#summary"><span>Summary</span></a>
           </li>
         </ul>
       </li>
@@ -503,9 +505,9 @@ flowchart TD
 </ul>
 <h1 id="governance">Governance</h1>
 <p>This page provides a comprehensive guide to managing code ownership, branch protection, and file authoring workflows in the Microsoft365DSC repositories. It explains how to configure the CODEOWNERS file, enforce branch protection rules, and establish workflows for workload and platform administrators.</p>
-<h3 id="code-ownership-with-codeowners">Code Ownership with CODEOWNERS</h3>
+<h2 id="code-ownership">Code Ownership</h2>
 <p>The CODEOWNERS file in GitHub is used to assign responsibility for specific files or directories to teams. This ensures that the appropriate teams are automatically requested as reviewers for pull requests (PRs) affecting their areas of responsibility.</p>
-<h4 id="key-points">Key Points</h4>
+<h3 id="key-points">Key Points</h3>
 <p>The platform admin team are assigned ownership of:</p>
 <div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>    * All generic.psd1 files  
     * All pipeline files
@@ -516,22 +518,13 @@ flowchart TD
     * Tenant-specific settings: DataFiles/Tenants/*
 </code></pre></div><p>This ensures that workload administrators manage configurations for their respective workloads across all layers.</p>
 <p>All other files are assigned to the eucs-automation-platform-admins team by default: *.</p>
-<h3 id="branch-protection-rules">Branch Protection Rules</h3>
+<h2 id="branch-protection-rules">Branch Protection Rules</h2>
 <p>Branch protection rules enforce policies on protected branches (e.g., main, develop) to ensure that changes are reviewed, validated, and approved before merging.</p>
 <p>The branch protection policies are configured as below:
 XXXXXXXXX
 XXXXXXXXX
 XXXXXXXXX</p>
-<h3 id="file-authoring-workflows">File Authoring Workflows</h3>
-
-<ol>
-<li>Create a Feature Branch: Workload admins create a feature branch (e.g., feature/<workload-change>) to make changes to their workload-specific data files.</li>
-<li>Make Changes:Update the relevant files in their workload (e.g., OneDrive.psd1 or Exchange.psd1).</li>
-<li>Submit a Pull Request: Submit a PR to merge the feature branch into the main or develop branch.</li>
-<li>Review and Approval: The CODEOWNERS file ensures that the relevant product teams admin GitHub team members are automatically requested as reviewers for changes to workload-specific files.</li>
-<li>Merge: Once the PR is approved and all CI/CD checks pass, the workload admins can merge the changes into the protected branch.</li>
-</ol>
-<h3 id="summary">Summary</h3>
+<h2 id="summary">Summary</h2>
 <h4 id="workload-admins">Workload Admins:</h4>
 
 <ul>
