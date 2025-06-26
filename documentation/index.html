@@ -140,6 +140,9 @@
         <a href="#what-should-be-managed-in-microsoft-365-dsc"><span>What should be managed in Microsoft 365 DSC?</span></a>
       </li>
       <li>
+        <a href="#workflow"><span>Workflow</span></a>
+      </li>
+      <li>
         <a href="#data-files"><span>Data Files</span></a>
         <ul>
           <li>
@@ -159,8 +162,12 @@
       <li>
         <a href="#exporting-existing-configurations"><span>Exporting Existing Configurations</span></a>
       </li>
+    </ul>
+  </li>
+  <li>
+    <a href="#governance"><span>Governance</span></a>
+    <ul>
       <li>
-        <a href="#governance"><span>Governance</span></a>
         <ul>
           <li>
             <a href="#code-ownership-with-codeowners"><span>Code Ownership with CODEOWNERS</span></a>
@@ -338,6 +345,19 @@
 <h2 id="what-should-be-managed-in-microsoft-365-dsc">What should be managed in Microsoft 365 DSC?</h2>
 <p>The intended scope of management in Microsoft 365 DSC should focus on persistent, core configuration settings that are crucial for maintaining the desired state and security posture of the tenants. This includes global settings such as isSingleInstance = $true, as well as workload settings such as conditional access policies, MPIP labels &amp; EXO organisation config.</p>
 <p>Microsoft 365 DSC is not intended for managing disposable or high volume configurations, such as user management or business driven security groups, which are more transient and subject to frequent changes. By concentrating on stable, foundational settings, Microsoft 365 DSC ensures a consistent and secure configuration baseline across the organisation.</p>
+<h2 id="workflow">Workflow</h2>
+
+<ol>
+<li>Admin creates a new branch from the <code>main</code> Staff-Infrastructure-Microsoft365-DSC-Configuration repository, with a name relevant to the change they are making e.g. <code>DEV-TeamsMeetingPolicy-update</code></li>
+<li>Admin makes the required configuration changes to the data files necessary to the change they are making</li>
+<li>Admin commits and syncs the changes to the feature branch</li>
+<li>Admin creates a pull request (PR) to merge the changes to the <code>main</code> repository, proving a description of what changes have been made to allow others to more efficiently peer review the work</li>
+<li>The build pipeline runs on the PR</li>
+<li>Depending on the files that have been changed the relevant lead engineers or architects will be asked to review and approve the change, this is defined based on the content of the <code>codeowners</code> file</li>
+<li>The merged PR triggers a pipeline to compile Managed Object Format (MOF) files. The pipeline calls Azure Key Vault to retrieve the credentials that are used by the tenant specific service principle(s) in the MOF files, and publishes the artifacts ready for deployment</li>
+<li>The deployment pipeline is triggered that uses the compiled MOF files to deploy configuration changes to the tenants that are managed via Microsoft365DSC</li>
+<li>Admin who committed the changes reviews the relevant pipeline &amp; config in the M365 admin center to confirm the expected changes have been successfully applied</li>
+</ol>
 <h2 id="data-files">Data Files</h2>
 <p>A data file in PowerShell Desired State Configuration is a structured file that contains configuration data, such as node-specific settings and environment variables, which are used to customise and manage the desired state of target nodes (in this instance, tenants)</p>
 <p>When reviewing the Configuration repository, you will see a folder called <code>datafiles</code>. This folder contains two child folders, one named <code>Tenants</code> and another called <code>templates</code></p>
@@ -481,25 +501,11 @@ flowchart TD
 <li>Pipeline: <code>Staff-Infrastructure-Microsoft365-DSC-Configuration\Pipelines\export.yaml</code></li>
 <li>Script: <code>Staff-Infrastructure-Microsoft365-DSC-Infrastructure\Scripts\Export.ps1</code></li>
 </ul>
-<h2 id="governance">Governance</h2>
+<h1 id="governance">Governance</h1>
 <p>This page provides a comprehensive guide to managing code ownership, branch protection, and file authoring workflows in the Microsoft365DSC repositories. It explains how to configure the CODEOWNERS file, enforce branch protection rules, and establish workflows for workload and platform administrators.</p>
 <h3 id="code-ownership-with-codeowners">Code Ownership with CODEOWNERS</h3>
 <p>The CODEOWNERS file in GitHub is used to assign responsibility for specific files or directories to teams. This ensures that the appropriate teams are automatically requested as reviewers for pull requests (PRs) affecting their areas of responsibility.</p>
-<h4 id="example-codeowners-file">Example CODEOWNERS File</h4>
-<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code># Platform Admins Team
-# Responsible for managing core files such as generic files and pipelines
-**/*#Generic.psd1 @ministryofjustice/eucs-automation-platform-admins
-Pipelines/* @ministryofjustice/eucs-automation-platform-admins
-
-# Modern Workplace Admins Team
-# Responsible for managing workload-specific configurations across tenant, global, and enforced layers
-DataFiles/Templates/Global/* @ministryofjustice/eucs-modern-workplace-admins
-DataFiles/Templates/Enforced/* @ministryofjustice/eucs-modern-workplace-admins
-DataFiles/Tenants/* @ministryofjustice/eucs-modern-workplace-admins
-
-# Default ownership for all other files
-* @ministryofjustice/eucs-automation-platform-admins
-</code></pre></div><h4 id="key-points">Key Points</h4>
+<h4 id="key-points">Key Points</h4>
 <p>The platform admin team are assigned ownership of:</p>
 <div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>    * All generic.psd1 files  
     * All pipeline files
