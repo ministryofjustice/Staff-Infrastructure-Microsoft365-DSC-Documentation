@@ -539,7 +539,9 @@ flowchart TD
         TenantId = PROD]
 </pre>
 <h2 id="understanding-available-properties">Understanding Available Properties</h2>
-<p>To understand the available properties and settings for a given version of Microsoft365DSC, you can use the M365DSC.CompositeResources module. This module provides a complete reference of all resources and settings.</p>
+<p>To understand the available properties and settings for a given version of Microsoft365DSC, you can visit the <a href="https://microsoft365dsc.com/resources/overview/">M365DSC Resources Overview</a>, this page details the parameters that are available for configuration within each workload, including examples and the Graph API permissions required for the workload resource to be managed.</p>
+<p>It is important to note that due to the setup of the data files used within the solution you do not need to specify the workload within each resource that you are managing e.g. AADConditionalAccessPolicy would become ConditionalAccessPolicy within the data file, as the workload e.g. AzureAD will be defined at the top of the datafile and be prepended to all resources within that file.</p>
+<p>You can also use the M365DSC.CompositeResources module. This module provides a complete reference of all resources and settings.</p>
 <p>To export an example data file to a location of your choice, follow these steps:
 1. Install the M365DSC.CompositeResources module:</p>
 <div class="highlight"><pre class="highlight powershell" tabindex="0"><code><span class="w">
