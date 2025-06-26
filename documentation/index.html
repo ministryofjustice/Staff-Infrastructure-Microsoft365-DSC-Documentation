@@ -98,8 +98,12 @@
       <li>
         <a href="#what-is-microsoft-365-dsc"><span>What is Microsoft 365 DSC?</span></a>
       </li>
+    </ul>
+  </li>
+  <li>
+    <a href="#architecture-overview"><span>Architecture Overview</span></a>
+    <ul>
       <li>
-        <a href="#solution-overview"><span>Solution Overview</span></a>
         <ul>
           <li>
             <a href="#components"><span>Components</span></a>
@@ -115,42 +119,45 @@
           </li>
         </ul>
       </li>
+    </ul>
+  </li>
+  <li>
+    <a href="#getting-started"><span>Getting Started</span></a>
+    <ul>
       <li>
-        <a href="#getting-started"><span>Getting Started</span></a>
         <ul>
-          <li>
-            <a href="#learning-material"><span>Learning Material</span></a>
-          </li>
           <li>
             <a href="#getting-help"><span>Getting Help</span></a>
           </li>
         </ul>
       </li>
-      <li>
-        <a href="#managing-configuration"><span>Managing Configuration</span></a>
-      </li>
+    </ul>
+  </li>
+  <li>
+    <a href="#managing-configuration"><span>Managing Configuration</span></a>
+    <ul>
       <li>
         <a href="#what-should-be-managed-in-microsoft-365-dsc"><span>What should be managed in Microsoft 365 DSC?</span></a>
+      </li>
+      <li>
+        <a href="#data-files"><span>Data Files</span></a>
         <ul>
-          <li>
-            <a href="#data-files"><span>Data Files</span></a>
-          </li>
           <li>
             <a href="#global-settings"><span>Global Settings</span></a>
           </li>
           <li>
             <a href="#tenant-specific-settings"><span>Tenant Specific Settings</span></a>
           </li>
-          <li>
-            <a href="#example-configuration"><span>Example Configuration</span></a>
-          </li>
-          <li>
-            <a href="#understanding-available-properties"><span>Understanding Available Properties</span></a>
-          </li>
-          <li>
-            <a href="#exporting-existing-configurations"><span>Exporting Existing Configurations</span></a>
-          </li>
         </ul>
+      </li>
+      <li>
+        <a href="#example-configuration"><span>Example Configuration</span></a>
+      </li>
+      <li>
+        <a href="#understanding-available-properties"><span>Understanding Available Properties</span></a>
+      </li>
+      <li>
+        <a href="#exporting-existing-configurations"><span>Exporting Existing Configurations</span></a>
       </li>
       <li>
         <a href="#governance"><span>Governance</span></a>
@@ -208,7 +215,7 @@
 <p>Microsoft365DSC is an Open-Source initiative lead by Microsoft engineers and maintained by the community. It allows you to write a definition for how your Microsoft 365 tenant should be configured, automate the deployment of that configuration and ensures the monitoring of the defined configuration, notifying and acting on detected configuration drifts.</p>
 <p>It is the primary tool used by the MoJ to automate the management of the organisations tenants in line with the NCSC &amp; Microsoft <a href="https://www.gov.uk/guidance/microsoft-365-guidance-for-uk-government">blueprint for UK Government</a>.</p>
 <p>Microsoft365DSC is built as a module for the <a href="https://learn.microsoft.com/en-us/powershell/scripting/dsc/overview">PowerShell Desired State Configuration</a> framework and is made available via the <a href="https://www.powershellgallery.com/packages/Microsoft365DSC">PowerShell Gallery</a>.</p>
-<h2 id="solution-overview">Solution Overview</h2>
+<h1 id="architecture-overview">Architecture Overview</h1>
 <p>This solution provides a comprehensive framework for automating the management of Microsoft 365 configurations using Microsoft365DSC and Azure DevOps. It is composed of two Git repositories:</p>
 <p><a href="https://github.com/ministryofjustice/Staff-Infrastructure-Microsoft365-DSC-Configuration">Staff-Infrastructure-Microsoft365-DSC-Configuration</a></p>
 <p><a href="https://github.com/ministryofjustice/Staff-Infrastructure-Microsoft365-DSC-Infrastructure">Staff-Infrastructure-Microsoft365-DSC-Infrastructure</a></p>
@@ -262,25 +269,13 @@
 <li><code>Export.ps1</code>: Exports tenant configurations for auditing.</li>
 <li><code>SupportFunctions.psm1</code>: Contains helper functions used across scripts.</li>
 </ul>
-<h2 id="getting-started">Getting Started</h2>
+<h1 id="getting-started">Getting Started</h1>
 
 <ul>
 <li><a href="initial-setup-guide.html">Initial Setup Guide</a></li>
 <li><a href="learning-material.html">Learning Material</a></li>
 <li><a href="responsibility-matrix.html">Responsibility Matrix</a></li>
 </ul>
-<h3 id="learning-material">Learning Material</h3>
-<h4 id="github-basics">GitHub Basics</h4>
-<p><a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request">Creating a Pull Request: This guide explains how to create a pull request on GitHub, which is essential for collaborating on code changes.</a></p>
-<p><a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-branches">About Branches: Learn about branches in GitHub, how to create them, and how to use them for isolated development work.</a></p>
-<p><a href="https://git-scm.com/book/en/v2">Git manual</a></p>
-<h4 id="desired-state-configuration-basics">Desired State Configuration Basics</h4>
-<p><a href="https://learn.microsoft.com/en-us/powershell/scripting/dsc/overview">PowerShell Desired State Configuration (DSC) Overview: An overview of DSC, explaining its purpose and how it works.</a></p>
-<p><a href="https://learn.microsoft.com/en-us/powershell/dsc/overview/dscforengineers?view=dsc-1.1">PowerShell DSC for Engineers: a detailed overview of PowerShell Desired State Configuration (DSC) specifically tailored for engineers. It covers essential concepts and practical guidance to help engineers understand and implement DSC effectively.</a></p>
-<p><a href="https://learn.microsoft.com/en-us/powershell/dsc/configurations/write-compile-apply-configuration?view=dsc-1.1">Write, Compile, and Apply Configuration with PowerShell DSC: This link provides detailed instructions on how to write, compile, and apply configurations using PowerShell Desired State Configuration (DSC)</a></p>
-<h4 id="microsoft365dsc">Microsoft365DSC</h4>
-<p><a href="https://microsoft365dsc.com/user-guide/get-started/introduction">Microsoft 365 DSC User Guide: Introduction</a></p>
-<p><a href="https://microsoft365dsc.com/resources/overview">Microsoft 365 DSC Resources: Overview</a></p>
 <h3 id="getting-help">Getting Help</h3>
 <p>The CICD infrastructure that delivers the configuration to our M365 tenants is owned by the <a href="https://github.com/orgs/ministryofjustice/teams/eucs-automation-platform-admins">EUCS automation platform</a> team, if you wish to raise a bug or make a feature request with the service please contact them using their <a href="mailto:powerplatformteam@justice.gov.uk">shared team mailbox</a> , or create a GitHub issue on the CICD repository.</p>
 <p>If you require help with, or want to discuss configuration changes for a specific M365 product that is being managed by Microsoft 365 DSC please reach out to the relevant team as per the below table:</p>
@@ -338,12 +333,12 @@
 <td><a href="https://github.com/orgs/ministryofjustice/teams/eucs-file-and-data-maintainers">MODERN WORKPLACE</a></td>
 </tr>
         </table>
-      </div><h2 id="managing-configuration">Managing Configuration</h2>
+      </div><h1 id="managing-configuration">Managing Configuration</h1>
 <p>The following section details how the workload configuration is set between the various data files within the Configuration repository.</p>
 <h2 id="what-should-be-managed-in-microsoft-365-dsc">What should be managed in Microsoft 365 DSC?</h2>
 <p>The intended scope of management in Microsoft 365 DSC should focus on persistent, core configuration settings that are crucial for maintaining the desired state and security posture of the tenants. This includes global settings such as isSingleInstance = $true, as well as workload settings such as conditional access policies, MPIP labels &amp; EXO organisation config.</p>
 <p>Microsoft 365 DSC is not intended for managing disposable or high volume configurations, such as user management or business driven security groups, which are more transient and subject to frequent changes. By concentrating on stable, foundational settings, Microsoft 365 DSC ensures a consistent and secure configuration baseline across the organisation.</p>
-<h3 id="data-files">Data Files</h3>
+<h2 id="data-files">Data Files</h2>
 <p>A data file in PowerShell Desired State Configuration is a structured file that contains configuration data, such as node-specific settings and environment variables, which are used to customise and manage the desired state of target nodes (in this instance, tenants)</p>
 <p>When reviewing the Configuration repository, you will see a folder called <code>datafiles</code>. This folder contains two child folders, one named <code>Tenants</code> and another called <code>templates</code></p>
 <p>The <code>Tenants</code> folder contains all of the tenant specific configuration files, the <code>templates</code> folder contains all of the global configuration files that are to be applied to all tenants under the management of Microsoft 365 DSC.</p>
@@ -359,7 +354,7 @@
 <h4 id="tenant">Tenant</h4>
 <p>These are the settings that are tenant specific. Either because the workload setting is specific to only that tenant so cannot be present in the global configuration, or because you want to override a setting from the Global layer (SettingX = 1 in Global, but for this tenant it should be SettingX = 2)</p>
 <p>Location: <code>Staff-Infrastructure-Microsoft365-DSC-Configuration\DataFiles\Tenants\&lt;Tenant&gt;\&lt;TenantName&gt;&lt;WorkloadName&gt;.psd1</code></p>
-<h3 id="example-configuration">Example Configuration</h3>
+<h2 id="example-configuration">Example Configuration</h2>
 <p>The following section is intended to visualise how settings would be applied to DEV, NLE &amp; PROD based on how various workload settings were configured within different data files.</p>
 <p>In this example, the <code>Global</code> configuration contains the following settings:</p>
 <div class="highlight"><pre class="highlight powershell" tabindex="0"><code><span class="p">@{</span><span class="w">
@@ -463,7 +458,7 @@ flowchart TD
         AllowOrgWideTeamCreation = false,
         TenantId = PROD]
 </pre>
-<h3 id="understanding-available-properties">Understanding Available Properties</h3>
+<h2 id="understanding-available-properties">Understanding Available Properties</h2>
 <p>To understand the available properties and settings for a given version of Microsoft365DSC, you can use the M365DSC.CompositeResources module. This module provides a complete reference of all resources and settings.</p>
 <p>To export an example data file to a location of your choice, follow these steps:
 1. Install the M365DSC.CompositeResources module:</p>
@@ -479,7 +474,7 @@ flowchart TD
 
 </span></code></pre></div><p>This will create a sample configuration file with all available properties.</p>
 <p>For more details, refer to the <a href="https://github.com/ykuijs/M365DSC.CompositeResources/blob/main/source/Public/New-M365DSCExampleDataFile.ps1">New-M365DSCExampleDataFile documentation</a></p>
-<h3 id="exporting-existing-configurations">Exporting Existing Configurations</h3>
+<h2 id="exporting-existing-configurations">Exporting Existing Configurations</h2>
 <p>You can export the existing configuration from a tenant using the Export Pipeline. This pipeline produces an artifact containing both the raw DSC output and the composite module (where available) for the workloads defined in the tenants generic file.</p>
 
 <ul>
