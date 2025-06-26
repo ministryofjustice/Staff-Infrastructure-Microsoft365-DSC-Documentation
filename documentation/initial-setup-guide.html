@@ -9,19 +9,19 @@
 
     <link href="../stylesheets/manifest.css" rel="stylesheet" />
 
-    <link rel="canonical" href="https://ministryofjustice.github.io/Staff-Infrastructure-Microsoft365-DSC-Documentation/documentation/Governance.html">
+    <link rel="canonical" href="https://ministryofjustice.github.io/Staff-Infrastructure-Microsoft365-DSC-Documentation/documentation/initial-setup-guide.html">
 
       <meta name="robots" content="noindex" />
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:domain" content="ministryofjustice.github.io" />
       <meta name="twitter:image" content="https://ministryofjustice.github.io/Staff-Infrastructure-Microsoft365-DSC-Documentation/images/govuk-large.png" />
       <meta name="twitter:title" content="M365 Configuration as Code - Technical Guidance" />
-      <meta name="twitter:url" content="https://ministryofjustice.github.io/Staff-Infrastructure-Microsoft365-DSC-Documentation/documentation/Governance.html" />
+      <meta name="twitter:url" content="https://ministryofjustice.github.io/Staff-Infrastructure-Microsoft365-DSC-Documentation/documentation/initial-setup-guide.html" />
 
       <meta property="og:image" content="https://ministryofjustice.github.io/Staff-Infrastructure-Microsoft365-DSC-Documentation/images/govuk-large.png" />
       <meta property="og:site_name" content="M365 Configuration as Code - Technical Guidance" />
       <meta property="og:type" content="object" />
-      <meta property="og:url" content="https://ministryofjustice.github.io/Staff-Infrastructure-Microsoft365-DSC-Documentation/documentation/Governance.html" />
+      <meta property="og:url" content="https://ministryofjustice.github.io/Staff-Infrastructure-Microsoft365-DSC-Documentation/documentation/initial-setup-guide.html" />
 
     
   </head>
@@ -90,21 +90,36 @@
               <nav id="toc" class="js-toc-list toc__list" aria-labelledby="toc-heading" data-module="collapsible-navigation">
                       <ul>
   <li>
-    <a href="#governance"><span>Governance</span></a>
+    <a href="#getting-started"><span>Getting Started</span></a>
     <ul>
       <li>
+        <a href="#1-m365-privileged-access-identity-amp-device"><span>1. M365 Privileged Access Identity & Device</span></a>
+      </li>
+      <li>
+        <a href="#2-device-set-up"><span>2. Device Set up</span></a>
         <ul>
           <li>
-            <a href="#code-ownership-with-codeowners"><span>Code Ownership with CODEOWNERS</span></a>
+            <a href="#2-1-install-vs-code"><span>2.1 Install VS Code</span></a>
           </li>
           <li>
-            <a href="#branch-protection-rules"><span>Branch Protection Rules</span></a>
+            <a href="#2-2-install-git"><span>2.2 Install Git</span></a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#3-azure-devops-access"><span>3. Azure DevOps Access</span></a>
+      </li>
+      <li>
+        <a href="#4-github"><span>4. GitHub</span></a>
+        <ul>
+          <li>
+            <a href="#4-1-github-account"><span>4.1 GitHub Account</span></a>
           </li>
           <li>
-            <a href="#file-authoring-workflows"><span>File Authoring Workflows</span></a>
+            <a href="#4-2-github-teams"><span>4.2 GitHub Teams</span></a>
           </li>
           <li>
-            <a href="#summary"><span>Summary</span></a>
+            <a href="#4-3-github-signed-commits"><span>4.3 GitHub Signed Commits</span></a>
           </li>
         </ul>
       </li>
@@ -119,80 +134,50 @@
 
         <div class="app-pane__content toc-open-disabled">
           <main id="content" class="technical-documentation" data-module="anchored-headings">
-            <h1 id="governance">Governance</h1>
-<p>This page provides a comprehensive guide to managing code ownership, branch protection, and file authoring workflows in the Microsoft365DSC repositories. It explains how to configure the CODEOWNERS file, enforce branch protection rules, and establish workflows for workload and platform administrators.</p>
-<h3 id="code-ownership-with-codeowners">Code Ownership with CODEOWNERS</h3>
-<p>The CODEOWNERS file in GitHub is used to assign responsibility for specific files or directories to teams. This ensures that the appropriate teams are automatically requested as reviewers for pull requests (PRs) affecting their areas of responsibility.</p>
-<h4 id="example-codeowners-file">Example CODEOWNERS File</h4>
-<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code># Platform Admins Team
-# Responsible for managing core files such as generic files and pipelines
-**/*#Generic.psd1 @ministryofjustice/eucs-automation-platform-admins
-Pipelines/* @ministryofjustice/eucs-automation-platform-admins
-
-# Modern Workplace Admins Team
-# Responsible for managing workload-specific configurations across tenant, global, and enforced layers
-DataFiles/Templates/Global/* @ministryofjustice/eucs-modern-workplace-admins
-DataFiles/Templates/Enforced/* @ministryofjustice/eucs-modern-workplace-admins
-DataFiles/Tenants/* @ministryofjustice/eucs-modern-workplace-admins
-
-# Default ownership for all other files
-* @ministryofjustice/eucs-automation-platform-admins
-</code></pre></div><h4 id="key-points">Key Points</h4>
-<p>The platform admin team are assigned ownership of:</p>
-<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>    * All generic.psd1 files  
-    * All pipeline files
-</code></pre></div><p>This ensures that platform administrators manage the core files and CI/CD pipelines.</p>
-<p>The workload product team e.g. Modern Workplace Admins Team are assigned ownership of:</p>
-<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>    * Global settings: DataFiles/Templates/Global/*
-    * Enforced settings: DataFiles/Templates/Enforced/*
-    * Tenant-specific settings: DataFiles/Tenants/*
-</code></pre></div><p>This ensures that workload administrators manage configurations for their respective workloads across all layers.</p>
-<p>All other files are assigned to the eucs-automation-platform-admins team by default: *.</p>
-<h3 id="branch-protection-rules">Branch Protection Rules</h3>
-<p>Branch protection rules enforce policies on protected branches (e.g., main, develop) to ensure that changes are reviewed, validated, and approved before merging.</p>
-<p>The branch protection policies are configured as below:
-XXXXXXXXX
-XXXXXXXXX
-XXXXXXXXX</p>
-<h3 id="file-authoring-workflows">File Authoring Workflows</h3>
-
-<ol>
-<li>Create a Feature Branch: Workload admins create a feature branch (e.g., feature/<workload-change>) to make changes to their workload-specific data files.</li>
-<li>Make Changes:Update the relevant files in their workload (e.g., OneDrive.psd1 or Exchange.psd1).</li>
-<li>Submit a Pull Request: Submit a PR to merge the feature branch into the main or develop branch.</li>
-<li>Review and Approval: The CODEOWNERS file ensures that the relevant product teams admin GitHub team members are automatically requested as reviewers for changes to workload-specific files.</li>
-<li>Merge: Once the PR is approved and all CI/CD checks pass, the workload admins can merge the changes into the protected branch.</li>
-</ol>
-<h3 id="summary">Summary</h3>
-<h4 id="workload-admins">Workload Admins:</h4>
-
-<ul>
-<li>Contribute to workload-specific files (e.g., DataFiles/Templates/Global/<em>, DataFiles/Templates/Enforced/</em>, DataFiles/Tenants/*).</li>
-<li>Must use the feature branch and PR workflow.</li>
-<li>Cannot directly push to protected branches.</li>
-</ul>
-<h4 id="platform-admins">Platform Admins:</h4>
-
-<ul>
-<li>Contribute to core files (e.g., *<em>/</em>#Generic.psd1, Pipelines/*).</li>
-<li>Use the feature branch and PR workflow for regular changes.</li>
-<li>Have direct push access to protected branches for hotfixes or emergencies.</li>
-</ul>
-<h4 id="summary-branch-protection-rules">Branch Protection Rules:</h4>
-
-<ul>
-<li>Enforce PR-based workflows for all changes.</li>
-<li>Require reviews from code owners and passing CI/CD checks.</li>
-<li>Restrict direct push access to eucs-automation-platform-admins.</li>
-</ul>
+            <h1 id="getting-started">Getting Started</h1>
+<p>To begin managing your configuration with Microsoft 365 DSC, start by familiarising yourself with the core concepts and prerequisites. Ensure you have the necessary permissions and access to the Microsoft 365 tenants, Azure DevOps project(s) &amp; GitHub repositories.</p>
+<p>The CICD repository can be found <a href="https://github.com/ministryofjustice/Staff-Infrastructure-Microsoft365-DSC-Infrastructure">here</a>, the Configuration repository can be found <a href="https://github.com/ministryofjustice/Staff-Infrastructure-Microsoft365-DSC-Configuration">here</a>. The appropriate access to these repositories will be automatically granted based on your GitHub team membership.</p>
+<p>The Azure DevOps projects can be found <a href="https://dev.azure.com/MoJ-OFFICIAL-M365DSC/">here</a>.The appropriate access to these projects will be automatically granted based on your production administrative identities access package entitlements.</p>
+<h2 id="1-m365-privileged-access-identity-amp-device">1. M365 Privileged Access Identity &amp; Device</h2>
+<p>Administrators require a seperate tenant specific identity for each tenant they manage, and a privileged access workstation - <a href="https://mojprod.service-now.com/moj_sp?id=sc_cat_item&amp;table=sc_cat_item&amp;sys_id=8161246a1b170a50a1e2ddf0b24bcbdb&amp;searchTerm=technical%20access#BL1">this</a> Service Now request can be used to request accounts for all MoJ managed tenants as well as the provisioning of a workstation.</p>
+<p>Privilaged Identities are added into the relevant access packages for the team you are a member of, this ensures that all team members have the same level of access, including the entitlements required to operate the M365DSC service.</p>
+<p>Due to the architecture of the Azure DevOps, all work within M365DSC will be carried out under your production MoJ Official administrative identity as this is the tenant that the CICD resources are managed by, however an identity for each tenant will stil be required to allow you to check and review configurations once they are applied.</p>
+<h2 id="2-device-set-up">2. Device Set up</h2>
+<h3 id="2-1-install-vs-code">2.1 Install VS Code</h3>
+<p>To make managing code and configurations simpler we suggest downloading VS Code -  https://code.visualstudio.com/download</p>
+<h3 id="2-2-install-git">2.2 Install Git</h3>
+<p>This allows you to use Git on your local machine. You can use it through IDE plugins or from the command line. Choose the Windows Setup option when downloading the package from <a href="https://git-scm.com/download/win">here</a>.</p>
+<h2 id="3-azure-devops-access">3. Azure DevOps Access</h2>
+<p>The CICD orchestration used in this solution leverages Azure DevOps, to ensure agent isolation and reduce the risk of supply chain attacks to or from other projects M365DSC has been deployed into its own Azure DevOps organisation which can be found <a href="https://dev.azure.com/MoJ-OFFICIAL-M365DSC/">here</a></p>
+<p>Access to the DevOps organisation with appropriate permission levels to projects within have been assigned to the access packages that your production administrative identity is a member of, no further action should be required to allow you to authenticate with and access the resources once your identity is set up in step 1.</p>
+<h2 id="4-github">4. GitHub</h2>
+<h3 id="4-1-github-account">4.1 GitHub Account</h3>
+<p>If you do not already have a personal GitHub account, follow <a href="https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github">these</a> steps to set yourself up. You can choose to setup a MoJ specific one or a personal one.</p>
+<p>If you have created a personal one, you will add your MoJ email address to your account as a secondary email which you will use for committing code.</p>
+<h4 id="4-1-1-use-existing-github-account">4.1.1 Use existing GitHub account</h4>
+<p>You do not need a dedicated MoJ GitHub account. You can use your own personal GitHub account and add your MoJ email to your account.</p>
+<p>To add yourself to the MoJ GitHub organisation, follow these steps:
+* Go to <a href="https://github.com/settings/emails">Email settings</a>
+* In Add email address type your @justice.gov.uk or @justiceuk.onmicrosoft.com email
+* Visit <a href="https://github.com/orgs/ministryofjustice/sso">GitHub</a> and SSO with your MoJ Microsoft identity and you will be added to the Organisation.</p>
+<p>Once added you will have access to all repositories in the <a href="https://github.com/ministryofjustice/">Ministry of Justice Organisation</a>.</p>
+<h3 id="4-2-github-teams">4.2 GitHub Teams</h3>
+<p>Once you have been successfully authenticated into the organisaiton you will need adding into the GitHub team relevant to where you work within MoJ. GitHub Teams are used to control access levels over the repositories that are used by the Microsoft 365 DSC solution.</p>
+<p>Each product team has two GitHub teams available:
+* eucs-<product team>-admins: Staff within these teams will be made CODEOWNERS of the relevant configuration files that control the configuration of their products, these members will need to approve any PRs where changes have occured in these files and will be the responsible authority on any changes made to the codebase.
+* eucs-<product team>-maintainers: Staff within these teams will be able to commit changes to the repositories and create PRs but will not be able to approve any changes.</p>
+<h3 id="4-3-github-signed-commits">4.3 GitHub Signed Commits</h3>
+<p>The Microsoft 365DSC GitHub repositories have branch protection rules applied that require all commits to be signed, to generate a GPG key please follow <a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/generating-a-new-gpg-key">these</a> instructions.</p>
+<p>Once you have generated a GPG key and associated it with your GitHub account <a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits">these</a> instructions detail how to sign commits using the key.</p>
+<p>To set the GPG key to be used for signing commits on your device you may need to run <code>git config --global user.signingkey &lt;GPG key ID e.g. ABCDEF1234567890&gt;</code></p>
 
             
           </main>
 
           <aside>
               <ul class="contribution-banner">
-                <li><a href="https://github.com/ministryofjustice/Staff-Infrastructure-Microsoft365-DSC-Documentation/blob/main/source/documentation/Governance.html.md.erb">View source</a></li>
-                <li><a href="https://github.com/ministryofjustice/Staff-Infrastructure-Microsoft365-DSC-Documentation/issues/new?body=Problem+with+%27%27+%28https%3A%2F%2Fministryofjustice.github.io%2FStaff-Infrastructure-Microsoft365-DSC-Documentation%2Fdocumentation%2FGovernance.html%29&amp;labels=bug&amp;title=Re%3A+%27%27">Report problem</a></li>
+                <li><a href="https://github.com/ministryofjustice/Staff-Infrastructure-Microsoft365-DSC-Documentation/blob/main/source/documentation/initial-setup-guide.html.md.erb">View source</a></li>
+                <li><a href="https://github.com/ministryofjustice/Staff-Infrastructure-Microsoft365-DSC-Documentation/issues/new?body=Problem+with+%27%27+%28https%3A%2F%2Fministryofjustice.github.io%2FStaff-Infrastructure-Microsoft365-DSC-Documentation%2Fdocumentation%2Finitial-setup-guide.html%29&amp;labels=bug&amp;title=Re%3A+%27%27">Report problem</a></li>
                 <li><a href="https://github.com/ministryofjustice/Staff-Infrastructure-Microsoft365-DSC-Documentation">GitHub Repo</a></li>
               </ul>
           </aside>

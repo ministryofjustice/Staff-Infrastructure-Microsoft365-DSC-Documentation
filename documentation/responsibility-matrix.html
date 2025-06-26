@@ -9,19 +9,19 @@
 
     <link href="../stylesheets/manifest.css" rel="stylesheet" />
 
-    <link rel="canonical" href="https://ministryofjustice.github.io/Staff-Infrastructure-Microsoft365-DSC-Documentation/documentation/getting-started.html">
+    <link rel="canonical" href="https://ministryofjustice.github.io/Staff-Infrastructure-Microsoft365-DSC-Documentation/documentation/responsibility-matrix.html">
 
       <meta name="robots" content="noindex" />
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:domain" content="ministryofjustice.github.io" />
       <meta name="twitter:image" content="https://ministryofjustice.github.io/Staff-Infrastructure-Microsoft365-DSC-Documentation/images/govuk-large.png" />
       <meta name="twitter:title" content="M365 Configuration as Code - Technical Guidance" />
-      <meta name="twitter:url" content="https://ministryofjustice.github.io/Staff-Infrastructure-Microsoft365-DSC-Documentation/documentation/getting-started.html" />
+      <meta name="twitter:url" content="https://ministryofjustice.github.io/Staff-Infrastructure-Microsoft365-DSC-Documentation/documentation/responsibility-matrix.html" />
 
       <meta property="og:image" content="https://ministryofjustice.github.io/Staff-Infrastructure-Microsoft365-DSC-Documentation/images/govuk-large.png" />
       <meta property="og:site_name" content="M365 Configuration as Code - Technical Guidance" />
       <meta property="og:type" content="object" />
-      <meta property="og:url" content="https://ministryofjustice.github.io/Staff-Infrastructure-Microsoft365-DSC-Documentation/documentation/getting-started.html" />
+      <meta property="og:url" content="https://ministryofjustice.github.io/Staff-Infrastructure-Microsoft365-DSC-Documentation/documentation/responsibility-matrix.html" />
 
     
   </head>
@@ -87,10 +87,10 @@
             <div class="toc" data-module="table-of-contents" tabindex="-1" aria-label="Table of contents" role="dialog">
               
               <button type="button" class="toc__close js-toc-close" aria-controls="toc" aria-label="Hide table of contents"></button>
-              <nav id="toc" class="js-toc-list toc__list" aria-labelledby="toc-heading">
+              <nav id="toc" class="js-toc-list toc__list" aria-labelledby="toc-heading" data-module="collapsible-navigation">
                       <ul>
   <li>
-    <a href="#getting-started"><span>Getting Started</span></a>
+    <a href="#responsibility-matrix"><span>Responsibility Matrix</span></a>
   </li>
 </ul>
 
@@ -101,19 +101,120 @@
 
         <div class="app-pane__content toc-open-disabled">
           <main id="content" class="technical-documentation" data-module="anchored-headings">
-            <h1 id="getting-started">Getting Started</h1>
-<p>To begin managing your configuration with Microsoft 365 DSC, start by familiarising yourself with the core concepts and prerequisites. Ensure you have the necessary permissions and access to the Microsoft 365 tenants, Azure DevOps project(s) &amp; GitHub repositories.</p>
-<p>Administrative identities and a privileged access workstation can be requested using <a href="https://mojprod.service-now.com/moj_sp?id=sc_cat_item&amp;table=sc_cat_item&amp;sys_id=8161246a1b170a50a1e2ddf0b24bcbdb&amp;searchTerm=technical%20access#BL1">this</a> Service Now request.</p>
-<p>The CICD repository can be found here, the Configuration repository can be found here. The appropriate access to these repositories will be automatically granted based on your GitHub team membership.</p>
-<p>The CICD Azure DevOps project can be found here, the Configuration Azure DevOps project can be found here.The appropriate access to these projects will be automatically granted based on your production administrative identities access package entitlements.</p>
-
+            <h1 id="responsibility-matrix">Responsibility Matrix</h1>
+<p>The following diagram details the split of responsibility for components that make up this service.</p>
+<div class="table-container">
+        <table>
+          <tr>
+<th>Legend</th>
+<th></th>
+</tr><tr>
+<td>F</td>
+<td>Full Responsibility</td>
+</tr><tr>
+<td>S</td>
+<td>Shared Responsibility</td>
+</tr><tr>
+<td>N</td>
+<td>No Responsibility</td>
+</tr>
+        </table>
+      </div><div class="table-container">
+        <table>
+          <tr>
+<th></th>
+<th style="text-align: center">Product Team</th>
+<th style="text-align: center">Application Platform</th>
+<th style="text-align: center">Azure Hosting</th>
+<th style="text-align: center">IDAM</th>
+<th style="text-align: center">Microsoft</th>
+</tr><tr>
+<td>Core Azure Landing Zone Services</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">F</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+</tr><tr>
+<td>NAT Gateway/Routing</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">S</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">S</td>
+</tr><tr>
+<td>Key Vault</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">F</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+</tr><tr>
+<td>Storage Account</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">F</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+</tr><tr>
+<td>Managed DevOps Pool</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">S</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">S</td>
+</tr><tr>
+<td>Azure DevOps Projects &amp; Pipelines</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">F</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+</tr><tr>
+<td>GitHub Repositories</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">F</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+</tr><tr>
+<td>Workload Data Files</td>
+<td style="text-align: center">F</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+</tr><tr>
+<td>All CICD &amp; other configuration files</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">F</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+</tr><tr>
+<td>Service Principles</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">F</td>
+<td style="text-align: center">N</td>
+</tr><tr>
+<td>Conditional Access Policies</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">N</td>
+<td style="text-align: center">F</td>
+<td style="text-align: center">N</td>
+</tr>
+        </table>
+      </div>
             
           </main>
 
           <aside>
               <ul class="contribution-banner">
-                <li><a href="https://github.com/ministryofjustice/Staff-Infrastructure-Microsoft365-DSC-Documentation/blob/main/source/documentation/getting-started.html.md.erb">View source</a></li>
-                <li><a href="https://github.com/ministryofjustice/Staff-Infrastructure-Microsoft365-DSC-Documentation/issues/new?body=Problem+with+%27%27+%28https%3A%2F%2Fministryofjustice.github.io%2FStaff-Infrastructure-Microsoft365-DSC-Documentation%2Fdocumentation%2Fgetting-started.html%29&amp;labels=bug&amp;title=Re%3A+%27%27">Report problem</a></li>
+                <li><a href="https://github.com/ministryofjustice/Staff-Infrastructure-Microsoft365-DSC-Documentation/blob/main/source/documentation/responsibility-matrix.html.md.erb">View source</a></li>
+                <li><a href="https://github.com/ministryofjustice/Staff-Infrastructure-Microsoft365-DSC-Documentation/issues/new?body=Problem+with+%27%27+%28https%3A%2F%2Fministryofjustice.github.io%2FStaff-Infrastructure-Microsoft365-DSC-Documentation%2Fdocumentation%2Fresponsibility-matrix.html%29&amp;labels=bug&amp;title=Re%3A+%27%27">Report problem</a></li>
                 <li><a href="https://github.com/ministryofjustice/Staff-Infrastructure-Microsoft365-DSC-Documentation">GitHub Repo</a></li>
               </ul>
           </aside>

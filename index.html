@@ -88,7 +88,7 @@
             <div class="toc" data-module="table-of-contents" tabindex="-1" aria-label="Table of contents" role="dialog">
               
               <button type="button" class="toc__close js-toc-close" aria-controls="toc" aria-label="Hide table of contents"></button>
-              <nav id="toc" class="js-toc-list toc__list" aria-labelledby="toc-heading">
+              <nav id="toc" class="js-toc-list toc__list" aria-labelledby="toc-heading" data-module="collapsible-navigation">
                       <ul>
   <li>
     <a href="#m365-configuration-as-code-technical-guidance"><span>M365 Configuration as Code - Technical Guidance</span></a>
@@ -117,19 +117,10 @@
         </ul>
       </li>
       <li>
-        <a href="#guidance"><span>Guidance</span></a>
+        <a href="#getting-started"><span>Getting Started</span></a>
         <ul>
           <li>
-            <a href="#getting-started"><span>Getting Started</span></a>
-          </li>
-          <li>
             <a href="#learning-material"><span>Learning Material</span></a>
-          </li>
-          <li>
-            <a href="#what-should-be-managed-in-microsoft-365-dsc"><span>What should be managed in Microsoft 365 DSC?</span></a>
-          </li>
-          <li>
-            <a href="#responsibility-matrix"><span>Responsibility Matrix</span></a>
           </li>
           <li>
             <a href="#getting-help"><span>Getting Help</span></a>
@@ -138,6 +129,9 @@
       </li>
       <li>
         <a href="#managing-configuration"><span>Managing Configuration</span></a>
+      </li>
+      <li>
+        <a href="#what-should-be-managed-in-microsoft-365-dsc"><span>What should be managed in Microsoft 365 DSC?</span></a>
         <ul>
           <li>
             <a href="#data-files"><span>Data Files</span></a>
@@ -165,6 +159,26 @@
           <li>
             <a href="#code-ownership-with-codeowners"><span>Code Ownership with CODEOWNERS</span></a>
           </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <a href="#responsible-for-managing-core-files-such-as-generic-files-and-pipelines"><span>Responsible for managing core files such as generic files and pipelines</span></a>
+  </li>
+  <li>
+    <a href="#modern-workplace-admins-team"><span>Modern Workplace Admins Team</span></a>
+  </li>
+  <li>
+    <a href="#responsible-for-managing-workload-specific-configurations-across-tenant-global-and-enforced-layers"><span>Responsible for managing workload-specific configurations across tenant, global, and enforced layers</span></a>
+  </li>
+  <li>
+    <a href="#default-ownership-for-all-other-files"><span>Default ownership for all other files</span></a>
+    <ul>
+      <li>
+        <ul>
+          <li>
+          </li>
           <li>
             <a href="#branch-protection-rules"><span>Branch Protection Rules</span></a>
           </li>
@@ -173,29 +187,6 @@
           </li>
           <li>
             <a href="#summary"><span>Summary</span></a>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href="#onboarding-a-new-tenant"><span>Onboarding a new tenant</span></a>
-        <ul>
-          <li>
-            <a href="#1-prerequisites"><span>1. Prerequisites</span></a>
-          </li>
-          <li>
-            <a href="#2-create-app-registration"><span>2. Create App Registration</span></a>
-          </li>
-          <li>
-            <a href="#3-provision-data-files"><span>3. Provision Data Files</span></a>
-          </li>
-          <li>
-            <a href="#4-commit-changes"><span>4. Commit Changes</span></a>
-          </li>
-          <li>
-            <a href="#5-run-the-dependencies-pipeline"><span>5. Run the Dependencies Pipeline</span></a>
-          </li>
-          <li>
-            <a href="#6-validation"><span>6. Validation</span></a>
           </li>
         </ul>
       </li>
@@ -238,7 +229,7 @@
 
 <p>This page is intended for staff who are responsible for the configuration, security and operation of the Ministry of Justice’s Microsoft 365 services.</p>
 
-<p>It holds information on the Ministry of Justice’s Microsoft 365 DSC DevOps integrated architecture. including detailed guidance, engineering references, and an overview of the intended scope and configuration. The aim is to facilitate the onboarding process and support for administrators managing our tenants.</p>
+<p>It holds information on the Ministry of Justice’s Microsoft 365 DSC DevOps integrated architecture. including detailed guidance, engineering references, and an overview of the intended scope and configuration. The aim is to facilitate the onboarding process and support administrators managing our tenants.</p>
 
 <h2 id="what-is-microsoft-365-dsc">What is Microsoft 365 DSC?</h2>
 
@@ -328,19 +319,13 @@
 <li><code>SupportFunctions.psm1</code>: Contains helper functions used across scripts.</li>
 </ul>
 
-<h2 id="guidance">Guidance</h2>
+<h2 id="getting-started">Getting Started</h2>
 
-<p><a href="documentation/getting-started.html">Getting Started</a></p>
-
-<h3 id="getting-started">Getting Started</h3>
-
-<p>To begin managing your configuration with Microsoft 365 DSC, start by familiarising yourself with the core concepts and prerequisites. Ensure you have the necessary permissions and access to the Microsoft 365 tenants, Azure DevOps project(s) &amp; GitHub repositories.</p>
-
-<p>Administrative identities and a privileged access workstation can be requested using <a href="https://mojprod.service-now.com/moj_sp?id=sc_cat_item&amp;table=sc_cat_item&amp;sys_id=8161246a1b170a50a1e2ddf0b24bcbdb&amp;searchTerm=technical%20access#BL1">this</a> Service Now request.</p>
-
-<p>The CICD repository can be found here, the Configuration repository can be found here. The appropriate access to these repositories will be automatically granted based on your GitHub team membership.</p>
-
-<p>The CICD Azure DevOps project can be found here, the Configuration Azure DevOps project can be found here.The appropriate access to these projects will be automatically granted based on your production administrative identities access package entitlements.</p>
+<ul>
+<li><a href="documentation/initial-setup-guide.html">Initial Setup Guide</a></li>
+<li><a href="documentation/learning-material.html">Learning Material</a></li>
+<li><a href="documentation/responsibility-matrix.html">Responsibility Matrix</a></li>
+</ul>
 
 <h3 id="learning-material">Learning Material</h3>
 
@@ -366,123 +351,12 @@
 
 <p><a href="https://microsoft365dsc.com/resources/overview">Microsoft 365 DSC Resources: Overview</a></p>
 
-<h3 id="what-should-be-managed-in-microsoft-365-dsc">What should be managed in Microsoft 365 DSC?</h3>
+<h3 id="getting-help">Getting Help</h3>
 
-<p>The intended scope of management in Microsoft 365 DSC should focus on persistent, core configuration settings that are crucial for maintaining the desired state and security posture of the tenants. This includes global settings such as isSingleInstance = $true, as well as workload settings such as conditional access policies, MPIP labels &amp; EXO organisation config.</p>
-
-<p>Microsoft 365 DSC is not intended for managing disposable or high volume configurations, such as user management or business driven security groups, which are more transient and subject to frequent changes. By concentrating on stable, foundational settings, Microsoft 365 DSC ensures a consistent and secure configuration baseline across the organisation.</p>
-
-<h3 id="responsibility-matrix">Responsibility Matrix</h3>
-
-<p>The following diagram details the split of responsibility for components that make up this service.</p>
-
-<div class="table-container">
-        <table>
-          <tr>
-<th>Legend</th>
-<th></th>
-</tr><tr>
-<td>F</td>
-<td>Full Responsibility</td>
-</tr><tr>
-<td>S</td>
-<td>Shared Responsibility</td>
-</tr><tr>
-<td>N</td>
-<td>No Responsibility</td>
-</tr>
-        </table>
-      </div><div class="table-container">
-        <table>
-          <tr>
-<th></th>
-<th style="text-align: center">Product Team</th>
-<th style="text-align: center">Application Platform</th>
-<th style="text-align: center">Azure Hosting</th>
-<th style="text-align: center">IDAM</th>
-<th style="text-align: center">Microsoft</th>
-</tr><tr>
-<td>Core Azure Landing Zone Services</td>
-<td style="text-align: center">N</td>
-<td style="text-align: center">N</td>
-<td style="text-align: center">F</td>
-<td style="text-align: center">N</td>
-<td style="text-align: center">N</td>
-</tr><tr>
-<td>NAT Gateway/Routing</td>
-<td style="text-align: center">N</td>
-<td style="text-align: center">N</td>
-<td style="text-align: center">S</td>
-<td style="text-align: center">N</td>
-<td style="text-align: center">S</td>
-</tr><tr>
-<td>Key Vault</td>
-<td style="text-align: center">N</td>
-<td style="text-align: center">Y</td>
-<td style="text-align: center">N</td>
-<td style="text-align: center">N</td>
-<td style="text-align: center">N</td>
-</tr><tr>
-<td>Storage Account</td>
-<td style="text-align: center">N</td>
-<td style="text-align: center">Y</td>
-<td style="text-align: center">N</td>
-<td style="text-align: center">N</td>
-<td style="text-align: center">N</td>
-</tr><tr>
-<td>Managed DevOps Pool</td>
-<td style="text-align: center">N</td>
-<td style="text-align: center">S</td>
-<td style="text-align: center">N</td>
-<td style="text-align: center">N</td>
-<td style="text-align: center">S</td>
-</tr><tr>
-<td>Azure DevOps Projects &amp; Pipelines</td>
-<td style="text-align: center">N</td>
-<td style="text-align: center">Y</td>
-<td style="text-align: center">N</td>
-<td style="text-align: center">N</td>
-<td style="text-align: center">N</td>
-</tr><tr>
-<td>GitHub Repositories</td>
-<td style="text-align: center">N</td>
-<td style="text-align: center">Y</td>
-<td style="text-align: center">N</td>
-<td style="text-align: center">N</td>
-<td style="text-align: center">N</td>
-</tr><tr>
-<td>Workload Data Files</td>
-<td style="text-align: center">Y</td>
-<td style="text-align: center">N</td>
-<td style="text-align: center">N</td>
-<td style="text-align: center">N</td>
-<td style="text-align: center">N</td>
-</tr><tr>
-<td>All CICD &amp; other configuration files</td>
-<td style="text-align: center">N</td>
-<td style="text-align: center">Y</td>
-<td style="text-align: center">N</td>
-<td style="text-align: center">N</td>
-<td style="text-align: center">N</td>
-</tr><tr>
-<td>Service Principles</td>
-<td style="text-align: center">N</td>
-<td style="text-align: center">N</td>
-<td style="text-align: center">N</td>
-<td style="text-align: center">Y</td>
-<td style="text-align: center">N</td>
-</tr><tr>
-<td>Conditional Access Policies</td>
-<td style="text-align: center">N</td>
-<td style="text-align: center">N</td>
-<td style="text-align: center">N</td>
-<td style="text-align: center">Y</td>
-<td style="text-align: center">N</td>
-</tr>
-        </table>
-      </div><h3 id="getting-help">Getting Help</h3>
 <p>The CICD infrastructure that delivers the configuration to our M365 tenants is owned by the <a href="https://github.com/orgs/ministryofjustice/teams/eucs-automation-platform-admins">EUCS automation platform</a> team, if you wish to raise a bug or make a feature request with the service please contact them using their <a href="mailto:powerplatformteam@justice.gov.uk">shared team mailbox</a> , or create a GitHub issue on the CICD repository.</p>
+
 <p>If you require help with, or want to discuss configuration changes for a specific M365 product that is being managed by Microsoft 365 DSC please reach out to the relevant team as per the below table:</p>
+
 <div class="table-container">
         <table>
           <tr>
@@ -539,6 +413,9 @@
         </table>
       </div><h2 id="managing-configuration">Managing Configuration</h2>
 <p>The following section details how the workload configuration is set between the various data files within the Configuration repository.</p>
+<h2 id="what-should-be-managed-in-microsoft-365-dsc">What should be managed in Microsoft 365 DSC?</h2>
+<p>The intended scope of management in Microsoft 365 DSC should focus on persistent, core configuration settings that are crucial for maintaining the desired state and security posture of the tenants. This includes global settings such as isSingleInstance = $true, as well as workload settings such as conditional access policies, MPIP labels &amp; EXO organisation config.</p>
+<p>Microsoft 365 DSC is not intended for managing disposable or high volume configurations, such as user management or business driven security groups, which are more transient and subject to frequent changes. By concentrating on stable, foundational settings, Microsoft 365 DSC ensures a consistent and secure configuration baseline across the organisation.</p>
 <h3 id="data-files">Data Files</h3>
 <p>A data file in PowerShell Desired State Configuration is a structured file that contains configuration data, such as node-specific settings and environment variables, which are used to customise and manage the desired state of target nodes (in this instance, tenants)</p>
 <p>When reviewing the Configuration repository, you will see a folder called <code>datafiles</code>. This folder contains two child folders, one named <code>Tenants</code> and another called <code>templates</code></p>
@@ -671,46 +548,51 @@ flowchart TD
 <ol>
 <li>Run the following command to generate an example data file:</li>
 </ol>
-
-<div class="highlight"><pre class="highlight powershell" tabindex="0"><code><span class="w">
-    </span><span class="n">New-M365DSCExampleDataFile</span><span class="w"> </span><span class="nt">-OutputPath</span><span class="w"> </span><span class="s2">"C:\Path\To\Output"</span><span class="w">
-
-</span></code></pre></div><p>This will create a sample configuration file with all available properties.</p>
+<p><div class="highlight"><pre class="highlight powershell" tabindex="0"><code><span class="w">
+    </span><span class="n">New-M365DSCExampleDataFile</span><span class="w"> </span><span class="nt">-OutputPath</span><span class="w"> </span><span class="s2">&quot;C:\Path\To\Output&quot;</span><span class="w"></p>
+<p></span></code></pre></div><p>This will create a sample configuration file with all available properties.</p>
 <p>For more details, refer to the <a href="https://github.com/ykuijs/M365DSC.CompositeResources/blob/main/source/Public/New-M365DSCExampleDataFile.ps1">New-M365DSCExampleDataFile documentation</a></p>
 <h3 id="exporting-existing-configurations">Exporting Existing Configurations</h3>
-<p>You can export the existing configuration from a tenant using the Export Pipeline. This pipeline produces an artifact containing both the raw DSC output and the composite module (where available) for the workloads defined in the tenants generic file.</p>
+<p>You can export the existing configuration from a tenant using the Export Pipeline. This pipeline produces an artifact containing both the raw DSC output and the composite module (where available) for the workloads defined in the tenants generic file.</p></p>
 
 <ul>
 <li>Pipeline: <code>Staff-Infrastructure-Microsoft365-DSC-Configuration\Pipelines\export.yaml</code></li>
 <li>Script: <code>Staff-Infrastructure-Microsoft365-DSC-Infrastructure\Scripts\Export.ps1</code></li>
 </ul>
+
 <h2 id="governance">Governance</h2>
+
 <p>This page provides a comprehensive guide to managing code ownership, branch protection, and file authoring workflows in the Microsoft365DSC repositories. It explains how to configure the CODEOWNERS file, enforce branch protection rules, and establish workflows for workload and platform administrators.</p>
+
 <h3 id="code-ownership-with-codeowners">Code Ownership with CODEOWNERS</h3>
+
 <p>The CODEOWNERS file in GitHub is used to assign responsibility for specific files or directories to teams. This ensures that the appropriate teams are automatically requested as reviewers for pull requests (PRs) affecting their areas of responsibility.</p>
+
 <h4 id="example-codeowners-file">Example CODEOWNERS File</h4>
-<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code># Platform Admins Team
-# Responsible for managing core files such as generic files and pipelines
-**/*#Generic.psd1 @ministryofjustice/eucs-automation-platform-admins
-Pipelines/* @ministryofjustice/eucs-automation-platform-admins
-
-# Modern Workplace Admins Team
-# Responsible for managing workload-specific configurations across tenant, global, and enforced layers
-DataFiles/Templates/Global/* @ministryofjustice/eucs-modern-workplace-admins
+<p><div class="highlight"><pre class="highlight plaintext" tabindex="0"><code># Platform Admins Team</p>
+<h1 id="responsible-for-managing-core-files-such-as-generic-files-and-pipelines">Responsible for managing core files such as generic files and pipelines</h1>
+<p>*<em>/</em>#Generic.psd1 @ministryofjustice/eucs-automation-platform-admins
+Pipelines/* @ministryofjustice/eucs-automation-platform-admins</p>
+<h1 id="modern-workplace-admins-team">Modern Workplace Admins Team</h1>
+<h1 id="responsible-for-managing-workload-specific-configurations-across-tenant-global-and-enforced-layers">Responsible for managing workload-specific configurations across tenant, global, and enforced layers</h1>
+<p>DataFiles/Templates/Global/* @ministryofjustice/eucs-modern-workplace-admins
 DataFiles/Templates/Enforced/* @ministryofjustice/eucs-modern-workplace-admins
-DataFiles/Tenants/* @ministryofjustice/eucs-modern-workplace-admins
+DataFiles/Tenants/* @ministryofjustice/eucs-modern-workplace-admins</p>
+<h1 id="default-ownership-for-all-other-files">Default ownership for all other files</h1>
 
-# Default ownership for all other files
-* @ministryofjustice/eucs-automation-platform-admins
+<ul>
+<li>@ministryofjustice/eucs-automation-platform-admins
 </code></pre></div><h4 id="key-points">Key Points</h4>
 <p>The platform admin team are assigned ownership of:</p>
-<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>    * All generic.psd1 files  
-    * All pipeline files
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>    * All generic.psd1 files<br>
+
+<ul>
+<li>All pipeline files
 </code></pre></div><p>This ensures that platform administrators manage the core files and CI/CD pipelines.</p>
 <p>The workload product team e.g. Modern Workplace Admins Team are assigned ownership of:</p>
-<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>    * Global settings: DataFiles/Templates/Global/*
-    * Enforced settings: DataFiles/Templates/Enforced/*
-    * Tenant-specific settings: DataFiles/Tenants/*
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>    * Global settings: DataFiles/Templates/Global/*</li>
+<li>Enforced settings: DataFiles/Templates/Enforced/*</li>
+<li>Tenant-specific settings: DataFiles/Tenants/*
 </code></pre></div><p>This ensures that workload administrators manage configurations for their respective workloads across all layers.</p>
 <p>All other files are assigned to the eucs-automation-platform-admins team by default: *.</p>
 <h3 id="branch-protection-rules">Branch Protection Rules</h3>
@@ -719,7 +601,9 @@ DataFiles/Tenants/* @ministryofjustice/eucs-modern-workplace-admins
 XXXXXXXXX
 XXXXXXXXX
 XXXXXXXXX</p>
-<h3 id="file-authoring-workflows">File Authoring Workflows</h3>
+<h3 id="file-authoring-workflows">File Authoring Workflows</h3></li>
+</ul></li>
+</ul>
 
 <ol>
 <li>Create a Feature Branch: Workload admins create a feature branch (e.g., feature/<workload-change>) to make changes to their workload-specific data files.</li>
@@ -728,7 +612,9 @@ XXXXXXXXX</p>
 <li>Review and Approval: The CODEOWNERS file ensures that the relevant product teams admin GitHub team members are automatically requested as reviewers for changes to workload-specific files.</li>
 <li>Merge: Once the PR is approved and all CI/CD checks pass, the workload admins can merge the changes into the protected branch.</li>
 </ol>
+
 <h3 id="summary">Summary</h3>
+
 <h4 id="workload-admins">Workload Admins:</h4>
 
 <ul>
@@ -736,6 +622,7 @@ XXXXXXXXX</p>
 <li>Must use the feature branch and PR workflow.</li>
 <li>Cannot directly push to protected branches.</li>
 </ul>
+
 <h4 id="platform-admins">Platform Admins:</h4>
 
 <ul>
@@ -743,6 +630,7 @@ XXXXXXXXX</p>
 <li>Use the feature branch and PR workflow for regular changes.</li>
 <li>Have direct push access to protected branches for hotfixes or emergencies.</li>
 </ul>
+
 <h4 id="summary-branch-protection-rules">Branch Protection Rules:</h4>
 
 <ul>
@@ -750,163 +638,6 @@ XXXXXXXXX</p>
 <li>Require reviews from code owners and passing CI/CD checks.</li>
 <li>Restrict direct push access to eucs-automation-platform-admins.</li>
 </ul>
-<h2 id="onboarding-a-new-tenant">Onboarding a new tenant</h2>
-<p>This section provides a detailed guide for onboarding a new tenant to the Microsoft365DSC automation solution. The onboarding process involves creating the necessary app registrations, configuring permissions, provisioning data files, and running the dependencies pipeline.</p>
-<h3 id="1-prerequisites">1. Prerequisites</h3>
-<p>Before onboarding a new tenant, ensure the following prerequisites are met:</p>
-
-<ol>
-<li>Access to the Staff-Infrastructure-Microsoft365-DSC-Configuration repository.</li>
-<li>Permissions in Microsoft Entra to create app registrations and assign roles in the new tenant.</li>
-<li>PowerShell 5.1 or later &amp; VS Code installed on your local machine.</li>
-<li>Clone the <code>Staff-Infrastructure-Microsoft365-DSC-Configuration</code> Repository to your device within VS Code</li>
-<li>Create a feature branch in the Configuration repository using the naming convention: feature/<Identifier> Example: feature/TenantXYZ-onboarding</li>
-</ol>
-
-<blockquote>
-<p>NOTE: Remember to check the Global and Enforced configurations that are already set prior to onboarding a new environment, if any of these settings are not appropriate for the new target tenant then these workload settings should be moved back to the tenant specific data files prior to onboarding the new tenant.</p>
-</blockquote>
-<h3 id="2-create-app-registration">2. Create App Registration</h3>
-<h4 id="2-1-create-a-certificate">2.1 Create a certificate</h4>
-<p>Generate a new authentication certificate that will be used by the app registration using the following script:</p>
-<div class="highlight"><pre class="highlight powershell" tabindex="0"><code><span class="w">
-</span><span class="nv">$clientCert</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">New-SelfSignedCertificate</span><span class="w"> </span><span class="nt">-Subject</span><span class="w"> </span><span class="s2">"CN=Microsoft365DSC"</span><span class="w"> </span><span class="nt">-CertStoreLocation</span><span class="w"> </span><span class="s2">"Cert:\LocalMachine\My"</span><span class="w"> </span><span class="nt">-KeyExportPolicy</span><span class="w"> </span><span class="nx">Exportable</span><span class="w"> </span><span class="nt">-KeySpec</span><span class="w"> </span><span class="nx">Signature</span><span class="w">
-
-</span><span class="nv">$password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ConvertTo-SecureString</span><span class="w"> </span><span class="nt">-String</span><span class="w"> </span><span class="s2">"&lt;password&gt;"</span><span class="w"> </span><span class="nt">-AsPlainText</span><span class="w"> </span><span class="nt">-Force</span><span class="w">
-
-</span><span class="n">Export-PfxCertificate</span><span class="w"> </span><span class="nt">-Cert</span><span class="w"> </span><span class="nv">$clientCert</span><span class="w"> </span><span class="nt">-FilePath</span><span class="w"> </span><span class="nx">C:\</span><span class="err">&lt;</span><span class="nx">TenantShortName</span><span class="err">&gt;</span><span class="nx">M365ClientCert.pfx</span><span class="w"> </span><span class="nt">-Password</span><span class="w"> </span><span class="nv">$password</span><span class="w">
-
-</span><span class="n">Export-Certificate</span><span class="w"> </span><span class="nt">-Cert</span><span class="w"> </span><span class="nv">$clientCert</span><span class="w"> </span><span class="nt">-FilePath</span><span class="w"> </span><span class="nx">C:\</span><span class="err">&lt;</span><span class="nx">TenantShortName</span><span class="err">&gt;</span><span class="nx">M365ClientCert.cer</span><span class="w">
-
-</span><span class="nv">$clientCert</span><span class="o">.</span><span class="nf">Thumbprint</span><span class="w">
-
-</span></code></pre></div><p><strong>Take note of the Certificate Thumbprint and PFX Password for later use.</strong></p>
-
-<blockquote>
-<p>NOTE: Update the Password and TenantShortName to relevant values</p>
-</blockquote>
-<h4 id="2-2-create-an-app-registration-and-configure-permissions">2.2 Create an App Registration and Configure Permissions</h4>
-
-<ol>
-<li>Download <a href="https://github.com/ykuijs/M365DSC_CICD/blob/main/Supportscripts/CreateServicePrincipals.psm1">this</a> script to your machine</li>
-<li>Load the downloaded module into your PowerShell session to support programmatic creation of the service principal:</li>
-</ol>
-<div class="highlight"><pre class="highlight powershell" tabindex="0"><code><span class="w">    </span><span class="n">Import-Module</span><span class="w"> </span><span class="err">&lt;</span><span class="nx">Script_Path</span><span class="err">&gt;</span><span class="nx">\CreateServicePrincipals.psm1</span><span class="w">    
-</span></code></pre></div>
-
-<ol>
-<li>Create the app registration and grant the correct permissions by running the following PowerShell commands:</li>
-</ol>
-
-<div class="highlight"><pre class="highlight powershell" tabindex="0"><code><span class="w">    </span><span class="nv">$DSCAppName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"MoJO-&lt;TenantShortName&gt;-M365DSC-ConfigurationDeployment"</span><span class="w">
-    </span><span class="nv">$tempPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"</span><span class="si">$(</span><span class="nv">$</span><span class="nn">env</span><span class="p">:</span><span class="nv">USERPROFILE</span><span class="si">)</span><span class="s2">\Downloads"</span><span class="w">
-    </span><span class="n">New-M365DSCServicePrincipal</span><span class="w"> </span><span class="nt">-Credential</span><span class="w"> </span><span class="p">(</span><span class="n">Get-Credential</span><span class="p">)</span><span class="w"> </span><span class="nt">-ServicePrincipalName</span><span class="w"> 
-    </span><span class="nv">$DSCAppName</span><span class="w"> </span><span class="nt">-CertificatePath</span><span class="w"> </span><span class="err">&lt;</span><span class="n">TenantShortName</span><span class="err">&gt;</span><span class="nx">M365ClientCert.cer</span><span class="w">
-</span></code></pre></div>
-
-<ol>
-<li>At the end of the script, the output shows details of the created app, take note of these details. These are required in further steps.</li>
-</ol>
-
-<blockquote>
-<p>NOTE: Update the TenantShortName to a relevant value</p>
-<p>NOTE: The script allows for creation of service principals for a specific workload. If you use the Workload parameter, the script will only grant the required permissions for that workload.</p>
-<p>NOTE: To see which permissions are required for which resource, use the <a href="https://microsoft365dsc.com/user-guide/cmdlets/Get-M365DSCCompiledPermissionList/">Get-M365CompiledPermissionList</a> cmdlet or review the documentation of each resource in the Resources section on <a href="https://microsoft365dsc.com">Microsoft365DSC.com</a></p>
-</blockquote>
-
-<h4 id="2-3-grant-admin-consent">2.3 Grant Admin Consent</h4>
-
-<ol>
-<li>Grant Admin Consent for the assigned API permissions in Entra ID.</li>
-</ol>
-
-<h3 id="3-provision-data-files">3. Provision Data Files</h3>
-
-<h4 id="3-1-run-the-provisioning-script">3.1 Run the provisioning script</h4>
-
-<ol>
-<li>Navigate to the Staff-Infrastructure-Microsoft365-DSC-Configuration\DataFiles\Templates directory.</li>
-<li>Execute the ProvisionNewEnvironment.ps1 script to generate the required data files for the new tenant:</li>
-</ol>
-
-<div class="highlight"><pre class="highlight powershell" tabindex="0"><code><span class="w">    </span><span class="o">.</span><span class="n">\ProvisionNewEnvironment.ps1</span><span class="w"> </span><span class="nt">-EnvironmentName</span><span class="w"> </span><span class="s2">"Tenant_ShortName"</span><span class="w">
-</span></code></pre></div>
-
-<blockquote>
-<p>NOTE: Update the Tenant_ShortName with the short name of the tenant e.g. MoJoDEV</p>
-</blockquote>
-
-<h4 id="3-2-update-the-generic-psd1-file">3.2 Update the Generic.psd1 file</h4>
-
-<ol>
-<li>Locate the newly created Generic.psd1 file in the DataFiles\Tenants directory.</li>
-<li>Update the following sections in the file:
-    * Used Workloads: Specify which workloads (e.g., Exchange, Teams, SharePoint) are used by the tenant.
-    * Tokens Section: Leave placeholders as they are but ensure the tokens section is updated with the correct values.
-    * App Credentials: Add the App ID and Certificate Thumbprint for each workload.</li>
-</ol>
-
-<blockquote>
-<p>NOTE: Reference the existing tenants Generic.psd1 files if needed as an example</p>
-</blockquote>
-
-<h4 id="3-4-add-the-certificate">3.4 Add the Certificate</h4>
-
-<ol>
-<li>Place the .pfx certificate file in the same directory as the Generic.psd1 file.</li>
-<li>Ensure the certificate file follows the naming convention: <code>Tenant_ShortNameM365ClientCert.pfx</code></li>
-</ol>
-
-<h3 id="4-commit-changes">4. Commit Changes</h3>
-
-<ol>
-<li>Open Visual Studio Code and navigate to the Staff-Infrastructure-Microsoft365-DSC-Configuration repository.</li>
-<li>Stage the changes:
-    * Add the updated Generic.psd1 file and the .pfx certificate file.</li>
-<li>Commit the changes to the feature branch, Use a meaningful commit message, such as &ldquo;Onboarded new tenant: Tenant_ShortName&rdquo;</li>
-<li>Sync the changes to the remote feature branch</li>
-</ol>
-
-<h3 id="5-run-the-dependencies-pipeline">5. Run the Dependencies Pipeline</h3>
-
-<ol>
-<li>Navigate to the Azure DevOps portal and locate the dependencies.yaml pipeline in the Staff-Infrastructure-Microsoft365-DSC-Configuration repository.</li>
-<li>Add the following Environments parameter array to the pipeline:
-    <code>Environments:
-     - Name: &quot;Tenant_ShortName&quot;
-       CertificatePassword: &quot;$(Tenant_ShortNameCertPassword)&quot;</code>
-       * Replace Tenant_ShortName with the tenants short name.
-       * Add the certificate password as a secret pipeline variable in Azure DevOps.</li>
-<li>Trigger the pipeline and monitor its execution to ensure all dependencies are successfully configured.</li>
-</ol>
-
-<h3 id="6-validation">6. Validation</h3>
-
-<h4 id="6-1-build-validation">6.1 Build Validation</h4>
-
-<ol>
-<li>Manually run the build.yaml pipeline in the feature branch to ensure it completes successfully.</li>
-</ol>
-
-<h4 id="6-2-pull-request-process">6.2 Pull Request Process</h4>
-
-<ol>
-<li>Create a pull request (PR) from the feature branch to the develop branch.</li>
-<li>Once the PR is approved and merged, create another PR from develop to main.</li>
-<li>The PR into main will trigger the PR validation pipeline.</li>
-</ol>
-
-<h4 id="6-3-cicd-triggers">6.3 CICD Triggers</h4>
-
-<ol>
-<li>Once the changes are merged into main, the following pipelines will be triggered automatically
-
-<ul>
-<li>build.yaml</li>
-<li>deployment.yaml</li>
-<li>testcompliancy.yaml</li>
-</ul></li>
-</ol>
 
 <h2 id="compliancy-checks">Compliancy Checks</h2>
 
