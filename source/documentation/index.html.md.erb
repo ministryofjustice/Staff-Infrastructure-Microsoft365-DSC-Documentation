@@ -344,12 +344,12 @@ You can export the existing configuration from a tenant using the Export Pipelin
 
 This page provides a comprehensive guide to managing code ownership, branch protection, and file authoring workflows in the Microsoft365DSC repositories. It explains how to configure the CODEOWNERS file, enforce branch protection rules, and establish workflows for workload and platform administrators.
 
-### Code Ownership with CODEOWNERS
+## Code Ownership
 
 The CODEOWNERS file in GitHub is used to assign responsibility for specific files or directories to teams. This ensures that the appropriate teams are automatically requested as reviewers for pull requests (PRs) affecting their areas of responsibility.
 
 
-#### Key Points
+### Key Points
 
 The platform admin team are assigned ownership of:
 
@@ -368,7 +368,7 @@ This ensures that workload administrators manage configurations for their respec
 
 All other files are assigned to the eucs-automation-platform-admins team by default: *. 
 
-### Branch Protection Rules
+## Branch Protection Rules
 
 Branch protection rules enforce policies on protected branches (e.g., main, develop) to ensure that changes are reviewed, validated, and approved before merging.
 
@@ -377,15 +377,7 @@ XXXXXXXXX
 XXXXXXXXX
 XXXXXXXXX
 
-### File Authoring Workflows
-
-1. Create a Feature Branch: Workload admins create a feature branch (e.g., feature/<workload-change>) to make changes to their workload-specific data files.
-2. Make Changes:Update the relevant files in their workload (e.g., OneDrive.psd1 or Exchange.psd1).
-3. Submit a Pull Request: Submit a PR to merge the feature branch into the main or develop branch.
-4. Review and Approval: The CODEOWNERS file ensures that the relevant product teams admin GitHub team members are automatically requested as reviewers for changes to workload-specific files.
-5. Merge: Once the PR is approved and all CI/CD checks pass, the workload admins can merge the changes into the protected branch.
-
-### Summary
+## Summary
 
 #### Workload Admins:
 
