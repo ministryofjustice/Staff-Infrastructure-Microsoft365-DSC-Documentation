@@ -14,7 +14,7 @@ It is the primary tool used by the MoJ to automate the management of the organis
 
 Microsoft365DSC is built as a module for the [PowerShell Desired State Configuration](https://learn.microsoft.com/en-us/powershell/scripting/dsc/overview) framework and is made available via the [PowerShell Gallery](https://www.powershellgallery.com/packages/Microsoft365DSC).
 
-## Solution Overview 
+# Architecture Overview 
 
 This solution provides a comprehensive framework for automating the management of Microsoft 365 configurations using Microsoft365DSC and Azure DevOps. It is composed of two Git repositories:
 
@@ -90,35 +90,12 @@ The Scripts directory in the Infrastructure repository contains PowerShell scrip
 * `SupportFunctions.psm1`: Contains helper functions used across scripts.
 
 
-## Getting Started
+# Getting Started
 
 * [Initial Setup Guide](/documentation/initial-setup-guide.html)
 * [Learning Material](/documentation/learning-material.html)
 * [Responsibility Matrix](/documentation/responsibility-matrix.html)
 
-
-### Learning Material 
-
-#### GitHub Basics
-
-[Creating a Pull Request: This guide explains how to create a pull request on GitHub, which is essential for collaborating on code changes.](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request)
-
-[About Branches: Learn about branches in GitHub, how to create them, and how to use them for isolated development work.](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-branches)
-
-[Git manual](https://git-scm.com/book/en/v2)
-
-#### Desired State Configuration Basics
-[PowerShell Desired State Configuration (DSC) Overview: An overview of DSC, explaining its purpose and how it works.](https://learn.microsoft.com/en-us/powershell/scripting/dsc/overview)
-
-[PowerShell DSC for Engineers: a detailed overview of PowerShell Desired State Configuration (DSC) specifically tailored for engineers. It covers essential concepts and practical guidance to help engineers understand and implement DSC effectively.](https://learn.microsoft.com/en-us/powershell/dsc/overview/dscforengineers?view=dsc-1.1)
-
-[Write, Compile, and Apply Configuration with PowerShell DSC: This link provides detailed instructions on how to write, compile, and apply configurations using PowerShell Desired State Configuration (DSC)](https://learn.microsoft.com/en-us/powershell/dsc/configurations/write-compile-apply-configuration?view=dsc-1.1)
-
-#### Microsoft365DSC
-
-[Microsoft 365 DSC User Guide: Introduction](https://microsoft365dsc.com/user-guide/get-started/introduction)
-
-[Microsoft 365 DSC Resources: Overview](https://microsoft365dsc.com/resources/overview)
 
 
 ### Getting Help
@@ -148,7 +125,7 @@ If you require help with, or want to discuss configuration changes for a specifi
 
 
 
-## Managing Configuration
+# Managing Configuration
 
 The following section details how the workload configuration is set between the various data files within the Configuration repository.
 
@@ -159,7 +136,7 @@ The intended scope of management in Microsoft 365 DSC should focus on persistent
 Microsoft 365 DSC is not intended for managing disposable or high volume configurations, such as user management or business driven security groups, which are more transient and subject to frequent changes. By concentrating on stable, foundational settings, Microsoft 365 DSC ensures a consistent and secure configuration baseline across the organisation.
 
 
-### Data Files
+## Data Files
 
 A data file in PowerShell Desired State Configuration is a structured file that contains configuration data, such as node-specific settings and environment variables, which are used to customise and manage the desired state of target nodes (in this instance, tenants)
 
@@ -191,7 +168,7 @@ These are the settings that are tenant specific. Either because the workload set
 
 Location: `Staff-Infrastructure-Microsoft365-DSC-Configuration\DataFiles\Tenants\<Tenant>\<TenantName><WorkloadName>.psd1`
 
-### Example Configuration 
+## Example Configuration 
 
 The following section is intended to visualise how settings would be applied to DEV, NLE & PROD based on how various workload settings were configured within different data files.
 
@@ -319,7 +296,7 @@ flowchart TD
 </pre>
 
 
-### Understanding Available Properties 
+## Understanding Available Properties 
 
 To understand the available properties and settings for a given version of Microsoft365DSC, you can use the M365DSC.CompositeResources module. This module provides a complete reference of all resources and settings.
 
@@ -344,7 +321,7 @@ This will create a sample configuration file with all available properties.
 
 For more details, refer to the [New-M365DSCExampleDataFile documentation](https://github.com/ykuijs/M365DSC.CompositeResources/blob/main/source/Public/New-M365DSCExampleDataFile.ps1)
 
-### Exporting Existing Configurations 
+## Exporting Existing Configurations 
 
 You can export the existing configuration from a tenant using the Export Pipeline. This pipeline produces an artifact containing both the raw DSC output and the composite module (where available) for the workloads defined in the tenants generic file. 
 
