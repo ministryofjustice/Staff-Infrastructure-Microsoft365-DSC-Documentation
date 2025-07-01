@@ -339,7 +339,7 @@ To export an example data file to a location of your choice, follow these steps:
 
 This will create a sample configuration file with all available properties.
 
-For more details, refer to the [New-M365DSCExampleDataFile documentation](https://github.com/ykuijs/M365DSC.CompositeResources/blob/main/source/Public/New-M365DSCExampleDataFile.ps1)
+For more complex workload configurations, where it is challenging to work out the required parameters it is advised to set up the required configuration within the DEV tenant via ClickOps, and then export the config and upload the required code into the datafiles to ensure accuracy.
 
 ## Exporting Existing Configurations 
 
@@ -356,7 +356,7 @@ To onboard a new M365 tenant to be managed by this solution please see the below
 
 # Governance
 
-This page provides a comprehensive guide to managing code ownership, branch protection, and file authoring workflows in the Microsoft365DSC repositories. It explains how to configure the CODEOWNERS file, enforce branch protection rules, and establish workflows for workload and platform administrators.
+This page provides a comprehensive guide to managing code ownership, branch protection, and recording architectural decision records for workloads in the Microsoft365DSC repositories. It explains how to configure the CODEOWNERS file, enforce branch protection rules, and establish workflows for workload and platform administrators.
 
 ## Architecture Decision Records
 
@@ -394,7 +394,7 @@ All other files are assigned to the eucs-automation-platform-admins team by defa
 
 Branch protection rules enforce policies on protected branches (e.g., main, develop) to ensure that changes are reviewed, validated, and approved before merging.
 
-The branch protection policies are configured as below:
+The branch protection policies that are applied to the M365DSC respositiories are in line with the [MoJ GitHub Standards](https://dsdmoj.atlassian.net/wiki/spaces/EUCS/pages/5710249995/GitHub+Repository+Configuration)
 XXXXXXXXX
 XXXXXXXXX
 XXXXXXXXX

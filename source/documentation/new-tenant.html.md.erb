@@ -135,8 +135,3 @@ $clientCert.Thumbprint
 	* deployment.yaml
 	* testcompliancy.yaml
 
-## Compliancy Checks 
-
-This solution runs the Check Compliancy pipeline twice daily, once at 08:00 and once at 18:00 daily. When this pipeline runs it checks the configuration of each tenant that are under management of Microsoft 365 DSC against the data files that are specified in the configuration repositories to make sure all workload settings that are defined within DSC are compliant. At current maturity this solution does not enforce automatic remediation actions if DSC notices a configuration drift within the tenant, the results of these checks are sent to XXXXXXXXX for administrators to observe. 
-
-By continuously monitoring the environment, MoJ ensure that the tenants are in their intended state before the start of, and at the end of, the organisations core working hours reducing the risk of misconfigurations that may impact the end user experience or security posture.
