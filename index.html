@@ -561,7 +561,7 @@ flowchart TD
 <p><div class="highlight"><pre class="highlight powershell" tabindex="0"><code><span class="w">
     </span><span class="n">New-M365DSCExampleDataFile</span><span class="w"> </span><span class="nt">-OutputPath</span><span class="w"> </span><span class="s2">&quot;C:\Path\To\Output&quot;</span><span class="w"></p>
 <p></span></code></pre></div><p>This will create a sample configuration file with all available properties.</p>
-<p>For more details, refer to the <a href="https://github.com/ykuijs/M365DSC.CompositeResources/blob/main/source/Public/New-M365DSCExampleDataFile.ps1">New-M365DSCExampleDataFile documentation</a></p>
+<p>For more complex workload configurations, where it is challenging to work out the required parameters it is advised to set up the required configuration within the DEV tenant via ClickOps, and then export the config and upload the required code into the datafiles to ensure accuracy.</p>
 <h2 id="exporting-existing-configurations">Exporting Existing Configurations</h2>
 <p>You can export the existing configuration from a tenant using the Export Pipeline. This pipeline produces an artifact containing both the raw DSC output and the composite module (where available) for the workloads defined in the tenants generic file.</p></p>
 
@@ -580,7 +580,7 @@ flowchart TD
 
 <h1 id="governance">Governance</h1>
 
-<p>This page provides a comprehensive guide to managing code ownership, branch protection, and file authoring workflows in the Microsoft365DSC repositories. It explains how to configure the CODEOWNERS file, enforce branch protection rules, and establish workflows for workload and platform administrators.</p>
+<p>This page provides a comprehensive guide to managing code ownership, branch protection, and recording architectural decision records for workloads in the Microsoft365DSC repositories. It explains how to configure the CODEOWNERS file, enforce branch protection rules, and establish workflows for workload and platform administrators.</p>
 
 <h2 id="architecture-decision-records">Architecture Decision Records</h2>
 
@@ -608,7 +608,7 @@ flowchart TD
 <p>All other files are assigned to the eucs-automation-platform-admins team by default: *.</p>
 <h2 id="branch-protection-rules">Branch Protection Rules</h2>
 <p>Branch protection rules enforce policies on protected branches (e.g., main, develop) to ensure that changes are reviewed, validated, and approved before merging.</p>
-<p>The branch protection policies are configured as below:
+<p>The branch protection policies that are applied to the M365DSC respositiories are in line with the <a href="https://dsdmoj.atlassian.net/wiki/spaces/EUCS/pages/5710249995/GitHub+Repository+Configuration">MoJ GitHub Standards</a>
 XXXXXXXXX
 XXXXXXXXX
 XXXXXXXXX</p>
